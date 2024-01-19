@@ -165,7 +165,7 @@ exports.getCart = (req, res) => {
       console.log("shamil here");
       console.log(cart);
       console.log("iam here");
-      let totalPrice = 0
+     
       const sum = cart.reduce((accumulator, currentItem) => {
         const promotionalPrice = currentItem.product_info.promotionalPrice
         const price = parseInt(promotionalPrice.replace(/,/g, '')) * currentItem.UserQuantity
@@ -176,7 +176,7 @@ exports.getCart = (req, res) => {
 
 
 
-      res.render("cart", { carts: cart, Total: sum.toLocaleString() })
+      res.render("Cart", { carts: cart, Total: sum.toLocaleString() })
     })
 }
 
