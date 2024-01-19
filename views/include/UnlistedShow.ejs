@@ -1,0 +1,13 @@
+<% for(var i = 0; i < category.length; i++) { %>
+  <tr>
+      <td><%= i + 1 %></td>
+      <td><%= category[i].name %></td>
+      <td>
+          <button style="background-color: rgb(4, 4, 4) !important;"  class="btn btn-sm btn-brand rounded font-sm mt-15 btn-block" onclick="AddCategory('<%= category[i]._id %>')">
+            <span class="text-gradient">Add</span>
+            </button>
+           
+        </td>
+  </tr>
+  <% } %>
+

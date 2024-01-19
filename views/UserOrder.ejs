@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Nest Dashboard</title>
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content="" />
+        <meta property="og:type" content="" />
+        <meta property="og:url" content="" />
+        <meta property="og:image" content="" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="/imgs/theme/favicon.svg" />
+        <!-- Template CSS -->
+        <link href="/css/main.css?v=1.1" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- font awesome -->
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--  -->
+    <!-- owl stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesoeet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+        media="screen">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg" />
+    <!-- Template CSS -->
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+        <header class="main-header style-2 navbar bgs">
+            <div class="header_section">
+                <div class="container">
+                    <div class="containt_main">
+                        <div id="mySidenav" class="sidenav">
+                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                            <a href="index.html">Home</a>
+                            <a href="fashion.html">Fashion</a>
+                            <a href="electronic.html">Electronic</a>
+                            <a href="jewellery.html">Jewellery</a>
+                        </div>
+                        <div class="hamberger">
+
+                            <span class="toggle_icon" onclick="openNav()"> <img src="images/toggle-icon.png"
+                                    class="Myimg"></span>
+
+
+                        </div>
+
+
+                        <div class="dropdown drop">
+                            <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                        <div class="main">
+                            <!-- Another variation with a button -->
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search this blog">
+                                <div class="input-group-append">
+                                    <button class="btn btn-secondary myBtn" type="button"
+                                        style="background-color: #f26522; border-color:#f26522 ">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header_box">
+
+                            <div class="login_menu">
+                                <ul>
+                                    <li><a href="#">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                            <span class="padding_10">Cart</span></a>
+                                    </li>
+                                    <li><a href="#">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            <span class="padding_10">Cart</span></a>
+                                    </li>
+                                    <li><a href="#">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            <span class="padding_10">Cart</span></a>
+                                    </li>
+                                    <li><a href="#">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            <span class="padding_10">Cart</span></a>
+                                    </li>
+
+                                </ul>
+
+
+                            </div>
+
+                        </div>
+                        <div class="Special ">
+                           <a href="/"> <span class="name">Vkart</span></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+        <div class="screen-overlay"></div>
+    
+        <main class="main-wrap new-wrap">
+      
+            <section class="content-main">
+                <div class="content-header">
+                    <div>
+                        <h2 class="content-title card-title">My Orders</h2>
+                       
+                    </div>
+                    
+                </div>
+                <div class="card mb-4">
+                    <header class="card-header">
+                        <div class="row gx-3">
+                            <div class="col-lg-4 col-md-6 me-auto">
+                                <input type="text" placeholder="Search..." class="form-control" />
+                            </div>
+                        
+                        
+                        </div>
+                    </header>
+                    <!-- card-header end// -->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="bor">Sl.no</th>
+                                        <th class="bor" scope="col">Image</th>
+                                        <th class="bor"  scope="col">Name</th>
+                                        <th class="bor"  scope="col">Price</th>
+                                        <th class="bor"  scope="col">Quantity</th>
+                                        <th  class="bor" scope="col">Status</th>
+                                        <th class="bor"  scope="col">Date</th>
+                                        <th class="bor"   scope="col" class="text-end bor">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(var i = 0; i < orderList.length; i++) { %>
+                                    <a href="/"><tr>
+                                        <td><%= i +1 %></td>
+                                        <td><img style="height: 100px;width: 100px;"  src="<%=orderList[i].orderItems.image[0]  %>"></td>
+                                        <td><b><%= orderList[i].orderItems.pName %></b></td>
+                                        <td><%= orderList[i].orderItems.price %></td>
+                                        <td><%= orderList[i].orderItems.quantity %></td>
+                                        <%if(orderList[i].orderItems.orderStatus==="ordered"){  %>
+                                        <td><span id="orderStatus<%= i %>" class="badge rounded-pill alert-success  ">
+                                            <%= orderList[i].orderItems.orderStatus %>
+                                          </span></td>
+                                          <% } %>
+                                          <%if(orderList[i].orderItems.orderStatus==="Shipped"){  %>
+                                            <td><span id="orderStatus<%= i %>" class="badge rounded-pill alert-warning  ">
+                                                <%= orderList[i].orderItems.orderStatus %>
+                                              </span></td>
+                                              <% } %>
+                                              <%if(orderList[i].orderItems.orderStatus==="Pending"){  %>
+                                                <td><span id="orderStatus<%= i %>" class="badge rounded-pill alert-warning  ">
+                                                    <%= orderList[i].orderItems.orderStatus %>
+                                                  </span></td>
+                                                  <% } %>
+                                          <%if(orderList[i].orderItems.orderStatus==="Canceled"){  %>
+                                            <td><span id="orderStatus<%= i %>" class="badge rounded-pill alert-danger  ">
+                                                <%= orderList[i].orderItems.orderStatus %>
+                                              </span></td>
+                                              <% } %>
+                                              <%if(orderList[i].orderItems.orderStatus==="Delivered"){  %>
+                                                <td><span id="orderStatus<%= i %>" class="badge rounded-pill alert-success ">
+                                                    <%= orderList[i].orderItems.orderStatus %>
+                                                  </span></td>
+                                                  <% } %>
+                                        <td><%= orderList[i].orderDate.split('T')[0].split('-').reverse().join('-') %></td>
+                                   
+                                          
+                                        <% if(orderList[i].orderItems.orderStatus==="ordered"||orderList[i].orderItems.orderStatus==="Shipped"||orderList[i].orderItems.orderStatus==="Pending"){ %>
+                                        <td class="text-end">
+                                            <a href=""  style="background-color: rgb(102, 74, 74);"  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="confirmCancel('<%= orderList[i].orderItems._id %>','<%= orderList[i].orderItems.productId%>')"  aria-expanded="true" class="btn btn-md rounded  font-sm">cancel</a>
+                                           
+                                            
+                                            <!-- dropdown //end -->
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="/UserItemDetails?orderId=<%=orderList[i]._id  %>&productId=<%=orderList[i].orderItems.productId  %>"  style="background-color: rgb(27, 120, 21);"   aria-expanded="true" class="btn btn-md rounded  font-sm">Details</a>
+                                           
+                                            
+                                            <!-- dropdown //end -->
+                                        </td>
+                                        
+                         
+                                        <% } %>
+                                        
+                                           <% if(orderList[i].orderItems.orderStatus==="Delivered"){ %>
+                                        <td class="text-end">
+                                            <a href=""  style="background-color: rgb(229, 13, 13);" class="btn btn-md rounded  font-sm">Return</a>
+                                           
+                                            <!-- dropdown //end -->
+                                        </td>
+                                        <% } %>
+                                    </tr>
+                                </a>
+                                  
+                                    <% } %>
+                                   
+                                  
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- table-responsive //end -->
+                    </div>
+                    <!-- card-body end// -->
+                </div>
+                <!-- card end// -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 style="color: rgb(227, 5, 5);" class="modal-title" id="exampleModalLabel">Please confirm!</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                       Are you sure ?
+                        </div>
+                        <div class="modal-footer">
+                          <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          <a  id="confirmCancel" href=""><button style="background-color: rgb(226, 50, 50);" type="button" class="btn btn-primary">Confirm</button></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <div class="pagination-area mt-15 mb-50">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-start">
+                            <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                            <li class="page-item"><a class="page-link" href="#">02</a></li>
+                            <li class="page-item"><a class="page-link" href="#">03</a></li>
+                            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">16</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+            <script>
+                function confirmCancel(orderId,productId) {
+                    // Get the order ID from wherever you have it stored (you might need to modify this part)
+                  
+            
+                    // Set the correct URL for canceling the order
+                    document.getElementById('confirmCancel').href = '/api/cancelOrder?cancelId=' + orderId+ '&productId=' + productId;
+                }
+            </script>
+            <script>
+               
+               var orderList = JSON.stringify(orderList) 
+                function setColorBasedOnOrderStatus(orderStatus, elementId) {
+                    var element = document.getElementById(elementId);
+            console.log("hey man");
+                    // Remove existing classes
+                    element.className = '';
+            
+                    switch (orderStatus) {
+                        case 'Pending':
+                            element.classList.add('badge', 'rounded-pill', 'alert-warning');
+                            break;
+                        case 'Shipped':
+                            element.classList.add('badge', 'rounded-pill', 'alert-success');
+                            break;
+                        case 'cancelled':
+                            element.classList.add('badge', 'rounded-pill', 'alert-danger');
+                            break;
+                        // Add more cases as needed
+            
+                        default:
+                            // Default color or class
+                            element.classList.add('default-color');
+                    }
+                }
+            
+                // Loop through orderList and set color for each orderStatus
+                for (var i = 0; i < orderList.length; i++) {
+                    var orderStatus = orderList[i].orderItems.orderStatus;
+                    var elementId = 'orderStatus' + i;
+                    setColorBasedOnOrderStatus(orderStatus, elementId);
+                }
+            </script>
+            
+            <!-- content-main end// -->
+            <footer class="main-footer font-xs">
+                <div class="row pb-30 pt-15">
+                    <div class="col-sm-6">
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        
+                        &copy; Nest - HTML Ecommerce Template .
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-end">All rights reserved</div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+ 
+          
+        
+        <script src="/js/vendors/jquery-3.6.0.min.js"></script>
+        <script src="/js/vendors/bootstrap.bundle.min.js"></script>
+        <script src="/js/vendors/select2.min.js"></script>
+        <script src="/js/vendors/perfect-scrollbar.js"></script>
+        <script src="/js/vendors/jquery.fullscreen.min.js"></script>
+        <!-- Main Script -->
+        <script src="/js/main.js?v=1.1" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+        
+        <!-- Main Script -->
+    
+        <script src="js/jquery.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery-3.0.0.min.js"></script>
+        <script src="js/plugin.js"></script>
+        <script src="js/emailValidation.js"></script>
+        <!-- sidebar -->
+        <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="js/custom.js"></script>
+        <script>
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "250px";
+            }
+    
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
+        </script>
+          
+
+
+        
+    </body>
+</html>

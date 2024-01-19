@@ -1,0 +1,16 @@
+<% for(var i = 0; i < category.length; i++) { %>
+  <tr>
+      <td><%= i + 1 %></td>
+      <td><a><%= category[i].name %></a></td>
+      <td>
+          <button style="background-color: rgb(4, 4, 4) !important;"  class="btn btn-sm btn-brand rounded font-sm mt-15 btn-block" onclick="deleteCategory('<%= category[i]._id %>')">
+            <span class="text-gradient">Delete</span>
+            </button>
+            <a href="api/CategoryEdit?id=<%= category[i]._id %>"><button style="background-color: rgb(4, 4, 4) !important;"  class="btn btn-sm btn-brand rounded font-sm mt-15 btn-block" >
+              <span class="text-gradient">Edit</span>
+              </button></a>
+           
+        </td>
+  </tr>
+  <% } %>
+

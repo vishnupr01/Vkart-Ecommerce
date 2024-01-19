@@ -1,0 +1,74 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+
+.adressCon{
+  background-color: black !important;
+  height: auto;
+  padding: 10px 0px;
+}
+
+
+
+.address-item {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+      padding: 10px;
+  }
+}
+/* css/adress.css */
+
+.list-group.address-list {
+  max-height: 300px; /* Set a maximum height for the list to enable scrolling */
+  overflow-y: auto; /* Enable vertical scrollbar */
+  /* Add any additional styling you may need */
+}
+
+
+
+/* Add more styles as necessary */
+
+ 
+    .list-group-item .btn-group {
+      align-items: center; /* Adjust the vertical alignment */
+  }
+  
+  .list-group-item .btn {
+      height: 2rem; /* Set the desired height for the buttons */
+  }
+  .list-group-item .btn-group .btn-danger {
+    margin-right: 5px; /* Adjust the margin to your preference */
+}
+.gap{
+  margin-right: 2px;
+}
+
+
+/* Add this if you want to hide the horizontal scrollbar */
+
+.address-container {
+  max-height: 300px; /* Set your desired maximum height */
+  overflow-y: auto;
+  margin-bottom: 20px; /* Adjust as needed to create space between the two sections */
+}
+.address-list {
+  list-style: none;
+  padding: 0;
+  max-height: 300px; /* Set a fixed height for the address list */
+  overflow-y: auto; /* Enable vertical scrolling */
+}

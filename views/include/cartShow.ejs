@@ -1,0 +1,84 @@
+<% for(var i = 0; i < carts.length; i++) { %>
+<div class="card-body">
+  <!-- Single item -->
+  <div class="row">
+    <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+      <!-- Image -->
+      <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+        <img src=<%= carts[i].product_info.Images[0] %>
+          class="w-100" alt="Blue Jeans Jacket" />
+        <a href="#!">
+          <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+        </a>
+      </div>
+      <!-- Image -->
+    </div>
+
+    <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+      <!-- Data -->
+      
+      <h1 style="font-size: large; font-weight:bolder ;" ><strong><%= carts[i].product_info.title %></strong></h1>
+      <p><span style="font-size: larger;"> ₹<%=carts[i].product_info.promotionalPrice %></span>     <span  style="color: green; font-size: small;">   <%= carts[i].product_info.discount %> % offers applied</span></p>
+          
+      <% if(carts[i].product_info.quantity===0){ %>
+        <p style="color: red;" > out of stock</p>
+          <% }else{ %>
+
+       <p style="color: red;" > only <%=carts[i].product_info.quantity %> left</p>
+      
+                <% } %>
+               
+      <a href="/deleteCart?cartID=<%= carts[i].product_info._id %>"><button type="button" style="background-color: rgb(8, 8, 8) !important;" class="btn btn-primary btn-sm me-1 mb-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove item">
+        <i class="fas fa-trash"></i>
+      </button></a>
+      <button type="button" class="btn btn-danger btn-sm mb-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Move to the wish list">
+        <i class="fas fa-heart"></i>
+      </button>
+      <!-- Data -->
+    </div>
+
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <!-- Quantity -->
+      <div class="d-flex mb-4" style="max-width: 300px">
+        <button style="background-color: gray;" class="btn btn-primary px-3 me-2"
+          onclick="decrementQuantity('<%= i %>','<%= carts[i].product_info._id  %>')">
+          <i class="fas fa-minus"></i>
+        </button>
+        
+
+        <div class="form-outline">
+          <input id="form<%= i %>" min="1" max="<%= carts[i].product_info.quantity %>" name="quantity" value="<%= carts[i].UserQuantity %>" type="number" class="form-control" />
+
+
+          <label class="form-label" for="form<%= i %>">Quantity</label>
+        </div>
+
+        <button style="background-color: gray;" class="btn btn-primary px-3 ms-2" 
+          onclick="incrementQuantity('<%= i %>','<%= carts[i].product_info._id  %>')">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <!-- Quantity -->
+
+      <!-- Price -->
+      <p class="text-start text-md-center">
+        <strong><%= carts[i].product_info.prmotionalPrice%></strong>
+      </p>
+      <!-- Price -->
+    </div>
+  </div>
+  <!-- Single item -->
+
+  <hr class="my-4" />
+
+  <!-- Single item -->
+
+  <!-- Single item -->
+</div>
+<% } %>
+
+  
+
+
+
+

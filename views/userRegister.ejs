@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Nest Dashboard</title>
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content="" />
+        <meta property="og:type" content="" />
+        <meta property="og:url" content="" />
+        <meta property="og:image" content="" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <!-- style css -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <!-- Responsive-->
+        <link rel="stylesheet" href="css/responsive.css">
+        <!-- fevicon -->
+        <link rel="icon" href="images/fevicon.png" type="image/gif" />
+        <!-- Scrollbar Custom CSS -->
+        <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+        <!-- Tweaks for older IEs-->
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+        <!-- fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+        <!-- font awesome -->
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!--  -->
+        <!-- owl stylesheets -->
+        <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+        <link rel="stylesoeet" href="css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg" />
+        <!-- Template CSS -->
+        <link href="css/main.css" rel="stylesheet" type="text/css" />
+        <link href="css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+        <main>
+            <header class="main-header style-2 navbar bgs">
+                <div class="header_section">
+                    <div class="container">
+                       <div class="containt_main">
+                          <div id="mySidenav" class="sidenav">
+                             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                             <a href="index.html">Home</a>
+                             <a href="fashion.html">Fashion</a>
+                             <a href="electronic.html">Electronic</a>
+                             <a href="jewellery.html">Jewellery</a>
+                          </div>
+                          <div class="hamberger">
+                          
+                            <span class="toggle_icon" onclick="openNav()"> <img src="images/toggle-icon.png" class="Myimg"></span>
+                           
+                           
+                          </div>
+                          
+                        
+                          <div class="dropdown drop">
+                             <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category 
+                             </button>
+                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                             </div>
+                          </div>
+                          <div class="main">
+                             <!-- Another variation with a button -->
+                             <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search this blog">
+                                <div class="input-group-append">
+                                   <button class="btn btn-secondary myBtn" type="button" style="background-color: #f26522; border-color:#f26522 ">
+                                   <i class="fa fa-search"></i>
+                                   </button>
+                                </div>
+                             </div>
+                          </div>
+                          <div class="header_box">
+                           
+                             <div class="login_menu">
+                                <ul>
+                                   <li><a href="#">
+                                      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                      <span class="padding_10">Cart</span></a>
+                                   </li>
+                                   <li><a href="#">
+                                      <i class="fa fa-user" aria-hidden="true"></i>
+                                      <span class="padding_10">Cart</span></a>
+                                   </li>
+                                   <li><a href="#">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Cart</span></a>
+                                 </li>
+                                 <li><a href="#">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Cart</span></a>
+                                 </li>
+                                 
+                                </ul>
+                            
+                              
+                             </div>
+                             
+                          </div>
+                          <div class="Special">
+                            <span class="name" >Vkart</span>
+
+                         </div>
+                       </div>
+                    </div>
+                 </div>
+            
+            </header>
+            <section class="content-main mt-80 mb-80">
+                <div class="card mx-auto card-login">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Sign in</h4>
+                        <form action="api/registerUser"  method="post">
+                            <div class="mb-3">
+                                <% if(Username){ %>
+                                    <p class="errorClass">
+                                        <%= Username%>
+                                    </p>
+                                    <% } %>
+                                <input class="form-control" placeholder="fullname" type="text" name="name"  />
+                            </div>
+                            <!-- form-group// -->
+                            <div class="mb-3">
+                                <% if( InvalidiateEmail){ %>
+                                    <p class="errorClass">
+                                        <%=  InvalidiateEmail%>
+                                    </p>
+                                    <% } %>
+                                    <% if(errorEmail){ %>
+                                        <p class="errorClass">
+                                            <%= errorEmail%>
+                                        </p>
+                                        <% } %>
+                                <div id="validation-message"></div>
+                                        <input class="form-control" placeholder="email" type="text" id="email" name="email" oninput="validateEmailInput()"   />
+                            </div>
+                            <div class="mb-3">
+                                <% if(WrongPass){ %>
+                                    <p class="errorClass">  
+                                        <%= WrongPass%>                                         
+                                    </p>
+                                    <% } %>
+                                <% if(errorMessage){ %>
+                                    <p class="errorClass">
+                                        <%= errorMessage%>
+                                    </p>
+                                    <% } %>
+                              <input class="form-control" placeholder="Password" type="password" name="password"  required/>
+                          </div>
+                          <div class="mb-3">
+                            <span class="err-msg">
+                                <% if(status=="false"){ %>
+                                    <p style="color: red;">password does not match</p>
+                                <% } %>
+                            </span>
+                        
+                            <input class="form-control" placeholder="confirm Password" type="password" name="repassword" required/>
+                        </div>
+                            <!-- form-group// -->
+                            
+                            <!-- form-group form-check .// -->
+                            <div class="mb-4">
+                                <button type="submit" class="btn btn-primary w-100" id="registerID">Register</button>
+                            </div>
+                            <!-- form-group// -->
+                        </form>
+                      
+                        <p class="text-center mb-4">Already have account? <a href="/login">Login</a></p>
+                    </div>
+                </div>
+            </section>
+            <footer class="main-footer text-center">
+                <p class="font-xs">
+                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    <script>
+                        document.write(new Date().getFullYear());
+                       
+               
+               $(document).ready(function () {
+                  $("#registerID").on("click", function (e) {
+                      // Prevent the default form submission
+
+                     // Disable the button
+                     $("#sendOTPButton").prop("disabled", true);
+                     $("#sendOTPButton").css("background-color", "#888888" );
+
+                     localStorage.setItem("disableSendOTPButton","true")
+                 
+                    
+                          
+              
+                     
+
+                     // Set a timeout to enable the button after 30 seconds
+                 
+
+                     // Make an AJAX request to the server
+                    //  $.ajax({
+                    //     type: "POST",
+                    //     url: "/api/checkotp", // Update the URL as needed
+                    //     success: function (response) {
+                    //        alert("OTP sent successfully!");
+                    //        console.log(response.message);
+                    //     },
+                    //     error: function (error) {
+                    //        console.error("Error:", error);
+                    //     },
+
+                    //  });
+                  });
+               });
+          
+                    </script>
+                    &copy; Nest - HTML Ecommerce Template .
+                </p>
+                <p class="font-xs mb-30">All rights reserved</p>
+            </footer>
+        </main>
+        <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
+        <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
+        <!-- Main Script -->
+        <script src="assets/js/main.js?v=1.1" type="text/javascript"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery-3.0.0.min.js"></script>
+        <script src="js/plugin.js"></script>
+        <script src="js/otp.js"></script>
+        <script src="js/emailValidation.js"></script>
+        <!-- sidebar -->
+        <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="js/custom.js"></script>
+        <script>
+           function openNav() {
+             document.getElementById("mySidenav").style.width = "250px";
+           }
+           
+           function closeNav() {
+             document.getElementById("mySidenav").style.width = "0";
+           }
+        </script>
+    </body>
+   
+</html>

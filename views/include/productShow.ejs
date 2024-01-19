@@ -1,0 +1,23 @@
+<% for(var i = 0; i < products.length; i++) { %>
+  <tr>
+      <td><%= i + 1 %></td>
+      <td><img style="height: 100px;width: 100px;" src="<%= products[i].Images[0] %>"></td>
+      <td><%= products[i].title %></td>
+      <td><%= products[i].promotionalPrice %></td>
+      <td><%= products[i].quantity %></td>
+       <td><%=  products[i].category %></td>
+       <td>
+        <button style="background-color: rgb(4, 4, 4) !important;"  class="btn btn-sm btn-brand rounded font-sm mt-15 btn-block" onclick="deletesCategory('<%= products[i]._id %>')">
+          <span class="text-gradient">Delete</span>
+          </button>
+          <a href="/gotProductedit?id=<%= products[i]._id %>"><button style="background-color: rgb(4, 4, 4) !important;"  class="btn btn-sm btn-brand rounded font-sm mt-15 btn-block" >
+            <span class="text-gradient">Edit</span>
+            </button></a>
+         
+      </td>
+
+
+     
+  </tr>
+  <% } %>
+

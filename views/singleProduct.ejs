@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Nest Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- font awesome -->
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--  -->
+    <!-- owl stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesoeet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+        media="screen">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg" />
+    <!-- Template CSS -->
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drift-zoom/1.3.1/drift-basic.min.css">
+</head>
+<header class="main-header style-2 navbar bgs">
+    <div class="header_section">
+        <div class="container">
+            <div class="containt_main">
+                <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a href="index.html">Home</a>
+                    <a href="fashion.html">Fashion</a>
+                    <a href="electronic.html">Electronic</a>
+                    <a href="jewellery.html">Jewellery</a>
+                </div>
+                <div class="hamberger">
+
+                    <span class="toggle_icon" onclick="openNav()"> <img src="images/toggle-icon.png"
+                            class="Myimg"></span>
+
+
+                </div>
+
+
+                <div class="dropdown drop">
+                    <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+                <div class="main">
+                    <!-- Another variation with a button -->
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search this blog">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary myBtn" type="button"
+                                style="background-color: #f26522; border-color:#f26522 ">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="header_box">
+
+                    <div class="login_menu">
+                        <ul>
+                            <li><a href="#">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    <span class="padding_10">Cart</span></a>
+                            </li>
+                            <li><a href="#">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Cart</span></a>
+                            </li>
+                            <li><a href="#">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Cart</span></a>
+                            </li>
+                            <li><a href="#">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Cart</span></a>
+                            </li>
+
+                        </ul>
+
+
+                    </div>
+
+                </div>
+                <div class="Special ">
+                    <span class="name">Vkart</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-6 lapClass">
+                <img src="<%= productS.Images[0] %>" id="main-image" data-zoom="<%= productS.Images[0] %>" class="img-fluid img-thumbnail" alt="Product Image"  data-target="main-image">
+            </div>
+            <div class="col-lg-6 notSeen">
+                <h2><%= productS.title %></h2>
+                <p class="text-muted">Category: Electronics</p>
+                <p><span style="color: green;">Available offers</span> <br>
+
+                    Bank Offer5% Cashback on Flipkart Axis Bank CardT&C<br>
+                    
+                    Buy this product and Get Extra ₹100 Off on Select Room HeatersT&C<br>
+                    
+                    Buy this product and Get Extra ₹50 Off on Select Room HeatersT&C<br>
+                    
+                    EMI starting from ₹1,688/monthView Plans</p>
+                   <h5 style="color: red;"> only <%= productS.quantity %> left </h5>
+                <h1> ₹ <%= productS.promotionalPrice %></h1>
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" class="form-control" id="quantity" value="1">
+                </div>
+                <!-- Add to Cart button -->
+                <% if(status===false) {%>
+                <a href="/gotoCart?singleID=<%= productS._id %>"><button class="btn btn-primary mb-2">Add to Cart</button></a>
+                <% } %>
+                <% if(status===true) {%>
+                <a href="/getCart"><button  class="btn btn-primary mb-2">Go to Cart</button></a>
+                <!-- Buy Now button -->
+                <% } %>
+                <button class="btn btn-success mb-2 ml-2">Buy Now</button>
+             
+            </div>
+        </div>
+
+        <!-- Row for small product images and product name/details on small screens -->
+        <div class="row mt-4">
+            <!-- Small product images -->
+            <div class="col-lg-12">
+                <h5>More Views</h5>
+                <div class="d-flex">
+                    <img src="<%= productS.Images[0] %>" id="thumbnail1" class="img-thumbnail mr-2" style="width: 80px; height: 80px;" data-zoom="<%= productS.Images[0] %>" data-target="main-image">
+                    <img src="<%= productS.Images[1] %>" id="thumbnail2" class="img-thumbnail mr-2" alt="Product Thumbnail 2" style="width: 80px; height: 80px;" data-zoom="<%= productS.Images[1] %>" data-target="main-image">
+                    <img src="<%= productS.Images[2] %>" id="thumbnail3" class="img-thumbnail" alt="Product Thumbnail 3" style="width: 80px; height: 80px;" data-zoom="<%= productS.Images[2] %>" data-target="main-image">
+                </div>
+            </div>
+        </div>
+
+        <!-- Product name and details on small screens -->
+        <div class="col-lg-12 d-lg-none mt-4">
+            <h2>Product Name</h2>
+            <p class="text-muted">Category: Electronics</p>
+            <p>Available offers
+
+Bank Offer5% Cashback on Flipkart Axis Bank CardT&C
+
+Buy this product and Get Extra ₹100 Off on Select Room HeatersT&C
+
+Buy this product and Get Extra ₹50 Off on Select Room HeatersT&C
+
+EMI starting from ₹1,688/monthView Plans</p>
+             <h4><%= productS.quantity %></h4>
+            <h3>₹ <%= productS.promotionalPrice %></h3>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" class="form-control" id="quantity" value="1">
+            </div>
+            <!-- Add to Cart button on small screens -->
+            <% if(status===false) {%>
+            <a href="/gotoCart?singleID=<%= productS._id %>"><button class="btn btn-primary mb-2">Add to Cart</button></a>
+            <!-- Buy Now button on small screens -->
+            <% } %>
+            <% if(status===true) {%>
+               <a href="/getCart"> <button  class="btn btn-success mb-2 ml-2">Go to Cart</button></a>
+                <%} %>
+            <button class="btn btn-success mb-2 ml-2">Buy Now</button>
+         
+          
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-lg-12">
+                <h3>Product Details</h3>
+                <p><%= productS.description %></p>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Drift JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/drift-zoom/1.3.1/Drift.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const thumbnails = document.querySelectorAll('.img-thumbnail');
+            let driftInstance;
+            const mainImage = document.getElementById("main-image");
+          
+           
+
+            driftInstance = new Drift(mainImage, {
+                        paneContainer: document.querySelector('.lapClass'),
+                        inlinePane: false,
+                        containInline: true,
+                        hoverBoundingBox: true,
+                    });
+    
+            thumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent the default behavior of the click event
+    
+                    console.log('Thumbnail clicked');
+    
+                    const targetImageId = this.getAttribute('data-target');
+                    const zoomedImage = this.getAttribute('data-zoom');
+    
+                    // Update the main image source and data-zoom attribute
+                    const mainImage = document.getElementById(targetImageId);
+                    mainImage.setAttribute('src', zoomedImage);
+                    mainImage.setAttribute('data-zoom', zoomedImage);
+    
+                    // Destroy previous Drift instance if it exists
+                    if (driftInstance) {
+                        driftInstance.destroy();
+                        console.log('Previous Drift instance destroyed');
+                    }
+    
+                    // Create a new Drift instance with the updated image
+                    driftInstance = new Drift(mainImage, {
+                        paneContainer: document.querySelector('.lapClass'),
+                        inlinePane: false,
+                        containInline: true,
+                        hoverBoundingBox: true,
+                    });
+    
+                    console.log('New Drift instance created');
+                });
+            });
+        });
+    </script>
+       <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
+       <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
+       <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
+       <!-- Main Script -->
+       <script src="assets/js/main.js?v=1.1" type="text/javascript"></script>
+       <script src="js/jquery.min.js"></script>
+       <script src="js/popper.min.js"></script>
+       
+       <script src="js/jquery-3.0.0.min.js"></script>
+       <script src="js/plugin.js"></script>
+       <script src="js/emailValidation.js"></script>
+       <!-- sidebar -->
+       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+       <script src="js/custom.js"></script>
+       <script>
+           function openNav() {
+               document.getElementById("mySidenav").style.width = "250px";
+           }
+   
+           function closeNav() {
+               document.getElementById("mySidenav").style.width = "0";
+           }
+       </script>
+    
+    
+
+</body>
+
+</html>

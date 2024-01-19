@@ -1,0 +1,29 @@
+<% for(var i = 0; i < users.length; i++) { %>
+  <tr>
+      <td><%= i + 1 %></td>
+      <td><%= users[i].name %></td>
+      <td class="userEmail"><%= users[i].email %>
+     
+      <% if (users[i].status === true) { %>
+        <td><p style="color: green;">Online</p></td>
+      <% } else { %>
+        <td> <p style="color: grey;">Offline</p></td>
+      <% } %>
+      
+     
+      <!-- <td><%= users[i].status %></td> -->
+      <td>
+      <% if(users[i].block==false){ %>
+        <a href="/api/Block?email=<%= users[i].email %>"><button style="background-color: red !important;"  class="btn btn-sm btn-brand rounded font-sm mt-15 btn-block" id="blockButton<%= i %>">
+          <span class="text-gradient">block</span>
+          </button></a>
+          <% }else{ %>
+          <a href="/api/unBlock?email=<%= users[i].email %>"><button  class="btn btn-sm btn-brand rounded font-sm mt-15 btn-block r" id="blockButton<%= i %>">
+            <span  class="text-gradient">unblock</span>
+            </button></a>
+            <% } %>
+          
+      </td>
+  </tr>
+  <% } %>
+

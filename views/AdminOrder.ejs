@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Nest Dashboard</title>
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="" />
+  <meta property="og:url" content="" />
+  <meta property="og:image" content="" />
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/imgs/theme/favicon.svg" />
+  <!-- Template CSS -->
+  <link href="/css/main.css?v=1.1" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+  <div class="screen-overlay"></div>
+  <aside class="navbar-aside" id="offcanvas_aside">
+    <div class="aside-top">
+        <a href="/admisdash" class="brand-wrap">
+            <img src="/images/vk-icon-png-6.png" class="logo img-fluid" alt="Nest Dashboard" />
+        </a>
+        <div>
+            <button class="btn btn-icon btn-aside-minimize"><i class="text-muted material-icons md-menu_open"></i></button>
+        </div>
+    </div>
+    <nav>
+        <ul class="menu-aside">
+            <li class="menu-item active">
+                <a class="menu-link" href='/adminsdash'>
+                    <i class="icon material-icons md-home"></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li class="menu-item has-submenu">
+                <a class="menu-link" href="page-products-list.html">
+                    <i class="icon material-icons md-shopping_bag"></i>
+                    <span class="text">Categories</span>
+                </a>
+                <div class="submenu">
+                    
+                    <a href="/unlistedCategory">Unlisted Categories</a>
+                    <a href="/adminCategory">Categories</a>
+                </div>
+            </li>
+            <li class="menu-item has-submenu">
+                <a class="menu-link" href="page-orders-1.html">
+                    <i class="icon material-icons md-shopping_cart"></i>
+                    <span class="text">Orders</span>
+                </a>
+                <div class="submenu">
+                    <a href="/orderManage">Order list 1</a>
+                
+                </div>
+            </li>
+            <li class="menu-item has-submenu">
+                <a class="menu-link" href="page-sellers-cards.html">
+                    <i class="icon material-icons md-store"></i>
+                    <span class="text">users</span>
+                </a>
+                <div class="submenu">
+                    
+                    <a href="/UserManage">user list</a>
+                  
+                </div>
+            </li>
+            <li class="menu-item has-submenu">
+                <a class="menu-link" href="page-form-product-1.html">
+                    <i class="icon material-icons md-add_box"></i>
+                    <span class="text">Add product</span>
+                </a>
+                <div class="submenu">
+                    <a href="/addProduct">Add product 1</a>
+                    <a href="/productlist">product list</a>
+                    <a href="/productUnlist">Unlisted Products</a>
+                
+                </div>
+            </li>
+         
+           
+           
+         
+        </ul>
+        <hr />
+     
+        <br />
+        <br />
+    </nav>
+</aside>
+  <main class="main-wrap">
+    <header class="main-header navbar">
+      <div class="col-search">
+        <form class="searchform">
+          <div class="input-group">
+            <input list="search_terms" type="text" class="form-control" placeholder="Search term" />
+            <button class="btn btn-light bg" type="button"><i class="material-icons md-search"></i></button>
+          </div>
+          <datalist id="search_terms">
+            <option value="Products"></option>
+            <option value="New orders"></option>
+            <option value="Apple iphone"></option>
+            <option value="Ahmed Hassan"></option>
+          </datalist>
+        </form>
+      </div>
+      <div class="col-nav">
+        <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"><i
+            class="material-icons md-apps"></i></button>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link btn-icon" href="#">
+              <i class="material-icons md-notifications animation-shake"></i>
+              <span class="badge rounded-pill">3</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+          </li>
+          <li class="dropdown nav-item">
+            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false"><i
+                class="material-icons md-public"></i></a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+              <a class="dropdown-item text-brand" href="#"><img src="/imgs/theme/flag-us.png"
+                  alt="English" />English</a>
+              <a class="dropdown-item" href="#"><img src="/imgs/theme/flag-fr.png" alt="Français" />Français</a>
+              <a class="dropdown-item" href="#"><img src="/imgs/theme/flag-jp.png" alt="Français" />日本語</a>
+              <a class="dropdown-item" href="#"><img src="/imgs/theme/flag-cn.png" alt="Français" />中国人</a>
+            </div>
+          </li>
+          <li class="dropdown nav-item">
+            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false">
+              <img class="img-xs rounded-circle" src="/imgs/people/avatar-2.png" alt="User" /></a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+              <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+              <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+              <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+              <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+              <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item text-danger" href="#"><i class="material-icons md-exit_to_app"></i>Logout</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <section class="content-main">
+      <div class="content-header">
+        <div>
+          <h2 class="content-title card-title">Order List</h2>
+         
+        </div>
+
+      </div>
+      <div class="card mb-4">
+        <header class="card-header">
+          <div class="row gx-3">
+            <div class="col-lg-4 col-md-6 me-auto">
+              <input type="text" placeholder="Search..." class="form-control" />
+            </div>
+            <div class="col-lg-2 col-6 col-md-3">
+              <select class="form-select">
+                <option>Status</option>
+                <option>Active</option>
+                <option>Disabled</option>
+                <option>Show all</option>
+              </select>
+            </div>
+            <div class="col-lg-2 col-6 col-md-3">
+              <select class="form-select">
+                <option>Show 20</option>
+                <option>Show 30</option>
+                <option>Show 40</option>
+              </select>
+            </div>
+          </div>
+        </header>
+        <!-- card-header end// -->
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#ID</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Qty</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Date</th>
+                  <th scope="col" class="text-end">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(var i=0; i < orderList.length; i++) { %>
+                  <tr>
+                    <td style="color: red;">
+                      <%=orderList[i].userId %>
+                    </td>
+                    <td><img style="height: 100px;width: 100px;" src="<%=orderList[i].orderItems.image[0]  %>"></td>
+                    <td><b>
+                        <%= orderList[i].orderItems.pName %>
+                      </b></td>
+                    <td>
+                      <%= orderList[i].orderItems.price %>
+                    </td>
+                    <td>
+                      <%= orderList[i].orderItems.quantity %>
+                    </td>
+
+                    <%if(orderList[i].orderItems.orderStatus==="ordered"){  %>
+                      <td><span id="orderStatus<%= i %>" class="badge rounded-pill alert-success  ">
+                          <%= orderList[i].orderItems.orderStatus %>
+                        </span></td>
+                        <% } %>
+                        <%if(orderList[i].orderItems.orderStatus==="Pending"){  %>
+                          <td><span id="orderStatus<%= i %>" class="badge rounded-pill alert-warning  ">
+                              <%= orderList[i].orderItems.orderStatus %>
+                            </span></td>
+                            <% } %>
+                        <%if(orderList[i].orderItems.orderStatus==="Shipped"){  %>
+                          <td><span id="orderStatus<%= i %>" class="badge rounded-pill alert-warning  ">
+                              <%= orderList[i].orderItems.orderStatus %>
+                            </span></td>
+                            <% } %>
+                        <%if(orderList[i].orderItems.orderStatus==="Canceled"){  %>
+                          <td><span id="orderStatus<%= i %>" class="badge rounded-pill alert-danger  ">
+                              <%= orderList[i].orderItems.orderStatus %>
+                            </span></td>
+                            <% } %>
+                            <%if(orderList[i].orderItems.orderStatus==="Delivered"){  %>
+                              <td><span id="orderStatus<%= i %>" class="badge rounded-pill alert-success ">
+                                  <%= orderList[i].orderItems.orderStatus %>
+                                </span></td>
+                                <% } %>
+                    <td>
+                      <%= orderList[i].orderDate.split('T')[0].split('-').reverse().join('-') %>
+                    </td>
+                    <% if(orderList[i].orderItems.orderStatus==="ordered"||orderList[i].orderItems.orderStatus==="Shipped"||orderList[i].orderItems.orderStatus==="Pending"||orderList[i].orderItems.orderStatus==="Delivered"){ %>
+                    <td class="text-end">
+
+                      <div class="dropdown">
+
+                        <select id="statusDropdown<%= i %>" class="form-select d-inline-block mb-lg-0 mr-5 mw-200">
+                          <option>Change status</option>
+                          <option>Pending</option>
+                          <option>Shipped</option>
+                          <option>Delivered</option>
+                        </select>
+                      </div>
+                      <a onclick="statusUpdate('<%=orderList[i].orderItems._id %>','statusDropdown<%= i %>','<%=orderList[i].orderItems.productId%>')"
+                        class="btn btn-md rounded font-sm">save</a>
+                      <!-- dropdown //end -->
+                    </td>
+                    <% } %>
+                    <td class="text-end">
+                      <a href="/itemDetails?orderId=<%=orderList[i]._id  %>&productId=<%=orderList[i].orderItems.productId  %>"  style="background-color: rgb(27, 120, 21);"   aria-expanded="true" class="btn btn-md rounded  font-sm">Details</a>
+                     
+                      
+                      <!-- dropdown //end -->
+                  </td>
+                  </tr>
+                  <% } %>
+
+              </tbody>
+            </table>
+          </div>
+          <!-- table-responsive //end -->
+        </div>
+        <!-- card-body end// -->
+      </div>
+      <!-- card end// -->
+      <div class="pagination-area mt-15 mb-50">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-start">
+            <li class="page-item active"><a class="page-link" href="#">01</a></li>
+            <li class="page-item"><a class="page-link" href="#">02</a></li>
+            <li class="page-item"><a class="page-link" href="#">03</a></li>
+            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+            <li class="page-item"><a class="page-link" href="#">16</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+    <!-- content-main end// -->
+    <footer class="main-footer font-xs">
+      <div class="row pb-30 pt-15">
+        <div class="col-sm-6">
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          <script>
+            function statusUpdate(orderId, dropdownId,productId) {
+              var selectedValue = document.getElementById(dropdownId).value;
+              var endpoint = `/api/saveStatus`;
+
+              alert("hey");
+
+              fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  selectedValue: selectedValue,
+                  orderId: orderId,
+                  productId:productId
+                  // Add more data as needed
+                }),
+              })
+                .then(function (response) {
+                  if (response.ok) {
+                    window.location.href = '/orderManage';
+                  } else {
+                    // Handle errors
+                    console.error('Failed to proceed to payment:', response.statusText);
+                  }
+                })
+                .catch(function (error) {
+                  console.error('Error during fetch:', error);
+                });
+            }
+
+
+          </script>
+          &copy; Nest - HTML Ecommerce Template .
+        </div>
+        <div class="col-sm-6">
+          <div class="text-sm-end">All rights reserved</div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="/js/vendors/jquery-3.6.0.min.js"></script>
+  <script src="/js/vendors/bootstrap.bundle.min.js"></script>
+  <script src="/js/vendors/select2.min.js"></script>
+  <script src="/js/vendors/perfect-scrollbar.js"></script>
+  <script src="/js/vendors/jquery.fullscreen.min.js"></script>
+  <!-- Main Script -->
+  <script src="/js/main.js?v=1.1" type="text/javascript"></script>
+</body>
+
+</html>
