@@ -206,7 +206,7 @@ exports.saveStatus = async (req, res) => {
     const itemId = req.body.orderId
     const newStatus = req.body.selectedValue
     const productId=req.body.productId
-
+  console.log("hi");
     console.log("itemid here", itemId);
     const UserQuantity=orderItems[0].quantity
     const response = await order.updateOne(
