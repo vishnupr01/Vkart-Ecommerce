@@ -10,6 +10,7 @@
         <meta property="og:type" content="" />
         <meta property="og:url" content="" />
         <meta property="og:image" content="" />
+       
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <!-- style css -->
         <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -48,63 +49,10 @@
     </head>
 
     <body>
+        
         <div class="screen-overlay"></div>
-        <aside class="navbar-aside" id="offcanvas_aside">
-            <div class="aside-top">
-                <a href="index.html" class="brand-wrap">
-                    <img src="/imgs/theme/logo.svg" class="logo" alt="Nest Dashboard" />
-                </a>
-                <div>
-                    <button class="btn btn-icon btn-aside-minimize"><i class="text-muted material-icons md-menu_open"></i></button>
-                </div>
-            </div>
-            <nav>
-              <div class="d-flex justify-content-between mt-2">
-                <div class="form-check">
-                  Price Low to High
-                  </label>
-                </div>
-              </div>
-    
-              <div class="d-flex justify-content-between mt-2">
-                <div class="form-check">
-                  Price High to Low
-                  </label> </div>
-              </div>
-            </div>
-            <div class="type p-2 mb-2">
-
-              <div class="d-flex justify-content-between mt-2">
-                <div class="form-check">
-                  Price
-                  </label>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between mt-2">
-                <div class="form-check"> <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"
-                    checked> <label class="form-check-label" for="flexCheckChecked">
-                    Below 100,000 </label> </div>
-              </div>
-              <div class="d-flex justify-content-between mt-2">
-                <div class="form-check"> <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"
-                    checked> <label class="form-check-label" for="flexCheckChecked">
-                    100,000 - 200,000 </label> </div>
-              </div>
-              <div class="d-flex justify-content-between mt-2">
-                <div class="form-check"> <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"
-                    checked> <label class="form-check-label" for="flexCheckChecked"> 200,000 - 300,000
-                  </label> </div>
-              </div>
-              <div class="d-flex justify-content-between mt-2">
-                <div class="form-check"> <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"
-                    checked> <label class="form-check-label" for="flexCheckChecked">
-                    Above 300,000 </label> </div>
-              </div>
-            </div>
-               
-            </nav>
-        </aside>
-        <main class="main-wrap">
+       
+        <main class="main-wrap Wraps">
             <header class="main-header style-2 navbar bgs">
                 <div class="header_section">
                     <div class="container">
@@ -116,6 +64,7 @@
                                 <a href="electronic.html">Electronic</a>
                                 <a href="jewellery.html">Jewellery</a>
                             </div>
+                          
                             <div class="hamberger">
     
                                 <span class="toggle_icon" onclick="openNav()"> <img src="images/toggle-icon.png"
@@ -137,16 +86,18 @@
                             </div>
                             <div class="main">
                                 <!-- Another variation with a button -->
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search this blog">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-secondary myBtn" type="button"
-                                            style="background-color: #f26522; border-color:#f26522 ">
-                                            <i class="fa fa-search"></i>
-                                        </button>
+                                <form action="/searchProduct" method="GET">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control txt" name= "searchQuery"  placeholder="Search this blog">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary myBtn" type="submit" style="background-color: #f26522; border-color:#f26522 ">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
+                            
                             <div class="header_box">
     
                                 <div class="login_menu">
@@ -174,28 +125,33 @@
                                 </div>
     
                             </div>
-                            <div class="Special">
+                            <a href="/"><div class="Special ">
                                 <span class="name">Vkart</span>
-    
-                            </div>
+            
+                            </div></a>
                         </div>
                     </div>
                 </div>
     
             </header>
+            
             <section class="content-main">
+               
                 <div class="content-header">
-                    <h2 class="content-title">Sellers cards</h2>
+                    <h2 class="content-title"></h2>
+                    <!-- Add a button to toggle the filter form -->
+                   <!-- Add an id attribute to the filter button -->
+
+
+
+                    <!-- Wrap the filter form in a container div with an ID for easier toggling -->
+               
+                    
+                    
                     
                 </div>
                 <div class="card mb-4">
-                    <header class="card-header">
-                        <div class="row gx-3">
-                            
-                            
-                          
-                        </div>
-                    </header>
+                 
                     <!-- card-header end// -->
                     <div class="card-body">
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
@@ -206,11 +162,11 @@
                                       <img class="custom-img-size"  src="<%= laptops[i].Images[0] %>">
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="card-title mt-50"><%= laptops[i].title %></h5>
+                                        <h5 style="font-size: large; font-weight:bolder ;" class="card-title mt-50"><%= laptops[i].title %></h5>
                                         <div class="card-text text-muted">
-                                            <p class="m-0"><%= laptops[i].promotionalPrice  %></p>
-                                            <p style="color: #f26522;"><%= laptops[i].discount %></p>
-                                            <a href="#" class="btn btn-sm btn-brand rounded font-sm mt-15">BUY Now</a>
+                                            <p style="color: black;" class="m-0">₹ <%= laptops[i].promotionalPrice  %></p>
+                                            <p style="color: #257825;"><%= laptops[i].discount %> % OFFER</p>
+                                            <a style="background-color: rgb(91, 47, 47);" href="/singleProduct?sid=<%= laptops[i]._id %>" class="btn btn-sm btn-brand rounded font-sm mt-15">BUY Now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -223,18 +179,10 @@
                             <!-- col.// -->
                             
                             <!-- col.// -->
-                            <div class="col">
-                              
-                            <!-- col.// -->
-                          
-                            <!-- col.// -->
-                          
-                            <!-- col.// -->
-                            
-                            <!-- col.// -->
-                        </div>
+                           
                         <!-- row.// -->
                     </div>
+                </div>
                     <!-- card-body end// -->
                 </div>
                 <!-- card end// -->
@@ -257,6 +205,7 @@
             <footer class="main-footer font-xs">
                 <div class="row pb-30 pt-15">
                     <div class="col-sm-6">
+                     
                         <script>
                             document.write(new Date().getFullYear());
                         </script>
@@ -288,14 +237,7 @@
     <!-- sidebar -->
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/custom.js"></script>
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-        }
 
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-    </script>
+ 
     </body>
 </html>

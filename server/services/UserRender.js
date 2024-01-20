@@ -165,10 +165,17 @@ exports.getCart = (req, res) => {
       console.log("shamil here");
       console.log(cart);
       console.log("iam here");
-     
+      const outOfStockProducts = cart.filter(item => item.product_info.quantity === 0);
+
+      if (outOfStockProducts.length > 0) {
+          req.session.outofStock = true;
+      }else{
+        req.session.outofStock = false
+      }
+      
       const sum = cart.reduce((accumulator, currentItem) => {
         const promotionalPrice = currentItem.product_info.promotionalPrice
-        const price = parseInt(promotionalPrice.replace(/,/g, '')) * currentItem.UserQuantity
+        const price = parseInt(promotionalPrice) * currentItem.UserQuantity
         return accumulator + price;
       }, 0);
 
@@ -176,7 +183,7 @@ exports.getCart = (req, res) => {
 
 
 
-      res.render("Cart", { carts: cart, Total: sum.toLocaleString() })
+      res.render("Cart", { carts: cart, Total: sum.toLocaleString(),outofStock:req.session.outofStock })
     })
 }
 
@@ -253,7 +260,7 @@ exports.checkOut = async (req, res) => {
 
     const sum = carts.reduce((accumulator, currentItem) => {
       const promotionalPrice = currentItem.promotionalPrice;
-      const price = parseInt(promotionalPrice.replace(/,/g, '')) * currentItem.UserQuantity
+      const price = parseInt(promotionalPrice) * currentItem.UserQuantity
       return accumulator + price;
     }, 0);
     const totalProducts = carts.reduce((accumulator, currentItem) => {
@@ -312,5 +319,13 @@ exports.UserItemDetails=async(req,res)=>{
   console.log(details);
   console.log(details[0].productInfo);
   res.render("UserSingleOrder",{details:details})
+}
+exports.searchProduct=async(req,res)=>{
+  const data=req.query.searchQuery
+  const products= await axios.get(`http://localhost:${process.env.PORT}/api/getSearch?did=${data}`)
+  const productGot=products.data
+  
+  res.render("LaptopCopy", { laptops: productGot})
+  
 }
 

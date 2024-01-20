@@ -23,90 +23,85 @@ exports.newProduct = async (req, res) => {
 
 
   const Images = req.files.map((file) => "/uploads/" + file.filename)
-  console.log(Images);
+  
 
 
 
   try {
-    
-     
-      const OrginalPrice=req.body.regularPrice
-      const offerPrice=req.body.promotionalPrice
-      const quantity=req.body.quantity
-      const discount=req.body.discount
-      // if (!req.body) {
-      //   res.status(400).send({ message: "Content cannot be empty!" });
-      // }
-     
-  if (!req.body.title) {
-    req.session.title = "the Fileld is required"
-  } 
-  if (!req.body.description) {
-    req.session.description = "the Fileld is required"
-  }
-  if (!req.body.regularPrice) {
-    req.session.regularPrice = "the Fileld is required"
-  }
-  if (!req.body.promotionalPrice) {
-    req.session.promotionalPrice = "the Fileld is required"
-  }
-  if (!req.body.quantity) {
-    req.session.quantity = "the Fileld is required"
-  }
-  if (!req.body.discount) {
-    req.session.discount= "the Fileld is required"
-  }
-  if (!req.body.category) {
-    req.session.category = "the Fileld is required"
-  }
-  if (Images.length===0) {
-    req.session.Images = "select Images"
-  }
-  if (req.session.Images || req.session.category 
-    ||req.session.discount||req.session.quantity
-    || req.session.promotionalPrice||req.session.regularPrice
-    ||req.session.description||req.session.title) {
-    return res.status(401).redirect('/addProduct')
-  }
 
-      const validateRegularPrice = (OrginalPrice) => {
-        // Regular expression for a basic email validation
-        const tester = /^(\d+,?)*\d+$/;
-        return tester.test(OrginalPrice);
-      };
-      const validatequantity = (qty) => {
-        // Regular expression for a basic email validation
-        const tester =/^(\d+(\.\d+)?|\.\d+)$/
-        return tester.test(qty);
-      };
-      if (!validateRegularPrice(OrginalPrice)) {
-        console.log("my error");
-        req.session.invalidPrice = "Enter correct input"
-        console.log("error spotted");
-        return res.redirect('/addProduct')
-  
-      }
-      if (!validateRegularPrice(offerPrice)) {
-        console.log("my error");
-        req.session.invalidPrices = "Enter correct input"
-        console.log("error spotted");
-        return res.redirect('/addProduct')
-  
-      }
-      if (!validatequantity(quantity)) {
-        console.log("my error");
-        req.session.invalidPriced = "Enter correct qty"
-        console.log("error spotted");
-        return res.redirect('/addProduct')
-  
-      }
-      if (!validatequantity(discount)) {
-        console.log("my error");
-        req.session.discountPriced = "Enter correct discount"
-        console.log("error spotted");
-        return res.redirect('/addProduct')
-  
-      }
+
+    const OrginalPrice = req.body.regularPrice
+    const offerPrice = req.body.promotionalPrice
+    const quantity = req.body.quantity
+    const discount = req.body.discount
+    // if (!req.body) {
+    //   res.status(400).send({ message: "Content cannot be empty!" });
+    // }
+
+    if (!req.body.title) {
+      req.session.title = "the Fileld is required"
+    }
+    if (!req.body.description) {
+      req.session.description = "the Fileld is required"
+    }
+    if (!req.body.regularPrice) {
+      req.session.regularPrice = "the Fileld is required"
+    }
+    if (!req.body.promotionalPrice) {
+      req.session.promotionalPrice = "the Fileld is required"
+    }
+    if (!req.body.quantity) {
+      req.session.quantity = "the Fileld is required"
+    }
+    if (!req.body.discount) {
+      req.session.discount = "the Fileld is required"
+    }
+    if (!req.body.category) {
+      req.session.category = "the Fileld is required"
+    }
+    if (Images.length === 0) {
+      req.session.Images = "select Images"
+    }
+    if (req.session.Images || req.session.category
+      || req.session.discount || req.session.quantity
+      || req.session.promotionalPrice || req.session.regularPrice
+      || req.session.description || req.session.title) {
+      return res.status(401).redirect('/addProduct')
+    }
+
+    const validateRegularPrice = (OrginalPrice) => {
+      // Regular expression for a basic email validation
+      const tester = /^(\d+,?)*\d+$/;
+      return tester.test(OrginalPrice);
+    };
+    const validatequantity = (qty) => {
+      // Regular expression for a basic email validation
+      const tester = /^(\d+(\.\d+)?|\.\d+)$/
+      return tester.test(qty);
+    };
+    if (!validateRegularPrice(OrginalPrice)) {
+     
+      req.session.invalidPrice = "Enter correct input"
+      return res.redirect('/addProduct')
+
+    }
+    if (!validateRegularPrice(offerPrice)) {
+      req.session.invalidPrices = "Enter correct input"
+      return res.redirect('/addProduct')
+
+    }
+    if (!validatequantity(quantity)) {
+      req.session.invalidPriced = "Enter correct qty"
+      return res.redirect('/addProduct')
+
+    }
+    if (!validatequantity(discount)) {
+      
+      req.session.discountPriced = "Enter correct discount"
+   
+      return res.redirect('/addProduct')
+
+    }
 
     const newProduct = new Product({
       title: req.body.title,
@@ -118,19 +113,19 @@ exports.newProduct = async (req, res) => {
       Images: Images,
       category: req.body.category,
       verified: true,
-
+ 
 
 
 
     })
-    console.log(newProduct);
+   
     const savedProduct = await newProduct.save()
-    console.log(savedProduct);
+    
     res.redirect("/productlist")
 
 
   } catch (error) {
-    console.log(error);
+  
     res.status(500).json({ message: 'Internal server error' });
 
   }
@@ -149,14 +144,27 @@ exports.listedProducts = async (req, res) => {
 }
 exports.laptopPage = async (req, res) => {
   const category = req.query.category
-  console.log(category);
+
 
   const productGot = await Product.find({ verified: true, category: category })
   const newId = productGot._id
-  console.log(productGot._id);
+  
 
 
   res.render("Laptop", { laptops: productGot, category: category })
+}
+exports.laptopPages = async (req, res) => {
+  const category = req.query.catName
+  
+  const minPrice=req.query.minPrice
+  const maxPrice=req.query.maxPrice
+ 
+
+
+  const productGot = await Product.find({ verified: true, category: category,  promotionalPrice: { $gte: minPrice, $lte: maxPrice } })
+  
+
+ res.render("Laptop", { laptops: productGot, category: category })
 }
 exports.unlistedProducts = async (req, res) => {
   Product.find({ verified: false })
@@ -170,7 +178,7 @@ exports.unlistedProducts = async (req, res) => {
 exports.addProductlist = async (req, res) => {
 
   try {
-    console.log(req.query.documentId);
+   
     await Product.updateOne({ _id: req.query.documentId }, { $set: { verified: true, quantity: 4 } })
     res.redirect("/productlist")
   } catch (error) {
@@ -181,10 +189,10 @@ exports.addProductlist = async (req, res) => {
 exports.deleteProductlist = async (req, res) => {
 
   try {
-    console.log(req.query.documentId);
+   
     await Product.updateOne({ _id: req.query.documentId }, { $set: { verified: false, quantity: 0 } })
 
-    console.log("here is", stock);
+    
     res.redirect("/productlist")
   } catch (error) {
     res.send(error)
@@ -194,7 +202,7 @@ exports.deleteProductlist = async (req, res) => {
 exports.updateProducts = async (req, res) => {
   const newImages = req.files.map((file) => "/uploads/" + file.filename)
   try {
-    
+
     const id = req.query.id;
     const title = req.body.newtitle;
 
@@ -208,77 +216,76 @@ exports.updateProducts = async (req, res) => {
 
 
 
-    console.log(id);
-    console.log(req.body);
+  ;
 
-   
-if (!title) { 
-  req.session.title = "the Fileld is required"
-} 
-if (!description) {
-  req.session.description = "the Fileld is required"
-}
-if (!regularPrice) {
-  req.session.regularPrice = "the Fileld is required"
-}
-if (!promotionalPrice) {
-  req.session.promotionalPrice = "the Fileld is required"
-}
-if (!quantity) {
-  req.session.quantity = "the Fileld is required"
-}
-if (!discount) {
-  req.session.discount= "the Fileld is required"
-}
-if (!category) {
-  req.session.category = "the Fileld is required"
-}
 
-if (req.session.Images || req.session.category 
-  ||req.session.discount||req.session.quantity
-  || req.session.promotionalPrice||req.session.regularPrice
-  ||req.session.description||req.session.title) {
-  return res.status(401).redirect(`/gotProductedit?id=${id} `)
-}
+    if (!title) {
+      req.session.title = "the Fileld is required"
+    }
+    if (!description) {
+      req.session.description = "the Fileld is required"
+    }
+    if (!regularPrice) {
+      req.session.regularPrice = "the Fileld is required"
+    }
+    if (!promotionalPrice) {
+      req.session.promotionalPrice = "the Fileld is required"
+    }
+    if (!quantity) {
+      req.session.quantity = "the Fileld is required"
+    }
+    if (!discount) {
+      req.session.discount = "the Fileld is required"
+    }
+    if (!category) {
+      req.session.category = "the Fileld is required"
+    }
+
+    if (req.session.Images || req.session.category
+      || req.session.discount || req.session.quantity
+      || req.session.promotionalPrice || req.session.regularPrice
+      || req.session.description || req.session.title) {
+      return res.status(401).redirect(`/gotProductedit?id=${id} `)
+    }
 
     const validateRegularPrice = (OrginalPrice) => {
       // Regular expression for a basic email validation
       const tester = /^(\d+,?)*\d+$/;
-      return tester.test(OrginalPrice); 
-    };  
+      return tester.test(OrginalPrice);
+    };
     const validatequantity = (qty) => {
       // Regular expression for a basic email validation
-      const tester =/^(\d+(\.\d+)?|\.\d+)$/
+      const tester = /^(\d+(\.\d+)?|\.\d+)$/
       return tester.test(qty);
     };
     if (!validateRegularPrice(regularPrice)) {
-      console.log("my error");
+     
       req.session.invalidPrice = "Enter correct input"
-      console.log("error spotted");
-      return res.redirect('/gotProductedit')
+  
+      return res.redirect(`/gotProductedit?id=${id} `)
 
     }
     if (!validateRegularPrice(promotionalPrice)) {
       console.log("my error");
       req.session.invalidPrices = "Enter correct input"
       console.log("error spotted");
-      return res.redirect('/gotProductedit')
+      return res.redirect(`/gotProductedit?id=${id} `)
 
-    } 
+    }
     if (!validatequantity(quantity)) {
       console.log("my error");
       req.session.invalidPriced = "Enter correct qty"
       console.log("error spotted");
-      return res.redirect('/gotProductedit')
+      return res.redirect(`/gotProductedit?id=${id} `)
 
     }
     if (!validatequantity(discount)) {
       console.log("my error");
       req.session.discountPriced = "Enter correct discount"
       console.log("error spotted");
-      return res.redirect('/gotProductedit')
-
-    }
+      return res.redirect(`/gotProductedit?id=${id} `)
+ 
+    }  
     await Product.updateOne({ _id: id }, {
 
       $set: {
@@ -306,10 +313,10 @@ exports.productEdit = async (req, res) => {
 
     const id = req.query.id
     console.log(id);
-     Product.findOne({ _id: id })
-     .then(product=>{
-      res.send(product)
-     })
+    Product.findOne({ _id: id })
+      .then(product => {
+        res.send(product)
+      })
 
   } catch (error) {
     res.send(error)
@@ -317,26 +324,23 @@ exports.productEdit = async (req, res) => {
   }
 }
 exports.deleteImage = async (req, res) => {
-  console.log("hello");
+
   try {
     const imageId = req.query.imageId;
-    console.log(typeof(imageId));
     const imageObjectId = parseInt(imageId);
-    console.log(typeof(imageObjectId));
-    console.log("how are u");
     const productId = req.query.productId;
 
- 
+
     const product = await Product.findById(productId);
 
     let imagesArray = product.Images;
     if (imageObjectId >= 0 && imageObjectId < imagesArray.length) {
- 
+
       imagesArray.splice(imageObjectId, 1);
       const result = await Product.updateOne(
         { _id: productId },
         { $set: { Images: imagesArray } }
-       
+
       );
       res.status(200).send("Image deleted successfully");
     } else {
@@ -357,7 +361,7 @@ exports.AddtoCart = async (req, res) => {
   try {
     const UserID = req.session.UserID
     const productID = req.query.singleID
-    console.log("iam" + UserID);
+  
 
 
     const product = await Product.findOne({ _id: productID })
@@ -382,7 +386,7 @@ exports.AddtoCart = async (req, res) => {
     await carted.save();
 
     const productUpdateResult = await Product.findByIdAndUpdate(productID, { $set: { status: true } }, { new: true })
-    console.log(productUpdateResult);
+   
 
 
     res.redirect('/getCart')
@@ -401,7 +405,7 @@ exports.AddtoCart = async (req, res) => {
 exports.cartFind = async (req, res) => {
   try {
     const userID = req.query.uid;
-    console.log("entering cart", userID);
+  
 
     const cart = await carts.aggregate([
       { $match: { userID: userID } },
@@ -422,10 +426,10 @@ exports.cartFind = async (req, res) => {
 
         }
       }
-    ]);
+    ]); 
 
     // Assuming you want to send the cart data back to the client
-    console.log(cart);
+   
     res.send(cart);
   } catch (error) {
     console.error(error);
@@ -437,7 +441,7 @@ exports.cartFind = async (req, res) => {
 exports.deleteCart = async (req, res) => {
   try {
     const deleteID = req.query.cartID
-    console.log("delete", deleteID);
+    
     await Product.updateOne({ _id: deleteID }, { $set: { status: false } })
     await carts.deleteOne({ productId: deleteID });
     res.redirect('/getCart')

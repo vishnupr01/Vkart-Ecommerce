@@ -4,15 +4,15 @@ const mongoose = require('mongoose');
 const productSchema = new mongoose.Schema({
   title: String,
   description: String,
-  regularPrice: String,
-  promotionalPrice: String,
+  regularPrice: Number,
+  promotionalPrice: Number,
   quantity: Number,
   discount: String,
   verified:{
     type:Boolean
 
   },
- 
+  
   Images: [
     {
       type:String

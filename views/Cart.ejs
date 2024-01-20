@@ -157,19 +157,26 @@
                   <span><strong>₹  <%= Total %></strong></span>
                 </li>
               </ul>
-             
+              
 
              
               <% if(carts.length===0){ %>
-                <a href=""><button style="background-color: rgb(10, 10, 10);" type="button" class="btn btn-primary btn-lg btn-block">
+                <a href=""><button  style="background-color: rgb(10, 10, 10);" type="button" class="btn btn-primary btn-lg btn-block">
                   Go to checkout
                 </button></a>
                 <% } %>
                 <% if(carts.length!==0){ %>
+                  <% if(outofStock){ %>
+                    <a ><button onclick="showSweetAlert()" style="background-color: rgb(10, 10, 10);" type="button" class="btn btn-primary btn-lg btn-block">
+                      Go to checkout
+                    </button></a>
+                    <% }else{ %>
+                      <a href="api/checkOut?checkID="><button style="background-color: rgb(10, 10, 10);" type="button" class="btn btn-primary btn-lg btn-block">
+                        Go to checkout
+                      </button></a>
+                      <% } %>
                 
-              <a href="api/checkOut?checkID="><button style="background-color: rgb(10, 10, 10);" type="button" class="btn btn-primary btn-lg btn-block">
-                Go to checkout
-              </button></a>
+             
             
               <% } %>
             </div>
@@ -203,10 +210,10 @@ function handleInputChange( newValue,productId) {
     type: 'GET',
     contentType: 'application/json',
     data: JSON.stringify(data),
-    success: function(responseData) {
-      console.log('Backend response:', responseData);
+    success: function(responseData) { 
+      console.log('Backend response:', responseData);  
 
-      location.reload()
+      location.reload() 
     },
     error: function(error) {
       console.error('There was a problem with the AJAX request:', error);
@@ -224,6 +231,9 @@ function handleInputChange( newValue,productId) {
       return new bootstrap.Tooltip(tooltipTriggerEl)
     })
   </script>
+  <!-- Add this in the head section of your HTML -->
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
    <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
    <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
@@ -249,5 +259,10 @@ function handleInputChange( newValue,productId) {
            document.getElementById("mySidenav").style.width = "0";
        }
    </script>
+   <script>
+    function showSweetAlert() {
+      swal({title:"currently Out Of Stock"});
+    }
+  </script>
 </body>
 </html>

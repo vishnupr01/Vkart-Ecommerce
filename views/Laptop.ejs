@@ -10,6 +10,7 @@
         <meta property="og:type" content="" />
         <meta property="og:url" content="" />
         <meta property="og:image" content="" />
+       
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <!-- style css -->
         <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -63,6 +64,7 @@
                                 <a href="electronic.html">Electronic</a>
                                 <a href="jewellery.html">Jewellery</a>
                             </div>
+                          
                             <div class="hamberger">
     
                                 <span class="toggle_icon" onclick="openNav()"> <img src="images/toggle-icon.png"
@@ -84,16 +86,18 @@
                             </div>
                             <div class="main">
                                 <!-- Another variation with a button -->
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search this blog">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-secondary myBtn" type="button"
-                                            style="background-color: #f26522; border-color:#f26522 ">
-                                            <i class="fa fa-search"></i>
-                                        </button>
+                                <form action="/searchProduct" method="GET">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control txt" name= "searchQuery"  placeholder="Search this blog">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary myBtn" type="submit" style="background-color: #f26522; border-color:#f26522 ">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
+                            
                             <div class="header_box">
     
                                 <div class="login_menu">
@@ -121,10 +125,10 @@
                                 </div>
     
                             </div>
-                            <div class="Special">
+                            <a href="/"><div class="Special ">
                                 <span class="name">Vkart</span>
-    
-                            </div>
+            
+                            </div></a>
                         </div>
                     </div>
                 </div>
@@ -132,26 +136,31 @@
             </header>
             
             <section class="content-main">
+               
                 <div class="content-header">
                     <h2 class="content-title"><%= category %></h2>
-                    <div class="filter-dropdown">
-                        <button style="background-color: black;" class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Filter Price
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="filterDropdown">
-                            <!-- Add the filtering options here -->
-                            <a class="dropdown-item" href="#">Price Low to High</a>
-                            <a class="dropdown-item" href="#">Price High to Low</a>
-                            <div class="type p-2 mb-2">
-                                <!-- Add other filtering options as needed -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                    <label class="form-check-label" for="flexCheckChecked">Below 100,000</label>
-                                </div>
-                                <!-- Add more filtering options here -->
+                    <!-- Add a button to toggle the filter form -->
+                   <!-- Add an id attribute to the filter button -->
+<button style="background-color: black;" type="button" id="filterButton" class="btn btn-primary" onclick="toggleFilterForm()">Filter Price</button>
+
+
+                    <!-- Wrap the filter form in a container div with an ID for easier toggling -->
+                    <div id="filterFormContainer" style="display: none;">
+                        <form action="/laptops " id="priceFilterForm" method="get">
+                            <div class="form-group">
+                                <label for="minPrice">Min Price:</label>
+                                <input type="number" class="form-control" id="minPrice" name="minPrice" placeholder="Enter Min Price">
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label for="maxPrice">Max Price:</label>
+                                <input type="number" class="form-control" id="maxPrice" name="maxPrice" placeholder="Enter Max Price">
+                            </div>
+                            <input style="display: none;" type="hidden" id="categoryInput" name="catName" value="<%= category %>">
+                            <button  style="background-color: black;" type="submit" class="btn btn-primary" onclick="applyFilterAndClose()">Apply Filter</button>
+                        </form>
                     </div>
+  
+                    
                     
                     
                 </div>
@@ -211,6 +220,47 @@
                 <div class="row pb-30 pt-15">
                     <div class="col-sm-6">
                         <script>
+                              // JavaScript function to toggle the visibility of the filter form
+                              function toggleFilterForm() {
+    var filterFormContainer = document.getElementById("filterFormContainer");
+    var filterButton = document.getElementById("filterButton");
+
+    // Toggle the visibility of the filter form
+    filterFormContainer.style.display = (filterFormContainer.style.display === "none") ? "block" : "none";
+
+    // Set the display property of the filter button
+    filterButton.style.display = (filterFormContainer.style.display === "none") ? "block" : "none";
+}
+
+
+    // JavaScript function to apply the filter and close the toggle
+    function applyFilterAndClose() {
+        // Add your filter logic here
+        var form = document.getElementById("priceFilterForm");
+        var minPrice = document.getElementById("minPrice").value;
+        var maxPrice = document.getElementById("maxPrice").value;
+        document.getElementById("categoryInput").value = "<%= category %>";
+
+        // Construct the query string
+        var queryString =  "?catName=" + encodeURIComponent(document.getElementById("categoryInput").value) +"&minPrice=" + encodeURIComponent(minPrice) + "&maxPrice=" + encodeURIComponent(maxPrice);
+
+        // Modify the action attribute of the form with the constructed URL
+        form.action = "/laptops" + queryString;
+
+        // Submit the form
+        form.submit();
+
+        // Hide the filter form container
+        var filterFormContainer = document.getElementById("filterFormContainer");
+        filterFormContainer.style.display = "none";
+    
+
+    // Show the filter button
+    var filterButton = document.getElementById("filterButton");
+    filterButton.style.display = "block";
+    }
+                        </script>
+                        <script>
                             document.write(new Date().getFullYear());
                         </script>
                         &copy; Nest - HTML Ecommerce Template .
@@ -241,14 +291,7 @@
     <!-- sidebar -->
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/custom.js"></script>
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-        }
 
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-    </script>
+ 
     </body>
 </html>

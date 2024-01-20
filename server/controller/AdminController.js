@@ -18,7 +18,7 @@ exports.Adminauth = (req, res) => {
   try {
     if (admincred.adminemail == req.body.email && admincred.adminpass == req.body.password) {
       req.session.isAuthenticated = true
-      console.log("logged");
+     
 
 
 
@@ -104,7 +104,7 @@ exports.categoryManage = async (req, res) => {
       verified: true
     });
     const savedCategory = await newCategory.save()
-    console.log(savedCategory);
+  
     res.redirect('/adminCategory')
 
 
@@ -120,7 +120,7 @@ exports.categoryManage = async (req, res) => {
 exports.unlisted = async (req, res) => {
 
   try {
-    console.log(req.query.documentId);
+    
     await Categories.updateOne({ _id: req.query.documentId }, { $set: { verified: false } })
     res.redirect("/adminCategory")
   } catch (error) {
@@ -131,7 +131,7 @@ exports.unlisted = async (req, res) => {
 exports.listed = async (req, res) => {
 
   try {
-    console.log(req.query.documentId);
+   
     await Categories.updateOne({ _id: req.query.documentId }, { $set: { verified: true } })
     res.redirect("/unlistedCategory")
   } catch (error) {
@@ -145,7 +145,6 @@ exports.CategoryEdit = async (req, res) => {
     const id = req.query.id
     const doc = await Categories.findOne({ _id: id })
     const valueName = doc.name
-    console.log(valueName);
     res.render("AdminEditCateg", { cateName: valueName, id: id })
 
 
@@ -206,9 +205,8 @@ exports.saveStatus = async (req, res) => {
     const itemId = req.body.orderId
     const newStatus = req.body.selectedValue
     const productId=req.body.productId
-  console.log("hi");
-    console.log("itemid here", itemId);
-    const UserQuantity=orderItems[0].quantity
+
+   
     const response = await order.updateOne(
       { "orderItems._id": new mongoose.Types.ObjectId(itemId) },
       { $set: { "orderItems.$.orderStatus": newStatus } }
@@ -250,7 +248,7 @@ exports.totalOrders = async (req, res) => {
 exports.singleOrderDetail = async (req, res) => {
   try {
     const orderId = req.query.orderId;
-    console.log(orderId);
+   
     const productId = req.query.productId;
  
     const details = await order.aggregate([
@@ -295,11 +293,7 @@ exports.singleOrderDetail = async (req, res) => {
       }
     ]);
 
-    // console.log("hello");
-    // console.log(details[0].userInfo);
-    // console.log(details[0].productInfo);
-    // console.log(details[0].orderDate)
-    // console.log("Address:", details[0].address)
+    
     
     res.status(200).send(details); // Sending the details as the response
 

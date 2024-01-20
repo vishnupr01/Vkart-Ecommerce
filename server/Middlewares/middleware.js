@@ -44,13 +44,14 @@ const Adminauthentication = {
   isUser:(req,res,next)=>{
     if(req.session.isLogged){
       
+      
       return next()
     }else{
       res.redirect('/login')
     }
   },
   NotUser:(req,res,next)=>{
-    if(!req.session.isLogged){
+    if(!req.session.isLogged||req.session.blocked){
       return next()
     }else{
       res.redirect("/")
@@ -70,6 +71,14 @@ const Adminauthentication = {
       res.redirect("/otp")
     }
   },
+  notBlocked:(req,res,next)=>{
+    if(!req.session.blocked){
+      return next()
+
+    }
+    res.redirect("/login")
+
+  }
   
 
 

@@ -22,18 +22,7 @@ function deletemyImage(index, id) {
         location.reload()
      
     })
-    // .then(data => {
-    //   // Handle successful deletion, e.g., remove the corresponding HTML element
-    //   const imagePreview = document.getElementById(`imagePreview_${index}`);
-    //   if (imagePreview) {
-    //     alert("hey")
-    //     imagePreview.remove();
-    //     // Redirect to the same page
-  
-    //     window.location.href = "/gotProductedit";
-    //     console.log("after redirection");
-    //   }
-    // })
+   
     .catch(error => {
       console.error('Error deleting image:', error.message);
     });

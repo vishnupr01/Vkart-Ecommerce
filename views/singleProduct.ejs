@@ -111,10 +111,10 @@
                     </div>
 
                 </div>
-                <div class="Special ">
+                <a href="/"><div class="Special ">
                     <span class="name">Vkart</span>
 
-                </div>
+                </div></a>
             </div>
         </div>
     </div>
@@ -140,7 +140,12 @@
                     Buy this product and Get Extra ₹50 Off on Select Room HeatersT&C<br>
                     
                     EMI starting from ₹1,688/monthView Plans</p>
-                   <h5 style="color: red;"> only <%= productS.quantity %> left </h5>
+                    <%if(productS.quantity===0 ){ %>
+                        <h5 style="color: red;"> out of stock </h5>
+                    <% }else{ %>
+                        <h5 style="color: red;"> only <%= productS.quantity %> left </h5>
+                        <% } %>
+                  
                 <h1> ₹ <%= productS.promotionalPrice %></h1>
                 <div class="form-group">
                     <label for="quantity">Quantity:</label>

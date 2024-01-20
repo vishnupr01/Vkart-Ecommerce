@@ -333,8 +333,8 @@ exports.Blocked = async (req, res) => {
 exports.UnBlocked = async (req, res) => {
   try {
     await Userdb.updateOne({ email: req.query.email }, { $set: { block: false } })
-    req.session.blocked = true
-    res.redirect("/UserManage")
+    req.session.blocked = false
+    res.redirect("/UserManage") 
   } catch (error) {
     res.send(error)
 
@@ -354,7 +354,10 @@ exports.loadAccount = async (req, res) => {
       const email = req.session.checkEmail
 
       console.log(name);
-      res.render("userAccount", { name, email })
+      
+        res.render("userAccount", { name, email })
+    
+      
 
     } else {
       req.session.modal = true
@@ -657,8 +660,6 @@ exports.checkFind = (req, res) => {
 exports.UpdateQuantity = async (req, res) => {
   const totalQuantity = req.query.quid
   const productId = req.query.productId
-  console.log(productId);
-  console.log(totalQuantity);
   await Cart.updateOne({ productId: productId, userID: req.session.UserID }, { $set: { UserQuantity: totalQuantity } })
   res.redirect('/getCart')
 
@@ -670,8 +671,7 @@ exports.payment = async (req, res) => {
   const userId = req.session.UserID
   const cartId = req.query.cartId
   const totalAmount = req.body.totalAmount
-  console.log(cartId);
-  console.log(body);
+  
   const doc = await Cart.find({ userID: userId })
 
   const orderItemsArray = [];
@@ -684,8 +684,8 @@ exports.payment = async (req, res) => {
       productId: orderDetails.productId,
       quantity: orderDetails.UserQuantity,
       pName: orderDetails.productName,
-      price: parseFloat(orderDetails.promotionalPrice.replace(',', '')),
-      mrp: parseFloat(orderDetails.mrp.replace(',', '')),
+      price: orderDetails.promotionalPrice,
+      mrp: orderDetails.mrp,
       discount: orderDetails.discount,
       image: orderDetails.productImages,
       orderStatus: 'ordered',
@@ -705,7 +705,7 @@ exports.payment = async (req, res) => {
     );
   }
 
-  console.log("my order");
+  
   const newOrder = new order({
     userId: userId,
     paymentMethod: paymentMethod, // replace with actual paymentMethod if available in Cart model
@@ -725,7 +725,7 @@ exports.payment = async (req, res) => {
 exports.ordersFind = async (req, res) => {
   try {
     const userID = req.query.oid;
-    console.log("cont", userID);
+   
 
     const data = await order.aggregate([
       { $match: { userId: new mongoose.Types.ObjectId(userID) } },
@@ -745,7 +745,7 @@ exports.ordersFind = async (req, res) => {
 
     res.send(data);
   } catch (err) {
-    console.log(err);
+    
     res.status(500).send({ message: err.message });
   }
 };
@@ -756,8 +756,7 @@ exports.cancelOrder = async (req, res) => {
     const orderId = req.query.cancelId
     const productId=req.query.productId
     const {orderItems} = await order.findOne({ "orderItems._id": new mongoose.Types.ObjectId(orderId) }, {"orderItems.$": 1, _id: 0});
-    console.log(orderItems);
-    console.log("got it", orderId);
+   
   const UserQuantity=orderItems[0].quantity
     await order.updateOne(
       { "orderItems._id": new mongoose.Types.ObjectId(orderId) },
@@ -768,14 +767,14 @@ exports.cancelOrder = async (req, res) => {
     res.redirect('/viewOrders')
 
   } catch (error) {
-    console.log(error);
+    
     res.status(500).send({ message: err.message });
   }
 }
 exports.UserSingleOrderDetail =async(req, res) => {
   try {
     const orderId = req.query.orderId;
-    console.log(orderId);
+    
     const productId = req.query.productId;
  
     const details = await order.aggregate([
@@ -833,7 +832,28 @@ exports.UserSingleOrderDetail =async(req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+exports.getSearch = async (req,res) =>{
+  try {
+    // const search = req.body.search;
+    const search = req.query.did;
+    console.log(search);
+    const regexPattern = new RegExp(search, 'i');
+    const searchResults = await Product.find({
+      $or: [
+        {title: regexPattern },
+        { category: regexPattern },
+        // { subTitle: regexPattern },
+        // { descriptionHeading: regexPattern },
+        // { description: regexPattern },
+      ],
+    });
 
+    res.send(searchResults)
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ success: false, message: 'Internal Server Error' });
+  }
+}
 
 
 
