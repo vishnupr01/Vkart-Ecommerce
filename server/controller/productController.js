@@ -7,6 +7,8 @@ const carts = require('../model/Cartmodel');
 const { Mongoose } = require('mongoose');
 const { default: mongoose } = require('mongoose');
 const { response } = require('express');
+const sharp= require('sharp')
+
 
 // Set up multer for handling file uploads
 const storage = multer.diskStorage({
@@ -18,11 +20,23 @@ const storage = multer.diskStorage({
   }
 
 });
+
 exports.uploads = multer({ storage: storage, array: true })
 exports.newProduct = async (req, res) => {
-
-
-  const Images = req.files.map((file) => "/uploads/" + file.filename)
+const files=req.files
+  for (const file of files) {
+    const inputImagePath = path.join(__dirname, '../../assets', `uploads/${file.filename}`);
+    const outputImagePath = path.join(__dirname, '../../assets',`uploads/resizedImg${file.filename}`);
+  
+    await sharp(inputImagePath)
+      .resize(416, 303, {
+        fit: 'fill',
+        position: 'centre',
+      })
+      .toFile(outputImagePath);
+  }
+  const Images = files.map((file) =>{return `uploads/resizedImg${file.filename}`})
+  
   
 
 

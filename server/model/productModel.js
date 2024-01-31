@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema({
   regularPrice: Number,
   promotionalPrice: Number,
   quantity: Number,
-  discount: String,
+  discount: Number,
   verified:{
     type:Boolean
 

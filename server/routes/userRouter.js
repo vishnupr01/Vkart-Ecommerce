@@ -1,6 +1,7 @@
 const express=require("express")
 const route=express.Router()
 const UserRender=require("../services/UserRender")
+const userHelper=require("../helperFunction/userHelper")
 
 const Usercontroller=require("../controller/userController")
 const Adminauthentication=require('../Middlewares/middleware')
@@ -48,6 +49,7 @@ route.get('/UserItemDetails',Adminauthentication.notBlocked,Adminauthentication.
 route.get('/api/UserSingleOrderDetail',Usercontroller.UserSingleOrderDetail)
 route.get('/searchProduct',Adminauthentication.notBlocked,Adminauthentication.isUser,UserRender.searchProduct)
 route.get('/api/getSearch',Usercontroller.getSearch)
+route.post('/api/paymentVerification',Usercontroller.paymentVerification)
 
 
 

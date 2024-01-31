@@ -17,29 +17,22 @@ exports.Adminlogin = (req, res) => {
     res.send(html);
   })
 }
-exports.Dashboard = (req, res) => {
-  
-  axios.get(`http://localhost:${process.env.PORT}/api/UserManagement`)
-    .then(response1 => {
-      const users = response1.data;
+exports.Dashboard = async (req, res) => {
+  try {
+    const response1 = await axios.get(`http://localhost:${process.env.PORT}/api/UserManagement`);
+    const users = response1.data;
 
+    const response2 = await axios.get(`http://localhost:${process.env.PORT}/api/totalOrders`);
+    const orders = response2.data;
+    console.log(orders);
+    const response3 = await axios.get(`http://localhost:${process.env.PORT}/api/toProducts`);
+    const products=response3.data
 
-      axios.get(`http://localhost:${process.env.PORT}/api/totalOrders`)
-        .then(response2 => {
-          const orders = response2.data;
-          console.log(orders);
-
-          res.render("AdminIndex", { users: users, orders: orders });
-        })
-        .catch(error2 => {
-          console.error("Error in the second axios request", error2); 
-          res.status(500).send("Internal Server Error");
-        });
-    })
-    .catch(error1 => {
-      console.error("Error in the first axios request", error1);
-      res.status(500).send("Internal Server Error");
-    });
+    res.render("AdminIndex", { users: users, orders: orders,count:products });
+  } catch (error) {
+    console.error("Error in axios request", error);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
 exports.userManage = async (req, res) => {

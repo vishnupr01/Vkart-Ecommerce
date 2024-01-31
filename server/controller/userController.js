@@ -10,6 +10,13 @@ const Product = require('../model/productModel');
 const Adress = require('../model/AdressModel');
 const Cart = require('../model/Cartmodel');
 const order = require('../model/OrderModel')
+const razorpay=require("razorpay")
+const crypto=require('crypto')
+const { RAZORPAY_ID_KEY, RAZORPAY_SECRET_KEY } = process.env
+
+const userHelper=require('../helperFunction/userHelper')
+
+
 const saltrounds = 10; // Adjust the number of salt rounds as needed
 
 
@@ -667,14 +674,18 @@ exports.UpdateQuantity = async (req, res) => {
 exports.payment = async (req, res) => {
   const body = req.body
   const address = req.body.selectedAddress
-  const paymentMethod = req.body.paymentMethod
+  const paymentMethod = req.body.paymentMethod 
   const userId = req.session.UserID
   const cartId = req.query.cartId
   const totalAmount = req.body.totalAmount
+  console.log(paymentMethod);
   
   const doc = await Cart.find({ userID: userId })
 
   const orderItemsArray = [];
+
+
+  
 
   // Iterate through each orderDetails in the doc
   for (const orderDetails of doc) {
@@ -688,23 +699,14 @@ exports.payment = async (req, res) => {
       mrp: orderDetails.mrp,
       discount: orderDetails.discount,
       image: orderDetails.productImages,
-      orderStatus: 'ordered',
+      orderStatus: 'Pending',
       returnReason: '',
       cancelReason: '',
 
     });
   }
-  for (const orderDetails of doc) {
-    const productId = orderDetails.productId;
-    const orderedQuantity = orderDetails.UserQuantity;
 
-
-    await Product.updateOne(
-      { _id: productId },
-      { $inc: { quantity: -orderedQuantity } }
-    );
-  }
-
+ 
   
   const newOrder = new order({
     userId: userId,
@@ -715,11 +717,38 @@ exports.payment = async (req, res) => {
     orderItems: orderItemsArray
   });
 
-  await newOrder.save();
+ const savedOrder= await newOrder.save();
+ req.session.orderId=savedOrder.id
 
 
-  await Cart.deleteMany({ userID: req.session.UserID })
-  res.send(response)
+ await Cart.deleteMany({ userID: req.session.UserID })
+
+  if(paymentMethod==="cashOnDelivery"){
+    console.log("codddd");
+    const originalOrder = await order.findById(req.session.orderId);
+    const updateProductPromises = originalOrder.orderItems.map(async (item) => {
+      const productId = item.productId;
+      const orderedQuantity = item.quantity;
+
+      await Product.updateOne(
+        { _id: productId },
+        { $inc: { quantity: -orderedQuantity } }
+      );
+    });
+    function updateOrderStatus(originalOrder , newStatus) {
+      originalOrder.orderItems.forEach((item) => {
+        item.orderStatus = newStatus;
+      });
+    }
+    updateOrderStatus(originalOrder, "ordered");
+    const updatedOrder = await originalOrder.save();
+    return res.json({codSuccess:true})
+  }else{
+    const orders = await userHelper.generateRazorpay(savedOrder._id,totalAmount );
+    console.log(orders,'kdf;adlfjakafjsdkalfjk');
+    return res.status(200).json({orders});
+    
+    }
 }
 
 exports.ordersFind = async (req, res) => {
@@ -855,6 +884,65 @@ exports.getSearch = async (req,res) =>{
   }
 }
 
+exports.paymentVerification = async(req, res) => {
+  try {
+    console.log("payment verification");
+    const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
+    const body_data = razorpay_order_id + "|" + razorpay_payment_id;
+
+    const expectedSignature = crypto.createHmac('sha256', RAZORPAY_SECRET_KEY)
+      .update(body_data)
+      .digest("hex");
+
+    const isValid = expectedSignature === razorpay_signature;
+
+    if (isValid) {
+      console.log(razorpay_order_id);
+      console.log(req.session.orderId);
+      const originalOrder = await order.findById(req.session.orderId);
+      console.log(("got by",originalOrder));
+      function updateOrderStatus(originalOrder , newStatus) {
+        originalOrder.orderItems.forEach((item) => {
+          item.orderStatus = newStatus;
+        });
+      }
+      updateOrderStatus(originalOrder, "ordered");
+      const updatedOrder = await originalOrder.save();
+    
+      const updateProductPromises = originalOrder.orderItems.map(async (item) => {
+        const productId = item.productId;
+        const orderedQuantity = item.quantity;
+
+        await Product.updateOne(
+          { _id: productId },
+          { $inc: { quantity: -orderedQuantity } }
+        );
+      });
+
+      await Promise.all(updateProductPromises);
+      console.log(updatedOrder);
+    
+     
+      console.log('Order status updated successfully');
+      res.redirect('/placed');
+    } else {
+      const originalOrder = await order.findById(req.session.orderId);
+      function OrderStatus(originalOrder , newStatus) {
+        originalOrder.orderItems.forEach((item) => {
+          item.orderStatus = newStatus;
+        });
+      }
+      OrderStatus(originalOrder, "payment failed");
+      const updatedOrder = await originalOrder.save();
+      console.log("entered");
+    // Corrected the ObjectId creation
+      res.status(500).send({ success: false, message: 'Internal Server Error' });
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 
 

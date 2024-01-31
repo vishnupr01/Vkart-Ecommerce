@@ -41,6 +41,9 @@ route.get('/api/totalOrders',AdminController.totalOrders)
 route.get('/gotProductedit',AdminRender.gotProductedit)
 route.get('/itemDetails',AdminRender.itemDetails)
 route.get('/api/singleOrderDetail',AdminController.singleOrderDetail)
+route.post('/api/getDetailsChart',AdminController.getDetailsChart)
+route.get('/salesReport',AdminController.salesReport)
+route.get('/api/toProducts',AdminController.ftProducts)
 
 
 module.exports=route

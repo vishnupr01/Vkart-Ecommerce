@@ -4,8 +4,11 @@ const order = require('../model/OrderModel')
 const { ObjectId } = require('mongoose')
 const { default: mongoose } = require('mongoose');
 const Product = require('../model/productModel');
+const CsvParser = require('json2csv').Parser
+
 
 const bcrypt = require('bcrypt');
+
 admincred = {
   adminemail: "admin@gmail.com",
   adminpass: 123
@@ -302,6 +305,195 @@ exports.singleOrderDetail = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+exports.getDetailsChart = async (req, res) => {
+  try {
+    let labelObj = {};
+    let salesCount;
+    let findQuerry;
+    let currentYear;
+    let currentMonth;
+    let index;
+
+    switch (req.body.filter) {
+      case "Weekly":
+        currentYear = new Date().getFullYear();
+        currentMonth = new Date().getMonth() + 1;
+
+        labelObj = {
+          Sun: 0,
+          Mon: 1,
+          Tue: 2,
+          Wed: 3,
+          Thu: 4,
+          Fri: 5,
+          Sat: 6,
+        };
+
+        salesCount = new Array(7).fill(0);
+
+        findQuerry = {
+          orderDate: {
+            $gte: new Date(currentYear, currentMonth - 1, 1),
+            $lte: new Date(currentYear, currentMonth, 0, 23, 59, 59),
+          },
+        };
+        index = 0;
+        break;
+      case "Monthly":
+        currentYear = new Date().getFullYear();
+        labelObj = {
+          Jan: 0,
+          Feb: 1,
+          Mar: 2,
+          Apr: 3,
+          May: 4,
+          Jun: 5,
+          Jul: 6,
+          Aug: 7,
+          Sep: 8,
+          Oct: 9,
+          Nov: 10,
+          Dec: 11,
+        };
+
+        salesCount = new Array(12).fill(0);
+
+        findQuerry = {
+          orderDate: {
+            $gte: new Date(currentYear, 0, 1),
+            $lte: new Date(currentYear, 11, 31, 23, 59, 59),
+          },
+        };
+        index = 1;
+        break;
+      case "Daily":
+        currentYear = new Date().getFullYear();
+        currentMonth = new Date().getMonth() + 1;
+        let end = new Date(currentYear, currentMonth, 0, 23, 59, 59);
+        end = String(end).split(" ")[2];
+        end = Number(end);
+
+        for (let i = 0; i < end; i++) {
+          labelObj[`${i + 1}`] = i;
+        }
+
+        salesCount = new Array(end).fill(0);
+
+        findQuerry = {
+          orderDate: {
+            $gt: new Date(currentYear, currentMonth - 1, 1),
+            $lte: new Date(currentYear, currentMonth, 0, 23, 59, 59),
+          },
+        };
+
+        index = 2;
+        break;
+      case "Yearly":
+        findQuerry = {};
+
+        const ord = await order.find().sort({ orderDate: 1 });
+        const stDate = ord[0].orderDate.getFullYear();
+        const endDate = ord[ord.length - 1].orderDate.getFullYear();
+
+        for (let i = 0; i <= Number(endDate) - Number(stDate); i++) {
+          labelObj[`${stDate + i}`] = i;
+        }
+
+        salesCount = new Array(Object.keys(labelObj).length).fill(0);
+
+        index = 3;
+        break;
+      default:
+        return res.json({
+          label: [],
+          salesCount: [],
+        });
+    }
+
+    // const orders = await OrderDb.find(findQuerry);
+
+    const orders = await order.aggregate(
+      [
+        {
+          $match: findQuerry
+        },
+        {
+          '$unwind': {
+            'path': '$orderItems'
+          }
+        }
+      ]
+    );
+
+    orders.forEach((order) => {
+      if (index === 2) {
+        salesCount[
+          labelObj[Number(String(order.orderDate).split(" ")[index])]
+        ] += 1;
+      } else {
+        salesCount[labelObj[String(order.orderDate).split(" ")[index]]] += 1;
+      }
+    });
+
+    res.json({
+      label: Object.keys(labelObj),
+      salesCount,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal server err");
+  }
+}
+exports.salesReport = async (req, res, next) => {
+  try {
+    let Order = [];
+    const data = await order.aggregate([
+      {
+        $match: {
+        },
+      },
+      {
+        $unwind: "$orderItems",
+      },
+    ]);
+    data.forEach((orders) => {
+      const { _id, paymentMethod, orderDate } = orders;
+      const { productId, quantity, pName, price } = orders.orderItems;
+      Order.push({ _id, productId, orderDate, pName, price, quantity, paymentMethod }
+      );
+    })
+    const TotalPrice = data.reduce((total, values) => total += values.orderItems.price * values.orderItems.quantity, 0)
+    console.log('total', TotalPrice);
+    Order.push({ TotalPrice })
+
+    const csvFields = ['Orders ID', 'Orders Date', 'Product Name', 'Price of a unit ', 'Qty', 'Payment method', 'Total Amount']
+
+    const csvParser = new CsvParser({ csvFields });
+    const csvData = csvParser.parse(Order);
+
+    res.setHeader("Content-Type", "text/csv");
+    res.setHeader("Content-Disposition", "attatchment: filename=salesReport.csv");
+
+    res.status(200).end(csvData);
+    // console.log(data);
+    // res.send(data)
+  } catch (error) {
+    // res.send(error) 
+    console.log(error);
+    next(error)
+  }
+}
+
+exports.ftProducts = async (req, res) => {
+  Product.find()
+  .then(products => {
+    res.send(products)
+  })
+  .catch(err => {
+    res.status(500).send({ message: err.message })
+  })
+};
+
 
 
 

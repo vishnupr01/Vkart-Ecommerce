@@ -308,7 +308,7 @@
         <!-- Product 1 -->
         <% for(var i=0; i < carts.length; i++) { %>
           <div style="width: 700px;" class="product">
-            <img style="height: 150px; width: auto;" src="<%= carts[i].productImages[0]%>" alt="Product 1">
+            <img style="height:150px; width: auto;" src="<%= carts[i].productImages[0]%>" alt="Product 1">
             <div class="product-details">
               <div class="product-title">
                 <%= carts[i].productName %>
@@ -356,11 +356,11 @@
           <div class="payment-options">
             <div>
               <input value="cashOnDelivery" type="radio" id="cashOnDelivery" name="paymentMethod"
-                onclick="showPaymentMethod('cashOnDelivery')">
+                onclick="showPaymentMethod(value)">
               <label for="cashOnDelivery">Cash on Delivery</label>
             </div>
             <div>
-              <input value="onlinePayment" type="radio" id="onlinePayment" name="paymentMethod" onclick="showPaymentMethod('onlinePayment')">
+              <input value="onlinePayment" type="radio" id="onlinePayment" name="paymentMethod" onclick="showPaymentMethod(value)">
               <label for="onlinePayment">Online Payment</label>
             </div>
           </div>
@@ -425,7 +425,7 @@
       </div>
     </div>
   </div>
-
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
     function openModal() {
       document.getElementById('addressModal').style.display = 'flex';
@@ -452,7 +452,7 @@
       var onlinePaymentMethod = document.getElementById('onlinePaymentMethod');
       if (method === 'onlinePayment') {
         onlinePaymentMethod.classList.add('active');
-        openOnlinePaymentModal();
+                         
       } else {
         onlinePaymentMethod.classList.remove('active');
       }
@@ -468,7 +468,7 @@
     }
 
     function applyCoupon() {
-      // Add your logic for applying a coupon code
+      // applying a coupon code
     }
     async function proceedToPayment(Total) {
       var selectedAddress = document.getElementById('selectedAddress').innerText.trim();
@@ -490,17 +490,49 @@
             // Add more data as needed
           }),
         });
+        const responseData = await response.json();
+        console.log(responseData);
 
-        if (response.ok) {
+        if (responseData.codSuccess) {
           window.location.href = '/placed';
         } else {
           // Handle errors
-          console.error('Failed to proceed to payment:', response.statusText);
+          console.log(response, 'kdjshjkdhflksjdhf');
+          razorpayPayment(responseData.orders)
         }
       } catch (error) {
         console.error('Error during fetch:', error);
       }
     }
+   
+   
+    function razorpayPayment (order){
+      console.log(order);
+      var options = {
+        "key": "rzp_test_vPLjv2WYUNYCln", // Enter the Key ID generated from the Dashboard
+        "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Vcart", //your business name
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "callback_url": "/api/paymentVerification",
+        "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+            "name": "Gaurav Kumar", //your customer's name
+            "email": "gaurav.kumar@example.com",
+            "contact": "9000090000" //Provide the customer's phone number for better conversion rates 
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+      };
+      console.log(options);
+      var rzp1 = new Razorpay(options)
+      rzp1.open();
+      }
 
 
     function updateProceedToPaymentButton() {
@@ -518,6 +550,7 @@
         proceedToPaymentButton.style.cursor = 'not-allowed'; // Disable cursor
       }
     }
+  
   </script>
 
   <script src="js/proceedtoPay.js"></script>

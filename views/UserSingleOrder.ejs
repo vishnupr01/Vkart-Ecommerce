@@ -152,8 +152,12 @@
                                       <h6 style="font-weight: 700; font-size: x-large;" class="mb-1">Order info</h6>
                                       <p style=" margin: 0px !important;"  class="mb-1">
                                           Ordered Date: <%= details[0].orderDate.split('T')[0].split('-').reverse().join('-') %><br />
-                                          <span style="color: red; font-size: medium; font-weight: 400;">Pay method:  <%= details[0]. paymentMethod %> </span>  <br />
+                                          <span style="color: rgb(12, 158, 12); font-size: medium; font-weight: 400;">Pay method:  <%= details[0]. paymentMethod %> </span>  <br />
                                           <p style="color: rgb(177, 76, 39);"></pstyle>  Status:    <%=  details[0].orderItems.orderStatus %></p>
+                                          <% if(details[0].orderItems.orderStatus==="Pending"){ %>
+                                            <span style="color: red; font-size: medium; font-weight: 400;">Payment failed</span>
+                                            <% } %>
+
                                       </p>
                                       
                                   </div>
