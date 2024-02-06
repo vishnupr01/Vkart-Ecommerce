@@ -1,6 +1,7 @@
 const axios = require("axios")
 const Adress = require("../model/AdressModel")
 const Cart = require("../model/Cartmodel")
+const userHelper = require("../helperFunction/userHelper")
 
 exports.register = (req, res) => {
   const status = req.query.status ?? "true"
@@ -257,12 +258,14 @@ exports.checkOut = async (req, res) => {
 
     const response1 = await axios.get(`http://localhost:${process.env.PORT}/api/checkFind?checkId=${checkID}`);
     const carts = response1.data;
+    console.log("new",carts);
 
     const sum = carts.reduce((accumulator, currentItem) => {
-      const promotionalPrice = currentItem.promotionalPrice;
+      const promotionalPrice =  currentItem.product_info.promotionalPrice;
       const price = parseInt(promotionalPrice) * currentItem.UserQuantity
       return accumulator + price;
     }, 0);
+    console.log(sum);
     const totalProducts = carts.reduce((accumulator, currentItem) => {
       const produtsNum = currentItem.UserQuantity;
 
@@ -294,13 +297,28 @@ exports.placed = (req, res) => {
 }
 exports.userOrder = async (req, res) => {
   try {
+    const paginatedResults = req.paginatedResults;
+    const page=req.page
+    console.log("page no:",page);
     const userId = req.session.UserID
     console.log("there is", userId);
     const orders = await axios.get(`http://localhost:${process.env.PORT}/api/Orders?oid=${userId}`)
     const orderList = orders.data;
-
-
-    res.render('UserOrder', { orderList: orderList })
+    
+ 
+    
+    const totalOrders=await userHelper.totalOrders(req,res,"order")
+    
+    
+     if(paginatedResults.length >0){
+      
+      res.render('UserOrder', { orderList: paginatedResults ,totalOrders:totalOrders,page:page })
+     }else{
+      res.render('UserOrder', { orderList:orderList,totalOrders:totalOrders,page:page  })
+     }
+    
+     
+  
 
   } catch (error) {
     console.error("Error in requests:", error);

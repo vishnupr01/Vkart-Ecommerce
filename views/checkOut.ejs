@@ -308,16 +308,16 @@
         <!-- Product 1 -->
         <% for(var i=0; i < carts.length; i++) { %>
           <div style="width: 700px;" class="product">
-            <img style="height:150px; width: auto;" src="<%= carts[i].productImages[0]%>" alt="Product 1">
+            <img style="height:150px; width: auto;" src="<%= carts[i].product_info.Images[0]%>" alt="Product 1">
             <div class="product-details">
               <div class="product-title">
-                <%= carts[i].productName %>
+                <%= carts[i].product_info.title %>
               </div>
-              <div class="product-price"> ₹ <%= carts[i].promotionalPrice%>
+              <div class="product-price"> ₹ <%= carts[i].product_info.promotionalPrice%>
               </div>
               <div class="product-price">
                 <p style="color: #45a049;">
-                  <%= carts[i].discount%> %offers applied
+                  <%= carts[i].product_info.discount%> %offers applied
                 </p>
               </div>
               

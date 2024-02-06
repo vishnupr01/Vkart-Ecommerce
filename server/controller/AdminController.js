@@ -445,6 +445,13 @@ exports.getDetailsChart = async (req, res) => {
   }
 }
 exports.salesReport = async (req, res, next) => {
+  const startDate = req.query.startDate  
+const endDate = req.query.endDate  
+const startDateString = new Date(startDate.toString())
+const endDateString =new Date(endDate.toString())
+   
+console.log(startDateString );
+
   try {
     let Order = [];
     const data = await order.aggregate([
@@ -455,15 +462,25 @@ exports.salesReport = async (req, res, next) => {
       {
         $unwind: "$orderItems",
       },
+      {
+        $match:{
+          "orderDate":{
+            $gte:startDateString ,
+            $lt:endDateString
+          }
+        }
+      }
     ]);
     data.forEach((orders) => {
       const { _id, paymentMethod, orderDate } = orders;
+      
       const { productId, quantity, pName, price } = orders.orderItems;
       Order.push({ _id, productId, orderDate, pName, price, quantity, paymentMethod }
       );
     })
     const TotalPrice = data.reduce((total, values) => total += values.orderItems.price * values.orderItems.quantity, 0)
     console.log('total', TotalPrice);
+    console.log(startDateString );
     Order.push({ TotalPrice })
 
     const csvFields = ['Orders ID', 'Orders Date', 'Product Name', 'Price of a unit ', 'Qty', 'Payment method', 'Total Amount']

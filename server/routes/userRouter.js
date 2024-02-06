@@ -5,7 +5,9 @@ const userHelper=require("../helperFunction/userHelper")
 
 const Usercontroller=require("../controller/userController")
 const Adminauthentication=require('../Middlewares/middleware')
+
 const productController=require("../controller/productController")
+const order = require("../model/OrderModel")
 route.get('/', UserRender.home)
 route.get('/register',Adminauthentication.NotUser, UserRender.register)
 route.post('/api/registerUser',Usercontroller.createUser)
@@ -42,7 +44,7 @@ route.get('/api/checkFind',Usercontroller.checkFind)
 route.get('/UpdateQuantity',Usercontroller.UpdateQuantity)
 route.get('/placed',Adminauthentication.notBlocked,Adminauthentication.isUser,UserRender.placed)
 route.post('/api/payment',Usercontroller.payment)
-route.get('/viewOrders',Adminauthentication.notBlocked,Adminauthentication.isUser,UserRender.userOrder)
+route.get('/viewOrders',Adminauthentication.notBlocked,Adminauthentication.isUser ,Adminauthentication.paginationResults(order), UserRender.userOrder)
 route.get('/api/Orders',Usercontroller.ordersFind)
 route.get('/api/cancelOrder',Usercontroller.cancelOrder)
 route.get('/UserItemDetails',Adminauthentication.notBlocked,Adminauthentication.isUser,UserRender.UserItemDetails)
@@ -50,6 +52,7 @@ route.get('/api/UserSingleOrderDetail',Usercontroller.UserSingleOrderDetail)
 route.get('/searchProduct',Adminauthentication.notBlocked,Adminauthentication.isUser,UserRender.searchProduct)
 route.get('/api/getSearch',Usercontroller.getSearch)
 route.post('/api/paymentVerification',Usercontroller.paymentVerification)
+
 
 
 

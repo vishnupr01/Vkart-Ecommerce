@@ -12,6 +12,7 @@ const Cart = require('../model/Cartmodel');
 const order = require('../model/OrderModel')
 const razorpay=require("razorpay")
 const crypto=require('crypto')
+const uuidv4 = require('uuid').v4;
 const { RAZORPAY_ID_KEY, RAZORPAY_SECRET_KEY } = process.env
 
 const userHelper=require('../helperFunction/userHelper')
@@ -650,25 +651,49 @@ exports.UpdateAddress = async (req, res) => {
   }
 
 }
-exports.checkFind = (req, res) => {
-  const checkID = req.query.checkId
-  console.log("user got", checkID);
-  Cart.find({ userID: checkID })
-    .then(data => {
-      res.send(data)
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).send({ message: err.message })
-    })
+exports.checkFind = async(req, res) => {
+  
+      try {
+        const checkID = req.query.checkId
+      
+    
+        const cart = await Cart.aggregate([
+          { $match: { userID: checkID} },
+          {
+            $lookup: {
+              from: "products",
+              localField: "productId",
+              foreignField: "_id",
+              as: "product_info"
+            }
+          },
+          { $unwind: "$product_info" },
+          {
+            $project: {
+              product_info: 1,
+              userID: 1,
+              UserQuantity: 1,
+    
+            }
+          }
+        ]); 
+    
+        // Assuming you want to send the cart data back to the client
+       
+        res.send(cart);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    };
 
 
-}
+
 exports.UpdateQuantity = async (req, res) => {
   const totalQuantity = req.query.quid
   const productId = req.query.productId
   await Cart.updateOne({ productId: productId, userID: req.session.UserID }, { $set: { UserQuantity: totalQuantity } })
-  res.redirect('/getCart')
+  res.send(response)
 
 }
 exports.payment = async (req, res) => {
@@ -680,25 +705,53 @@ exports.payment = async (req, res) => {
   const totalAmount = req.body.totalAmount
   console.log(paymentMethod);
   
-  const doc = await Cart.find({ userID: userId })
+  try {
+    const checkID = req.session.UserID
+  
 
+    const cart = await Cart.aggregate([
+      { $match: { userID: checkID} },
+      {
+        $lookup: {
+          from: "products",
+          localField: "productId",
+          foreignField: "_id",
+          as: "product_info"
+        }
+      },
+      { $unwind: "$product_info" },
+      {
+        $project: {
+          product_info: 1,
+          userID: 1,
+          UserQuantity: 1,
+
+        }
+      }
+    ]); 
+    
   const orderItemsArray = [];
 
 
-  
+  function generateOrderID() {
+    const prefix = 'orderxxx';
+    const sequentialNumber = parseInt(uuidv4().replace(/-/g, ''), 16); // Convert UUID to a sequential number
+    return `${prefix}${sequentialNumber}`;
+  }
 
   // Iterate through each orderDetails in the doc
-  for (const orderDetails of doc) {
+  for (const orderDetails of cart) {
 
     // Create an order item object and push it to the array
     orderItemsArray.push({
-      productId: orderDetails.productId,
+      uniqeId:generateOrderID(),
+      productId: orderDetails.product_info._id,
       quantity: orderDetails.UserQuantity,
-      pName: orderDetails.productName,
-      price: orderDetails.promotionalPrice,
-      mrp: orderDetails.mrp,
-      discount: orderDetails.discount,
-      image: orderDetails.productImages,
+      pName: orderDetails.product_info.title,
+      price: orderDetails.product_info.promotionalPrice,
+      mrp: orderDetails.product_info.regularPrice,
+      discount: orderDetails.product_info.discount,
+      image: orderDetails.product_info.Images,
       orderStatus: 'Pending',
       returnReason: '',
       cancelReason: '',
@@ -715,6 +768,7 @@ exports.payment = async (req, res) => {
     address: address,
     totalAmount: totalAmount,
     orderItems: orderItemsArray
+    
   });
 
  const savedOrder= await newOrder.save();
@@ -749,7 +803,18 @@ exports.payment = async (req, res) => {
     return res.status(200).json({orders});
     
     }
-}
+
+    // Assuming you want to send the cart data back to the client
+   
+   
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+  
+};
+
+
 
 exports.ordersFind = async (req, res) => {
   try {

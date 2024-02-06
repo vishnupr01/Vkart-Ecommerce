@@ -214,6 +214,10 @@ button {
     margin: 0 auto; /* Center the image horizontally */
   
 }
+.pagination .page-item.active a {
+    background-color: #007bff; /* Set your desired background color for the active page */
+    color: #d21010; /* Set your desired text color for the active page */
+}
 .custom-img-size {
     height: 150px; /* Adjust the height as needed */
     width: 150px; /* Adjust the width as needed */

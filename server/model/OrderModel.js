@@ -12,6 +12,11 @@ const schema = new mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         required:true,
     },
+    uniqeId:{
+        type:String,
+        required:true
+
+    },
     quantity:{
         type:Number,
         required:true        

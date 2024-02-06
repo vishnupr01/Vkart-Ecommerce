@@ -386,16 +386,12 @@ exports.AddtoCart = async (req, res) => {
 
 
     const carted = new carts({
-      productName: title,
-      promotionalPrice: promotionalPrice,
-      stock: quantity,
+     
       userID: UserID,
-      productImages: Images,
-      discount: discount,
       status: true,
       productId: productID,
       UserQuantity: 1,
-      mrp: regularPrice
+     
     });
     await carted.save();
 

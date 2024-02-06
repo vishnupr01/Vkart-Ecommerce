@@ -45,6 +45,13 @@
     <link href="css/main.css" rel="stylesheet" type="text/css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     </head>
+    <style>
+    
+        .activess{
+    background-color: red; /* Set your desired color */
+    text-decoration: line-through;
+}
+    </style>
 
     <body>
         <header class="main-header style-2 navbar bgs">
@@ -149,6 +156,7 @@
                     </header>
                     <!-- card-header end// -->
                     <div class="card-body">
+                      
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -254,21 +262,27 @@
                       </div>
                     </div>
                   </div>
+                  <div id="dataContainer" data-total-orders="<%= totalOrders %>"></div>
                 <div class="pagination-area mt-15 mb-50">
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-start">
-                            <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                            <li class="page-item"><a class="page-link" href="#">02</a></li>
-                            <li class="page-item"><a class="page-link" href="#">03</a></li>
-                            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#">16</a></li>
-                            <li class="page-item">
+                        <ul class="pagination justify-content-start" id="paginationList">
+                            <% var ordersLength=Math.ceil(totalOrders / 5) %>
+                     <% for(var i=0;i<ordersLength;i++){ %>
+                      
+                        <li class="page-items " ><a class="page-link <% if (page === 1) { %> activess  <% } %>"  href="/viewOrders?page=<%= i+1 %>&limit=<%= 5 %>"><%= i+1  %></a></li>
+                           
+                              <% } %>
+                            <li class="page-item" id="nextPage">
                                 <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
                             </li>
+                            <h3 style="color: rgb(27, 120, 52);"> page no:<%= page %></h3>
                         </ul>
                     </nav>
+                    
                 </div>
             </section>
+   
+
             <script>
                 function confirmCancel(orderId,productId) {
                     // Get the order ID from wherever you have it stored (you might need to modify this part)

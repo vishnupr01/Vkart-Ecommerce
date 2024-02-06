@@ -202,7 +202,7 @@
                 <% for(var i=0; i < orderList.length; i++) { %>
                   <tr>
                     <td style="color: red;">
-                      <%=orderList[i].userId %>
+                      <%=orderList[i].orderItems.uniqeId %>
                     </td>
                     <td><img style="height: 100px;width: 100px;" src="<%=orderList[i].orderItems.image[0]  %>"></td>
                     <td><b>

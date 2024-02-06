@@ -2,6 +2,7 @@
 const { response } = require("express");
 const Userdb = require("../model/Usermodel");
 const axios = require("axios")
+const uuid = require('uuid')
 
 exports.Adminlogin = (req, res) => {
   const Adminerror = req.session.error
@@ -189,5 +190,8 @@ exports.itemDetails=async(req,res)=>{
   console.log(details[0].productInfo);
   res.render("singleOrder",{details:details})
 
+}
+exports.addCoupon=(req,res)=>{
+  res.render('AddCoupon')
 }
 

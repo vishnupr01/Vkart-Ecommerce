@@ -1,6 +1,9 @@
 const express = require('express')
 const axios =require('axios')
+const order = require("../model/OrderModel")
 const app = express()
+const { default: mongoose } = require('mongoose');
+const { ObjectId } = require('mongoose')
 admincred = {
   adminemail: "admin@gmail.com",
   adminpass: 123
@@ -78,9 +81,70 @@ const Adminauthentication = {
     }
     res.redirect("/login")
 
-  }
+  },
+ paginationResults:(model)=>{
+    return async(req,res,next)=>{
+    const page =req.query.page
+    const limit=req.query.limit
+    
+    const startIndex=(page-1)*limit
+    const endIndex =page*limit
+    
+    const results={}
+    const data = await model.aggregate([
+      { $match: { userId: new mongoose.Types.ObjectId(req.session.UserID) } },
+      { $unwind: "$orderItems" },
+      { 
+        $sort: { orderDate: -1 } 
+      },
+      {
+        $project: {
+          _id: 1,
+          userId: 1,
+          orderItems: 1,
+          orderDate: {
+            $dateToString: {
+              format: " %Y-%m-%d", // Customize the format as needed
+              date: "$orderDate",
+              
+            }
+          }
+
+        },
+      }
+      
+       ]);
+    console.log("shocked",data);
+    if(endIndex<data.length){
+    results.next ={
+    page:page+1,
+    limit:limit
+    }
+    }
+    
+    if(startIndex>0){
+    results.previous ={
+    page:page-1,
+    limit:limit
+    
+    }
+    }
+   
+    
+   
+     results.result=data.slice(startIndex,endIndex)
+   
+    req.paginatedResults=results.result
+    req.page=page
+    
+    next()
+    }
+    
+    }
+
   
 
 
 }
+
 module.exports = Adminauthentication;
