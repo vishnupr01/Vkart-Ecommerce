@@ -23,21 +23,11 @@ const storage = multer.diskStorage({
 
 exports.uploads = multer({ storage: storage, array: true })
 exports.newProduct = async (req, res) => {
-const files=req.files
-  for (const file of files) {
-    const inputImagePath = path.join(__dirname, '../../assets', `uploads/${file.filename}`);
-    const outputImagePath = path.join(__dirname, '../../assets',`uploads/resizedImg${file.filename}`);
+  const files = req.files;
+  const Images = files.map((file) => `uploads/${file.filename}`)
+ 
   
-    await sharp(inputImagePath)
-      .resize(416, 303, {
-        fit: 'fill',
-        position: 'centre',
-      })
-      .toFile(outputImagePath);
-  }
-  const Images = files.map((file) =>{return `uploads/resizedImg${file.filename}`})
-  
-  
+   
 
 
 
