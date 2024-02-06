@@ -1,0 +1,27 @@
+<% for(var i = 0; i < coupon.length; i++) { %>
+  <tr>
+      <td><%= i + 1 %></td>
+      <td><a><%= coupon[i].Code %></a></td>
+      <td><a><%= coupon[i].Discount %>%</a></td>
+      <td><a><%= coupon[i].Maxuse %></a></td>
+      <td><a>₹<%= coupon[i].MaxPrice %></a></td>
+      <td><a><%= coupon[i].createdDate.toISOString().split('T')[0].split('-').reverse().join('-') %></a></td>
+      <td><a><%= coupon[i].expiryDate.toISOString().split('T')[0].split('-').reverse().join('-') %></a></td>
+      <% if(coupon[i].status===true){ %>
+      <td><a style="color: rgb(26, 137, 26);">Active</a></td>
+      <% }else{ %>
+        <td><a style="color: red;">Expired</a></td>
+        <% } %>
+
+      <td>
+          <button  style="background-color: rgb(4, 4, 4) !important;"  class="btn btn-sm btn-brand rounded font-sm mt-15 btn-block" onclick="deleteCoupon('<%= coupon[i]._id %>'),handleClick()">
+            <span class="text-gradient">Delete</span>
+            </button>
+            <a href="/CouponEdit?eid=<%= coupon[i]._id %>"><button style="background-color: rgb(4, 4, 4) !important;"  class="btn btn-sm btn-brand rounded font-sm mt-15 btn-block" >
+              <span class="text-gradient">Edit</span>
+              </button></a>
+           
+        </td>
+  </tr>
+  <% } %>
+

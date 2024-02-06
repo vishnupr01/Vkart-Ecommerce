@@ -2,6 +2,7 @@ const express=require("express")
 const route=express.Router()
 const AdminRender=require("../services/AdminRender")
 const AdminController=require("../controller/AdminController")
+const CouponController=require("../controller/couponController")
 const productController=require("../controller/productController")
 const Adminauthentication=require('../Middlewares/middleware')
 const multer=require("multer")
@@ -45,6 +46,10 @@ route.post('/api/getDetailsChart',AdminController.getDetailsChart)
 route.get('/salesReport',AdminController.salesReport)
 route.get('/api/toProducts',AdminController.ftProducts)
 route.get('/addCoupon',AdminRender.addCoupon)
+route.post('/api/addCoup',CouponController.createCoupon)
+route.get('/api/deleteCoupon',CouponController.deleteCoupon)
+route.get('/CouponEdit',AdminRender.couponEdit)
+route.post('/api/editCoup',CouponController.editCoupon)
 
 
 module.exports=route

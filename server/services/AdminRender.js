@@ -3,6 +3,7 @@ const { response } = require("express");
 const Userdb = require("../model/Usermodel");
 const axios = require("axios")
 const uuid = require('uuid')
+const couponFunction=require("../helperFunction/AdminHelper")
 
 exports.Adminlogin = (req, res) => {
   const Adminerror = req.session.error
@@ -191,7 +192,67 @@ exports.itemDetails=async(req,res)=>{
   res.render("singleOrder",{details:details})
 
 }
-exports.addCoupon=(req,res)=>{
-  res.render('AddCoupon')
+exports.addCoupon=async(req,res)=>{
+  try {
+    const result=await couponFunction.findingCoupon()
+  
+    
+    
+  
+    
+    res.render('AddCoupon',{coupon:result,notcode:req.session.code,
+    notMaxprice: req.session.maxprice ,notMaxuse:req.session.maxuse,
+     notExpirydate:req.session.expiryDate,notDiscount:req.session.Discount} ,(err, html) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+
+      delete req.session.code
+      delete req.session.maxprice
+      delete req.session.maxuse
+      delete req.session.expiryDate
+      delete req.session.Discount
+
+      res.status(200).send(html);
+    })
+    
+  } catch (error) {
+    console.error(error);
+    res.send(error);
+    
+  }
+
+}
+exports.couponEdit=async(req,res)=>{
+  try {
+    const couponId=req.query.eid
+    console.log("found",req.query.eid);
+    console.log("got id",couponId);
+    var result =  await couponFunction.singleCoupon(couponId,req,res)
+    console.log("got",result);
+    res.render('editCoupon',{result,notcode:req.session.ecode,
+      notMaxprice: req.session.emaxprice ,notMaxuse:req.session.emaxuse,
+       notExpirydate:req.session.eexpiryDate,notDiscount:req.session.eDiscount},(err, html) => {
+        if (err) {
+          return res.status(500).send(err);
+        }
+  
+        delete req.session.ecode
+        delete req.session.emaxprice
+        delete req.session.emaxuse
+        delete req.session.eexpiryDate
+        delete req.session.eDiscount
+  
+        res.status(200).send(html);
+      })
+    
+    
+  } catch (error) {
+    console.error(error);
+    res.send(error);
+    
+  }
+ 
+
 }
 

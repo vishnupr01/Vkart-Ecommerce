@@ -14,8 +14,6 @@
         <link rel="shortcut icon" type="image/x-icon" href="/imgs/theme/favicon.svg" />
         <!-- Template CSS -->
         <link href="/css/main.css?v=1.1" rel="stylesheet" type="text/css" />
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
 
     <body>
@@ -157,11 +155,11 @@
             <section class="content-main">
                 <div class="content-header">
                     <div>
-                        <h2 class="content-title card-title">Add Coupon</h2>
+                        <h2 class="content-title card-title">Edit Coupon</h2>
                        <p>Coupon Management</p>
                     </div>
                     <div>
-                        <input type="text" placeholder="Search Coupon" class="form-control bg-white" />
+                        <input type="text"  placeholder="Search Coupon" class="form-control bg-white" />
                     </div>
                 </div>
                 <div class="card">
@@ -169,19 +167,20 @@
                         <div class="row">
                             <div class="col-md-3">
 
-                                <form action="/api/addCoup" method="post">
+                                <form action="/api/editCoup?eid=<%= result._id %>" method="post">
                                     <div class="mb-4">
                                         <label for="product_name" class="form-label" >Coupon code</label>
-                                        <input type="text" placeholder="Type here" class="form-control" name="code" id="product_name" />
+                                        <input type="text" value="<%= result.Code %>" placeholder="Type here" class="form-control" name="code" id="product_name" />
                                         <% if(notcode){ %>
-                                            <p class="errorClass">
-                                                <%= notcode%>
-                                            </p>
-                                            <% } %>
+                                          <p class="errorClass">
+                                              <%= notcode%>
+                                          </p>
+                                          <% } %>
+                                        
                                     </div>
                                     <div class="mb-4">
                                       <label for="product_name" class="form-label" >Discount</label>
-                                      <input type="number" min="1" placeholder="Type here" class="form-control" name="Discount" id="product_name" />
+                                      <input type="number" value="<%= result.Discount %>" min="1" placeholder="Type here" class="form-control" name="Discount" id="product_name" />
                                       <% if(notDiscount){ %>
                                         <p class="errorClass">
                                             <%= notDiscount%>
@@ -190,16 +189,16 @@
                                   </div>
                                   <div class="mb-4">
                                     <label for="product_name" class="form-label" >Max use</label>
-                                    <input type="number" min="1" placeholder="Type here" class="form-control" name="maxuse" id="product_name" />
+                                    <input type="number" min="1" value="<%= result.Maxuse %>" placeholder="Type here" class="form-control" name="maxuse" id="product_name" />
                                     <% if(notMaxuse){ %>
-                                        <p class="errorClass">
-                                            <%= notMaxuse%>
-                                        </p>
-                                        <% } %>
+                                      <p class="errorClass">
+                                          <%= notMaxuse%>
+                                      </p>
+                                      <% } %>
                                 </div>
                                 <div class="mb-4">
                                   <label for="product_name" class="form-label" >Max price</label>
-                                  <input type="number" min="1" placeholder="Type here" class="form-control" name="maxprice" id="product_name" />
+                                  <input type="number" min="1" value="<%= result.MaxPrice %>"  placeholder="Type here" class="form-control" name="maxprice" id="product_name" />
                                   <% if(notMaxprice){ %>
                                     <p class="errorClass">
                                         <%= notMaxprice%>
@@ -208,46 +207,23 @@
                               </div>
                               <div class="mb-4">
                                 <label for="product_name" class="form-label" >expiry date</label>
-                                <input type="date" placeholder="Type here" class="form-control" name="expiryDate" id="product_name" />
+                                <input type="date" value="<%= result.expiryDate?result.expiryDate.toISOString().split('T')[0] : '' %>" placeholder="Type here" class="form-control" name="expiryDate" id="product_name" />
                                 <% if(notExpirydate){ %>
-                                    <p class="errorClass">
-                                        <%= notExpirydate%>
-                                    </p>
-                                    <% } %>
+                                  <p class="errorClass">
+                                      <%= notExpirydate%>
+                                  </p>
+                                  <% } %>
                             </div>
-                                
+                            
                                   
                                     
                                     <div class="d-grid">
-                                        <button type="submit" onclick="handleSubmit()" class="btn btn-primary">Create Coupon</button>
+                                        <button type="submit" class="btn btn-primary">Update Coupon</button>
                                     </div>
                                     
                                 </form>
                             </div>
-                            <div class="col-md-9">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                            <th>ID</th>
-                                                <th>Code</th>
-                                                <th>Discount</th>
-                                                <th>MaxUse</th>
-                                                <th>MaxPrice</th>
-                                                <th>CreatedDate</th>
-                                                <th>ExpiryDate</th>
-                                                <th>Status</th>
-                                               
-                                              <th >Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <%- include('include/couponshow')%>
-                          
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        
                         
                             <!-- .col// -->
                         </div>
@@ -272,7 +248,6 @@
                 </div>
             </footer>
         </main>
-        
         <script src="/js/vendors/jquery-3.6.0.min.js"></script>
         <script src="/js/vendors/bootstrap.bundle.min.js"></script>
         <script src="/js/vendors/select2.min.js"></script>

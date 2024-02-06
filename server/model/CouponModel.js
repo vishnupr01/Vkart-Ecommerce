@@ -18,7 +18,20 @@ var Couponchema = new mongoose.Schema({
   MaxPrice:{
     type:Number,
     required:true
-  }
+  },
+  expiryDate:{
+    type:Date,
+   required:true
+ },
+ createdDate:{
+  type:Date,
+  required:true,
+  default:Date.now()
+ },
+ status:{
+  type:Boolean,
+  default:true
+ }
 
  
 })
