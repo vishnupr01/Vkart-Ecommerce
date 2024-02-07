@@ -2,6 +2,7 @@ const coupons= require('../model/CouponModel')
 const { ObjectId } = require('mongoose')
 const { default: mongoose } = require('mongoose');
 const { UpdateAddress } = require('./userController');
+const Cart=require('../model/Cartmodel')
 
 exports.createCoupon=async(req,res)=>{
   
@@ -105,6 +106,71 @@ exports.editCoupon = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+exports.couponApply=async(req,res)=>{
+  try {
+    const couponCode=req.query.couponCode
+    const total=req.query.total
+    console.log("hey",couponCode);
+    console.log("he",total);
+    const checkID = req.session.UserID
+  
+
+    const cart = await Cart.aggregate([
+      { $match: { userID: checkID} },
+      {
+        $lookup: {
+          from: "products",
+          localField: "productId",
+          foreignField: "_id",
+          as: "product_info"
+        }
+      },
+      { $unwind: "$product_info" },
+      {
+        $project: {
+          product_info: 1,
+          userID: 1,
+          UserQuantity: 1,
+
+        }
+      }
+    ]); 
+    const amounts =  cart.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.product_info.promotionalPrice*currentValue.UserQuantity
+    }, 0);
+    const result = await coupons.aggregate([{ $match: { Code: couponCode } }]);
+    console.log(result);
+    if(result.length===0){
+      req.session.codeError="coupon doesn't exist"
+      const value="none"
+      res.status(200).json({value });
+    }else{
+      if (result && result.length > 0 && amounts >= result[0].MaxPrice) {
+        const discountAmount = amounts * (result[0].Discount / 100);
+        const AfterApply = amounts - discountAmount;
+        console.log(discountAmount);
+        req.session.couponApplied=AfterApply
+        req.session.couponValue="value"
+        res.status(200).json({ AfterApply });
+      }else{
+        req.session.couponError="coupon is not applicable for this amount"
+        const value="none"
+        res.status(200).json({value });
+      }
+
+    }
+    
+   
+    
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+    
+  }
+
+
+}
 
 
 

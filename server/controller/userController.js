@@ -702,7 +702,7 @@ exports.payment = async (req, res) => {
   const paymentMethod = req.body.paymentMethod 
   const userId = req.session.UserID
   const cartId = req.query.cartId
-  const totalAmount = req.body.totalAmount
+  
   console.log(paymentMethod);
   
   try {
@@ -731,7 +731,12 @@ exports.payment = async (req, res) => {
     ]); 
     
   const orderItemsArray = [];
-
+ let amounts =  cart.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.product_info.promotionalPrice*currentValue.UserQuantity
+  }, 0);
+  if(req.session.couponApplied){
+    amounts=req.session.couponApplied
+  }
 
   function generateOrderID() {
     const prefix = 'orderxxx';
@@ -741,7 +746,9 @@ exports.payment = async (req, res) => {
 
   // Iterate through each orderDetails in the doc
   for (const orderDetails of cart) {
-
+     
+      
+        
     // Create an order item object and push it to the array
     orderItemsArray.push({
       uniqeId:generateOrderID(),
@@ -766,16 +773,19 @@ exports.payment = async (req, res) => {
     paymentMethod: paymentMethod, // replace with actual paymentMethod if available in Cart model
     orderDate: new Date(),
     address: address,
-    totalAmount: totalAmount,
+    totalAmount: amounts,
     orderItems: orderItemsArray
     
   });
 
  const savedOrder= await newOrder.save();
  req.session.orderId=savedOrder.id
+ delete req.session.couponApplied
+ delete req.session.couponMessage
+ 
 
 
- await Cart.deleteMany({ userID: req.session.UserID })
+
 
   if(paymentMethod==="cashOnDelivery"){
     console.log("codddd");
@@ -796,10 +806,12 @@ exports.payment = async (req, res) => {
     }
     updateOrderStatus(originalOrder, "ordered");
     const updatedOrder = await originalOrder.save();
+    await Cart.deleteMany({ userID: req.session.UserID })
     return res.json({codSuccess:true})
   }else{
-    const orders = await userHelper.generateRazorpay(savedOrder._id,totalAmount );
+    const orders = await userHelper.generateRazorpay(savedOrder._id,amounts );
     console.log(orders,'kdf;adlfjakafjsdkalfjk');
+    
     return res.status(200).json({orders});
     
     }
@@ -973,6 +985,7 @@ exports.paymentVerification = async(req, res) => {
       }
       updateOrderStatus(originalOrder, "ordered");
       const updatedOrder = await originalOrder.save();
+      await Cart.deleteMany({ userID: req.session.UserID })
     
       const updateProductPromises = originalOrder.orderItems.map(async (item) => {
         const productId = item.productId;

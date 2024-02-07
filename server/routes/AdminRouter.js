@@ -50,6 +50,7 @@ route.post('/api/addCoup',CouponController.createCoupon)
 route.get('/api/deleteCoupon',CouponController.deleteCoupon)
 route.get('/CouponEdit',AdminRender.couponEdit)
 route.post('/api/editCoup',CouponController.editCoupon)
+route.get('/api/couponApply',CouponController.couponApply)
 
 
 module.exports=route

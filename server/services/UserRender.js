@@ -278,11 +278,14 @@ exports.checkOut = async (req, res) => {
     const Address = response2.data;
     console.log("Second request data:", Address);
 
-    res.render('checkOut', { carts: carts, Address: Address, Total: sum, totalProducts: totalProducts }, (err, html) => {
+    res.render('checkOut', { carts: carts, Address: Address, Total: sum, totalProducts: totalProducts,couponValue:req.session.couponValue,
+      couponError:req.session.couponError,codeError:req.session.codeError }, (err, html) => {
       if (err) {
         console.log(err);
         return res.status(500).send(err);
       }
+      delete req.session.couponError
+      delete req.session.codeError
 
       res.status(200).send(html);
     });

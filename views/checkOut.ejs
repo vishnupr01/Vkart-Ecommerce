@@ -305,6 +305,15 @@
       <div class="order-summary-title">Order Summary</h1>
       </div>
       <div class="left-column">
+        <% if(couponValue){ %>
+          <div id="loadingModal" class="modal">
+            <div class="modal-content">
+              <img src="../assets/images/Animation - 1707317424273 (1).gif" alt="Loading GIF" style="width: 100px; height: 100px;">
+              <p>Loading...</p>
+            </div>
+          </div>
+        <% } %>
+        
         <!-- Product 1 -->
         <% for(var i=0; i < carts.length; i++) { %>
           <div style="width: 700px;" class="product">
@@ -383,6 +392,16 @@
 
         <!-- Coupon Card -->
         <div class="coupon-card">
+          <% if(codeError){ %>
+            <p style="color: red;" class="errorClass">
+                <%= codeError%>
+            </p>
+            <% } %>
+            <% if(couponError){ %>
+              <p style="color: red;" class="errorClass">
+                  <%= couponError%>
+              </p>
+              <% } %>
           <label for="couponCode">Enter Coupon Code:</label>
           <input type="text" id="couponCode" class="coupon-input" placeholder="Enter your coupon code">
           <button class="apply-coupon-button" onclick="applyCoupon()">Apply</button>
@@ -395,13 +414,13 @@
       <div class="order-summary-card">
         <h2 class="order-summary-title">PRICE DETAILS</h2>
         <!-- Display selected products, quantities, and total price here -->
-
+    <div id="couponValueDisplay"></div>
         <div class="total-price">Qty: <%= totalProducts %>
         </div>
         <div class="total-price">shipping: <span style="color: #45a049;">FREE</span></div>
-        <div class="total-price">Total: ₹ <%= Total %>
+        <div id="totalPrice" class="total-price">Total: ₹ <%= Total %>
         </div>
-        <button id="proceedToPaymentButton" onclick=" proceedToPayment('<%= Total %>'),console.log('clicked');" class="proceed-to-payment-button" disabled
+        <button id="proceedToPaymentButton" onclick=" proceedToPayment(),console.log('clicked');" class="proceed-to-payment-button" disabled
           type="button">Proceed to Payment</button>
 
       </div>
@@ -425,6 +444,8 @@
       </div>
     </div>
   </div>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
     function openModal() {
@@ -468,9 +489,57 @@
     }
 
     function applyCoupon() {
-      // applying a coupon code
-    }
-    async function proceedToPayment(Total) {
+  console.log("hey");
+
+  // Get the input element by its ID
+  var couponCodeInput = document.getElementById("couponCode");
+
+  // Get the value entered by the user
+  var couponCodeValue = couponCodeInput.value;
+
+  // URL to which you want to send the Fetch request
+ 
+
+  // Perform the Fetch request
+  fetch(`/api/couponApply?couponCode=${couponCodeValue}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json", // Modify the content type if necessary
+      // Add any other headers if needed
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Handle the successful response here
+      console.log("Response from server:", data);
+      
+     
+// Set the innerHTML outside the fetch block
+if(data.AfterApply){
+  displayCouponValue(data.AfterApply);
+     }else{
+      location.reload()
+     }
+    
+
+    })
+    .catch((error) => {
+      // Handle errors here
+      console.error("Error:", error);
+    });
+}
+function displayCouponValue(couponValue) {
+  
+       
+  document.getElementById('totalPrice').innerText=  `Total: ₹ ${couponValue}`    
+  document.getElementById('couponValueDisplay').innerHTML = `<p style="color: #45a049;" >Coupon  is applied!</p>`;
+}
+    async function proceedToPayment() {
       var selectedAddress = document.getElementById('selectedAddress').innerText.trim();
       var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
 
@@ -486,7 +555,7 @@
           body: JSON.stringify({
             selectedAddress: selectedAddress,
             paymentMethod: paymentMethod,
-            totalAmount:Total
+           
             // Add more data as needed
           }),
         });
@@ -551,6 +620,19 @@
       }
     }
   
+  </script>
+  <script>
+  
+ 
+
+function openLoadingModal() {
+  document.getElementById('loadingModal').style.display = 'flex';
+}
+
+function closeLoadingModal() {
+  document.getElementById('loadingModal').style.display = 'none';
+}
+
   </script>
 
   <script src="js/proceedtoPay.js"></script>
