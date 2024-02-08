@@ -3,6 +3,7 @@ const Adress = require("../model/AdressModel")
 const Cart = require("../model/Cartmodel")
 const userHelper = require("../helperFunction/userHelper")
 
+
 exports.register = (req, res) => {
   const status = req.query.status ?? "true"
 
@@ -279,13 +280,15 @@ exports.checkOut = async (req, res) => {
     console.log("Second request data:", Address);
 
     res.render('checkOut', { carts: carts, Address: Address, Total: sum, totalProducts: totalProducts,couponValue:req.session.couponValue,
-      couponError:req.session.couponError,codeError:req.session.codeError }, (err, html) => {
+      couponError:req.session.couponError,codeError:req.session.codeError,couponExpired:req.session.couponExpire }, (err, html) => {
       if (err) {
         console.log(err);
         return res.status(500).send(err);
       }
       delete req.session.couponError
       delete req.session.codeError
+      delete req.session.couponApplied
+      delete req.session.couponExpire 
 
       res.status(200).send(html);
     });

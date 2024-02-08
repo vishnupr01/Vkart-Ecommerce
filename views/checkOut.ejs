@@ -392,16 +392,7 @@
 
         <!-- Coupon Card -->
         <div class="coupon-card">
-          <% if(codeError){ %>
-            <p style="color: red;" class="errorClass">
-                <%= codeError%>
-            </p>
-            <% } %>
-            <% if(couponError){ %>
-              <p style="color: red;" class="errorClass">
-                  <%= couponError%>
-              </p>
-              <% } %>
+        <h6 id="couponValueDisplay"></h6>
           <label for="couponCode">Enter Coupon Code:</label>
           <input type="text" id="couponCode" class="coupon-input" placeholder="Enter your coupon code">
           <button class="apply-coupon-button" onclick="applyCoupon()">Apply</button>
@@ -409,12 +400,13 @@
       </div>
     </div>
 
+
     <!-- Order Summary Card -->
     <div class="right-column">
       <div class="order-summary-card">
         <h2 class="order-summary-title">PRICE DETAILS</h2>
         <!-- Display selected products, quantities, and total price here -->
-    <div id="couponValueDisplay"></div>
+    
         <div class="total-price">Qty: <%= totalProducts %>
         </div>
         <div class="total-price">shipping: <span style="color: #45a049;">FREE</span></div>
@@ -520,10 +512,11 @@
       
      
 // Set the innerHTML outside the fetch block
-if(data.AfterApply){
-  displayCouponValue(data.AfterApply);
+if(data.error){
+  console.log(data.error);
+  displayerror(data.error);
      }else{
-      location.reload()
+      displayCouponValue(data.AfterApply);
      }
     
 
@@ -538,6 +531,12 @@ function displayCouponValue(couponValue) {
        
   document.getElementById('totalPrice').innerText=  `Total: ₹ ${couponValue}`    
   document.getElementById('couponValueDisplay').innerHTML = `<p style="color: #45a049;" >Coupon  is applied!</p>`;
+}
+function  displayerror(errorMessage) {
+  
+       
+ const errorElement= document.getElementById('couponValueDisplay') 
+    errorElement.innerHTML = `<p style="color: red;" >${errorMessage}</p>`;
 }
     async function proceedToPayment() {
       var selectedAddress = document.getElementById('selectedAddress').innerText.trim();
