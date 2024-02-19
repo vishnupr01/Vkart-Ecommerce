@@ -825,6 +825,7 @@ exports.payment = async (req, res) => {
       if(userWallet.balance>=amounts){
 
       userWallet.balance=userWallet.balance-amounts
+      userWallet.transactions.push({amount:amounts,date:Date.now(),status:"Debit"})
       userWallet.save()
       const originalOrder = await order.findById(req.session.orderId);
       const updateProductPromises = originalOrder.orderItems.map(async (item) => {
