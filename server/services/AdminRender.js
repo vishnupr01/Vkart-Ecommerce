@@ -50,15 +50,28 @@ exports.adminCategory = (req, res) => {
   axios.get(`http://localhost:${process.env.PORT}/api/categoryFind`)
     .then(response => {
       const category = response.data
-      res.render("AdminCategories", { category: category })
+      console.log(category);
+      res.render("AdminCategories", { category: category,existCategory:req.session.exisitingCategory,errorCategory:req.session.error },(err, html)=>{
+        if(err){
+          console.log(err);
+          return res.status(500).send(err);
+        }
+        delete req.session.exisitingCategory
+        delete req.session.error
+    
+       
+  
+        res.status(200).send(html)
+      })
     })
 
 }
+
 exports.unlistedCategory = (req, res) => {
   axios.get(`http://localhost:${process.env.PORT}/api/categoryUnlist`)
     .then(response => {
       const category = response.data
-      res.render("AdminUnlist", { category: category })
+      res.render("AdminUnlist", { category: category,})
     })
 
 }
@@ -202,7 +215,7 @@ exports.addCoupon=async(req,res)=>{
     
     res.render('AddCoupon',{coupon:result,notcode:req.session.code,
     notMaxprice: req.session.maxprice ,notMaxuse:req.session.maxuse,
-     notExpirydate:req.session.expiryDate,notDiscount:req.session.Discount} ,(err, html) => {
+     notExpirydate:req.session.expiryDate,notDiscount:req.session.Discount,Already: req.session.result} ,(err, html) => {
       if (err) {
         return res.status(500).send(err);
       }
@@ -212,6 +225,7 @@ exports.addCoupon=async(req,res)=>{
       delete req.session.maxuse
       delete req.session.expiryDate
       delete req.session.Discount
+      delete  req.session.result
 
       res.status(200).send(html);
     })
@@ -232,7 +246,7 @@ exports.couponEdit=async(req,res)=>{
     console.log("got",result);
     res.render('editCoupon',{result,notcode:req.session.ecode,
       notMaxprice: req.session.emaxprice ,notMaxuse:req.session.emaxuse,
-       notExpirydate:req.session.eexpiryDate,notDiscount:req.session.eDiscount},(err, html) => {
+       notExpirydate:req.session.eexpiryDate,notDiscount:req.session.eDiscount,Already: req.session.result},(err, html) => {
         if (err) {
           return res.status(500).send(err);
         }
@@ -242,6 +256,7 @@ exports.couponEdit=async(req,res)=>{
         delete req.session.emaxuse
         delete req.session.eexpiryDate
         delete req.session.eDiscount
+        delete req.session.result
   
         res.status(200).send(html);
       })

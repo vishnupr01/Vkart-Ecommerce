@@ -60,6 +60,9 @@
       flex: 1;
       padding: 20px;
     }
+    .newOne{
+      display: none;
+    }
 
 
     .modal {
@@ -363,14 +366,35 @@
         <div class="payment-options-card">
           <h3>Payment Options</h3>
           <div class="payment-options">
+            <% if(Total>5000) {%>
+              <p style="color: red;">cash on delivery not available for this price</p>
+              <% } %>
+          
+              <% if(errorCash){%>
+                <div class="newOne">
+              
+                  <input value="cashOnDelivery" type="radio" id="cashOnDelivery" name="paymentMethod"
+                    onclick="showPaymentMethod(value)">
+                  <label for="cashOnDelivery">Cash on Delivery</label>
+                </div>
+                <% }else{ %>
             <div>
+              
               <input value="cashOnDelivery" type="radio" id="cashOnDelivery" name="paymentMethod"
                 onclick="showPaymentMethod(value)">
               <label for="cashOnDelivery">Cash on Delivery</label>
             </div>
+            <% } %>
             <div>
               <input value="onlinePayment" type="radio" id="onlinePayment" name="paymentMethod" onclick="showPaymentMethod(value)">
               <label for="onlinePayment">Online Payment</label>
+            </div>
+            <% if(insufficent){ %>
+              <p style="color: red;"><%= insufficent %></p>
+              <% } %>
+            <div>
+              <input value="WalletPayment" type="radio" id="walletPaymentMethod" name="paymentMethod" onclick="showPaymentMethod(value)">
+              <label for="WalletPayment">Wallet</label>
             </div>
           </div>
 
@@ -463,11 +487,25 @@
 
     function showPaymentMethod(method) {
       var onlinePaymentMethod = document.getElementById('onlinePaymentMethod');
-      if (method === 'onlinePayment') {
+      var walletPaymentMethod = document.getElementById('walletPaymentMethod');
+      var cashOnDelivery=document.getElementById('cashOnDelivery')
+      console.log(method); // Add this line
+
+      if (method === 'onlinePayment') { 
         onlinePaymentMethod.classList.add('active');
-                         
-      } else {
+        walletPaymentMethod.classList.remove('active');
+        cashOnDelivery.classList.remove('active');// Add this line
+      } else if (method === 'WalletPayment') {
+        console.log("hey");
+        walletPaymentMethod.classList.add('active'); // Add this block
+        onlinePaymentMethod.classList.remove('active')
+        cashOnDelivery.classList.remove('active');
+       
+      } else if (method === 'cashOnDelivery') {
+        cashOnDelivery.classList.add('active') 
         onlinePaymentMethod.classList.remove('active');
+        walletPaymentMethod.classList.remove('active');
+        // Add this line
       }
       updateProceedToPaymentButton();
     }
@@ -539,8 +577,10 @@ function  displayerror(errorMessage) {
     errorElement.innerHTML = `<p style="color: red;" >${errorMessage}</p>`;
 }
     async function proceedToPayment() {
+      console.log("heyyyyyy");
       var selectedAddress = document.getElementById('selectedAddress').innerText.trim();
       var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+      console.log(paymentMethod);
 
       // Assuming you have an endpoint '/api/payment' on your backend
       var endpoint = `/api/payment`;
@@ -563,10 +603,14 @@ function  displayerror(errorMessage) {
 
         if (responseData.codSuccess) {
           window.location.href = '/placed';
-        } else {
+        } else if(responseData.codSuccess===false) {
+          window.location.href = '/api/checkOut';
           // Handle errors
+          
+        }else if(responseData.orders){
           console.log(response, 'kdjshjkdhflksjdhf');
           razorpayPayment(responseData.orders)
+
         }
       } catch (error) {
         console.error('Error during fetch:', error);
@@ -575,7 +619,7 @@ function  displayerror(errorMessage) {
    
    
     function razorpayPayment (order){
-      console.log(order);
+      console.log("hey",order);
       var options = {
         "key": "rzp_test_vPLjv2WYUNYCln", // Enter the Key ID generated from the Dashboard
         "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -595,7 +639,8 @@ function  displayerror(errorMessage) {
         },
         "theme": {
             "color": "#3399cc"
-        }
+        },
+      
       };
       console.log(options);
       var rzp1 = new Razorpay(options)
@@ -634,7 +679,7 @@ function closeLoadingModal() {
 
   </script>
 
-  <script src="js/proceedtoPay.js"></script>
+  
 
 
 

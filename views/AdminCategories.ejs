@@ -159,6 +159,16 @@
                                 <form action="api/category" method="post">
                                     <div class="mb-4">
                                         <label for="product_name" class="form-label" >Name</label>
+                                        <% if(existCategory){ %>
+                                            <p class="errorClass">
+                                                <%= existCategory%>
+                                            </p>
+                                            <% } %>
+                                            <% if(errorCategory){ %>
+                                                <p class="errorClass">
+                                                    <%=errorCategory%>
+                                                </p>
+                                                <% } %>
                                         <input type="text" placeholder="Type here" class="form-control" name="categoryName" id="product_name" />
                                     </div>
                                   

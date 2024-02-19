@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Your Wallet</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- font awesome -->
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--  -->
+    <!-- owl stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesoeet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+        media="screen">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg" />
+    <!-- Template CSS -->
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <style>
+      
+      @media (min-width: 992px) {
+        body {
+            padding-top: 0;
+        }
+    }
+
+    .main-card {
+        max-width: 600px;
+        margin: 80px auto;
+        position: relative;
+    }
+
+    .wallet-icon {
+        font-size: 24px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .wallet-balance {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .table-container {
+        list-style: none;
+          padding: 0;
+          max-height: 300px; /* Set a fixed height for the address list */
+          overflow-y: auto; 
+    }
+    .scrollist{
+    list-style: none;
+    padding: 0;
+    max-height: 300px; /* Set a fixed height for the address list */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+    </style>
+</head>
+
+<body>
+  <header class="main-header style-2 navbar bgs">
+    <div class="header_section">
+        <div class="container">
+            <div class="containt_main">
+                <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a href="index.html">Home</a>
+                    <a href="fashion.html">Fashion</a>
+                    <a href="electronic.html">Electronic</a>
+                    <a href="jewellery.html">Jewellery</a>
+                </div>
+                <div class="hamberger">
+
+                    <span class="toggle_icon" onclick="openNav()"> <img src="images/toggle-icon.png"
+                            class="Myimg"></span>
+
+
+                </div>
+
+
+                <div class="dropdown drop">
+                    <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+                <div class="main">
+                    <!-- Another variation with a button -->
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search this blog">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary myBtn" type="button"
+                                style="background-color: #f26522; border-color:#f26522 ">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="header_box">
+
+                    <div class="login_menu">
+                        <ul>
+                            <li><a href="#">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    <span class="padding_10">Cart</span></a>
+                            </li>
+                            <li><a href="#">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Cart</span></a>
+                            </li>
+                            <li><a href="#">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Cart</span></a>
+                            </li>
+                            <li><a href="#">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Cart</span></a>
+                            </li>
+
+                        </ul>
+
+
+                    </div>
+
+                </div>
+                <div class="Special ">
+                    <span class="name">Vkart</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+    <!-- Navigation Bar -->
+
+    <!-- Main Content -->
+    <div class="modal fade" id="addMoneyModal" tabindex="-1" role="dialog" aria-labelledby="addMoneyModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMoneyModalLabel">Add Money to Your Wallet</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Add Money Form -->
+                    <form id="addMoneyForm">
+                        <div class="form-group">
+                            <label for="amountInput">Amount:</label>
+                            <input type="number" class="form-control" id="amountInput"  placeholder="Enter amount">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="addMoney()">Add Money</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+
+                <!-- Main Card with Wallet Heading -->
+                <div class="card main-card">
+                    <div class="card-body">
+
+                        <h5 style="display: block; font-weight: bolder !important;" class="card-title">Wallet</h5>
+                        <div class="wallet-icon"><i class="fas fa-wallet"></i></div>
+
+                        <!-- Balance Card -->
+                        <div class="card wallet-card mb-4">
+                            <div class="card-body">
+                                <h6 class="card-title">Your Wallet Balance</h6>
+                                <p class="wallet-balance">Current Balance: <%= balance %></p>
+                              
+                                <a href="#" style="background-color: black;" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addMoneyModal">Add Money</a>
+                            </div>
+                        </div>
+
+                        <!-- Transaction History Table -->
+                     <!-- Transaction History Table -->
+<h6 class="mt-4">Transaction History</h6>
+<div class="table-responsive table-container scrollist list-group">
+    <table class="table ">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(i=0;i<transactionArray.length;i++){ %>
+            <tr>
+                <td><%= transactionArray[i].date.toISOString().split('T')[0]%></td>
+                <% if(transactionArray[i].status==="credit"){ %>
+                    <td style="color: green;"><%= transactionArray[i].status %></td>
+                    <% }else {%>
+                        <td style="color: red;"><%= transactionArray[i].status %></td>
+                        <% } %>
+                
+                <td><%= transactionArray[i].amount %></td>
+            </tr>
+            <% } %>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="assets/js/main.js?v=1.1" type="text/javascript"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/plugin.js"></script>
+    <script src="js/emailValidation.js"></script>
+    <!-- sidebar -->
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+      function addMoney() {
+    console.log("hey");
+    var amount = document.getElementById("amountInput").value;
+    var serverEndpoint = '/AddWallet'; 
+
+    var urlWithQuery = serverEndpoint + '?amount=' + encodeURIComponent(amount);
+
+    fetch(urlWithQuery, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // Add any additional headers if needed
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // Parse the JSON response
+        return response.json();
+    })
+    .then(data => {
+        // Access the 'orders' property from the parsed JSON data
+        console.log(data.orders);
+        razorpayPayment(data.orders);
+
+        // Handle the server response here if needed
+        console.log("Successfully added money: $" + amount);
+        // Close the modal after adding money
+        $('#addMoneyModal').modal('hide');
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+        // Handle errors here if needed
+    });
+}
+        function razorpayPayment (order){
+      console.log("hey do",order.amount);
+      var options = {
+        "key": "rzp_test_vPLjv2WYUNYCln", // Enter the Key ID generated from the Dashboard
+        "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Vcart", //your business name
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "callback_url": `/api/paymentVerificationWallet?amount=${order.amount}`,
+        "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+            "name": "Gaurav Kumar", //your customer's name
+            "email": "gaurav.kumar@example.com",
+            "contact": "9000090000" //Provide the customer's phone number for better conversion rates 
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        },
+      
+      };
+      console.log(options);
+      var rzp1 = new Razorpay(options)
+      rzp1.open();
+      }
+        </script>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

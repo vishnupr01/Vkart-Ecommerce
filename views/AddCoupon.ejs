@@ -178,6 +178,11 @@
                                                 <%= notcode%>
                                             </p>
                                             <% } %>
+                                            <% if(Already){ %>
+                                                <p class="errorClass">
+                                                    <%= Already%>
+                                                </p>
+                                                <% } %>
                                     </div>
                                     <div class="mb-4">
                                       <label for="product_name" class="form-label" >Discount</label>
@@ -198,7 +203,7 @@
                                         <% } %>
                                 </div>
                                 <div class="mb-4">
-                                  <label for="product_name" class="form-label" >Max price</label>
+                                  <label for="product_name" class="form-label" >Min price</label>
                                   <input type="number" min="1" placeholder="Type here" class="form-control" name="maxprice" id="product_name" />
                                   <% if(notMaxprice){ %>
                                     <p class="errorClass">
@@ -232,7 +237,7 @@
                                             <th>ID</th>
                                                 <th>Code</th>
                                                 <th>Discount</th>
-                                                <th>MaxUse</th>
+                                                <th>MinUse</th>
                                                 <th>MaxPrice</th>
                                                 <th>CreatedDate</th>
                                                 <th>ExpiryDate</th>

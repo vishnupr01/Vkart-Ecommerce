@@ -79,7 +79,7 @@
                      <% for(var i = 0; i < category.length; i++) { %>
                            
                               
-                        <a href="/laptop?category=<%= category[i].name %>" ><%= category[i].name %></a>
+                        <a href="/laptop?category=<%= category[i].name %>&page=<%= 1 %>&limit=<%= 8 %>" ><%= category[i].name %></a>
                               
                            <% } %>
                   </div>
@@ -92,9 +92,9 @@
                         <% for(var i = 0; i < category.length; i++) { %>
                            
                               
-                           <a class="dropdown-item"  href="/laptop?category=<%= category[i].name %>" ><%= category[i].name %></a>
+                           <a class="dropdown-item"  href="/laptop?category=<%= category[i].name %>&page=<%= 1 %>&limit=<%= 8 %>" ><%= category[i].name %></a>
 
-                              
+                          
                            <% } %>
                      </div>
                   </div>

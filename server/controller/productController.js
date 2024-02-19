@@ -8,7 +8,7 @@ const { Mongoose } = require('mongoose');
 const { default: mongoose } = require('mongoose');
 const { response } = require('express');
 const sharp= require('sharp')
-
+const userHelper=require('../helperFunction/userHelper')
 
 // Set up multer for handling file uploads
 const storage = multer.diskStorage({
@@ -42,22 +42,22 @@ exports.newProduct = async (req, res) => {
     //   res.status(400).send({ message: "Content cannot be empty!" });
     // }
 
-    if (!req.body.title) {
+    if (!req.body.title.trim()) {
       req.session.title = "the Fileld is required"
     }
-    if (!req.body.description) {
+    if (!req.body.description.trim()) {
       req.session.description = "the Fileld is required"
     }
-    if (!req.body.regularPrice) {
+    if (!req.body.regularPrice.trim()) {
       req.session.regularPrice = "the Fileld is required"
     }
-    if (!req.body.promotionalPrice) {
+    if (!req.body.promotionalPrice.trim()) {
       req.session.promotionalPrice = "the Fileld is required"
     }
-    if (!req.body.quantity) {
+    if (!req.body.quantity.trim()) {
       req.session.quantity = "the Fileld is required"
     }
-    if (!req.body.discount) {
+    if (!req.body.discount.trim()) {
       req.session.discount = "the Fileld is required"
     }
     if (!req.body.category) {
@@ -74,8 +74,8 @@ exports.newProduct = async (req, res) => {
     }
 
     const validateRegularPrice = (OrginalPrice) => {
-      // Regular expression for a basic email validation
-      const tester = /^(\d+,?)*\d+$/;
+      // Regular expression for a basic number validation with optional decimal point
+      const tester = /^(\d+|\d+\.\d+)$/;
       return tester.test(OrginalPrice);
     };
     const validatequantity = (qty) => {
@@ -148,28 +148,19 @@ exports.listedProducts = async (req, res) => {
 }
 exports.laptopPage = async (req, res) => {
   const category = req.query.category
-
-
-  const productGot = await Product.find({ verified: true, category: category })
-  const newId = productGot._id
-  
-
-
-  res.render("Laptop", { laptops: productGot, category: category })
-}
-exports.laptopPages = async (req, res) => {
-  const category = req.query.catName
-  
-  const minPrice=req.query.minPrice
-  const maxPrice=req.query.maxPrice
+  const page=req.page
  
+  const paginatedResults = req.paginatedResults;
 
+  const totalOrders=await userHelper.totalOrders1(req,res,"Product")
+  console.log(totalOrders);
+      
+   res.render('Laptop', {  laptops: paginatedResults ,category: category,totalOrders:totalOrders,page:page})
 
-  const productGot = await Product.find({ verified: true, category: category,  promotionalPrice: { $gte: minPrice, $lte: maxPrice } })
   
-
- res.render("Laptop", { laptops: productGot, category: category })
+ 
 }
+
 exports.unlistedProducts = async (req, res) => {
   Product.find({ verified: false })
     .then(product => {
@@ -254,7 +245,7 @@ exports.updateProducts = async (req, res) => {
 
     const validateRegularPrice = (OrginalPrice) => {
       // Regular expression for a basic email validation
-      const tester = /^(\d+,?)*\d+$/;
+      const tester = /^(\d+|\d+\.\d+)$/;
       return tester.test(OrginalPrice);
     };
     const validatequantity = (qty) => {

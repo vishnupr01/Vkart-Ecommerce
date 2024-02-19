@@ -46,6 +46,8 @@
     </head>
 
     <body>
+      
+       
       <header class="main-header style-2 navbar bgs">
         <div class="header_section">
             <div class="container">
@@ -124,6 +126,7 @@
         </div>
 
     </header> 
+   
         <div class="screen-overlay"></div>
         
            
@@ -143,26 +146,37 @@
                         <div class="row mb-50 mt-20 order-info-wrap">
                            
                             <!-- col// -->
-                            <div class="col-md-4">
-                                <article class="icontext align-items-start">
-                                    <span style="background-color: rgb(129, 125, 125) !important;" class="icon icon-sm rounded-circle bg-primary-light">
-                                        <i style="color: black !important;" class="text-primary material-icons md-local_shipping"></i>
-                                    </span>
-                                    <div class="text">
-                                      <h6 style="font-weight: 700; font-size: x-large;" class="mb-1">Order info</h6>
-                                      <p style=" margin: 0px !important;"  class="mb-1">
-                                          Ordered Date: <%= details[0].orderDate.split('T')[0].split('-').reverse().join('-') %><br />
-                                          <span style="color: rgb(12, 158, 12); font-size: medium; font-weight: 400;">Pay method:  <%= details[0]. paymentMethod %> </span>  <br />
-                                          <p style="color: rgb(177, 76, 39);"></pstyle>  Status:    <%=  details[0].orderItems.orderStatus %></p>
-                                          <% if(details[0].orderItems.orderStatus==="Pending"){ %>
-                                            <span style="color: red; font-size: medium; font-weight: 400;">Payment failed</span>
-                                            <% } %>
+        <!-- col// -->
+      
+<div class="col-md-4">
+    <article class="icontext align-items-start">
+        <span style="background-color: rgb(129, 125, 125) !important;" class="icon icon-sm rounded-circle bg-primary-light">
+            <i style="color: black !important;" class="text-primary material-icons md-local_shipping"></i>
+        </span>
+        <div class="text">
+            <h6 style="font-weight: 700; font-size: x-large;" class="mb-1">Order info</h6>
+            <p style=" margin: 0px !important;"  class="mb-1">
+                Ordered Date: <%= details[0].orderDate.split('T')[0].split('-').reverse().join('-') %><br />
+                <span style="color: rgb(12, 158, 12); font-size: medium; font-weight: 400;">Pay method: <%= details[0]. paymentMethod %> </span>  <br />
+                <p style="color: rgb(177, 76, 39);"></pstyle>  Status: <%= details[0].orderItems.orderStatus %></p>
+                <% if(details[0].orderItems.orderStatus==="Pending"){ %>
+                    <span style="color: red; font-size: medium; font-weight: 400;">Payment failed</span>
+                  <a> <button onclick="openModal()">Retry Payment</button></a>
+                <% } %>
+            </p>
+        </div>
+    </article>
+</div>
+<!-- col// -->
 
-                                      </p>
-                                      
-                                  </div>
-                                </article>
-                            </div>
+<!-- Retry Payment Modal -->
+
+
+  
+
+
+
+
                             <!-- col// -->
                             <div class="col-md-4">
                                 <article class="icontext align-items-start">
@@ -176,6 +190,7 @@
                                       </p>
                                     
                                   </div>
+                                  
                                 </article>
                             </div>
                             <!-- col// -->
@@ -197,6 +212,7 @@
                                     <!-- Example image for the product -->
                                     <img style="height: 200px; width: 200px;" src="<%= details[0].productInfo[0].Images[0] %>" alt="Product Image" class="img-fluid mt-3">
                                     <p> <%=details[0].productInfo[0]. description %></p>
+                                    <p style="display: none;" id="idGot"><%= details[0]._id %></p>
                                 </div>
                             </div>
                                 <div class="table-responsive">
@@ -229,12 +245,132 @@
                 </div>
             </footer>
         </main>
-        <script src="/js/vendors/jquery-3.6.0.min.js"></script>
+        <div class="modal" id="retryPaymentModal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Retry Payment Options</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Select your preferred payment method:</p>
+                  <% if(details[0].totalAmount<=5000){ %>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="retryPaymentMethod" value="cashOnDelivery" id="retryCashOnDelivery" checked>
+                    <label class="form-check-label" for="retryCashOnDelivery">
+                      Cash on Delivery
+                    </label>
+                  </div>
+                  <% } %>
+                  <% if( details[0].totalAmount>=5000) {%>
+                    <p style="color: red;">cash on delivery is not Available for this amount</p>
+                    <% } %>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="retryPaymentMethod" value="OnlinePayment" id="retryOnlinePayment">
+                    <label class="form-check-label" for="retryOnlinePayment">
+                      Online Payment
+                    </label>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                 <a onclick="processRetryPayment()"><button type="button" class="btn btn-primary" >Retry Payment</button></a>
+                </div>
+              </div>
+            </div>
+        </div>
+       
+       
+      
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+     <script src="/js/vendors/jquery-3.6.0.min.js"></script>
+
+        
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="/js/vendors/bootstrap.bundle.min.js"></script>
         <script src="/js/vendors/select2.min.js"></script>
         <script src="/js/vendors/perfect-scrollbar.js"></script>
         <script src="/js/vendors/jquery.fullscreen.min.js"></script>
         <!-- Main Script -->
         <script src="/js/main.js?v=1.1" type="text/javascript"></script>
+        <script>
+            
+            
+   
+            function openModal() {
+          // Open the retry payment modal
+          
+          $('#retryPaymentModal').modal('show');
+        
+          
+        }
+    </script>
+   <script>
+    async function processRetryPayment() {
+        try {
+            console.log('may i');
+            let selectedPaymentMethod = document.querySelector('input[name="retryPaymentMethod"]:checked').value;
+            let orderId = document.getElementById('idGot').innerText;
+
+            const response = await fetch(`/retryPayment?orderId=${orderId}&paymentMethod=${selectedPaymentMethod}`, {
+                method: 'GET', // or 'GET' depending on your server-side implementation
+             
+                
+                // You can include a request body if needed
+             
+            });
+            const responseData = await response.json();
+            console.log(responseData);
+
+          if (responseData.codSuccess) {
+          window.location.href = '/placed';
+          } else {
+          // Handle errors
+          console.log(response, 'kdjshjkdhflksjdhf');
+          razorpayPayment(responseData.orders)
+          }
+            if (response.ok) {
+                // Handle success, e.g., redirect or show a success message
+                $('#retryPaymentModal').modal('hide');
+            } else {
+                // Handle error, e.g., show an error message to the user
+                console.error('Retry payment failed:', response.statusText);
+            }
+        } catch (error) {
+            console.error('An unexpected error occurred:', error);
+        }
+    }
+
+   
+    function razorpayPayment (order){
+      console.log("hey",order);
+      var options = {
+        "key": "rzp_test_vPLjv2WYUNYCln", // Enter the Key ID generated from the Dashboard
+        "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Vcart", //your business name
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "callback_url": "/api/paymentVerification",
+        "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+            "name": "Gaurav Kumar", //your customer's name
+            "email": "gaurav.kumar@example.com",
+            "contact": "9000090000" //Provide the customer's phone number for better conversion rates 
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        },
+      
+      };
+      console.log(options);
+      var rzp1 = new Razorpay(options)
+      rzp1.open();
+      }
+</script>
+ 
     </body>
 </html>

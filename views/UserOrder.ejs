@@ -10,6 +10,7 @@
         <meta property="og:type" content="" />
         <meta property="og:url" content="" />
         <meta property="og:image" content="" />
+        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="/imgs/theme/favicon.svg" />
@@ -25,7 +26,7 @@
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
     <!-- Tweaks for older IEs-->
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
     <!-- font awesome -->
@@ -46,7 +47,9 @@
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     </head>
     <style>
-    
+   *{
+    overflow-x: hidden;
+   }
         .activess{
     background-color: red; /* Set your desired color */
     text-decoration: line-through;
@@ -158,6 +161,9 @@
                     <div class="card-body">
                       
                         <div class="table-responsive">
+                            <% if(notCancel ){ %>
+                                <p style="color: red;"><%= notCancel %></p>
+                                <% } %>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -169,6 +175,9 @@
                                         <th  class="bor" scope="col">Status</th>
                                         <th class="bor"  scope="col">Date</th>
                                         <th class="bor"   scope="col" class="text-end bor">Action</th>
+                                        <th class="bor"  scope="col">Details</th>
+                                        <th class="bor"  scope="col">Invoice</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -207,22 +216,34 @@
                                         <td><%= orderList[i].orderDate.split('T')[0].split('-').reverse().join('-') %></td>
                                    
                                           
-                                        <% if(orderList[i].orderItems.orderStatus==="ordered"||orderList[i].orderItems.orderStatus==="Shipped"||orderList[i].orderItems.orderStatus==="Pending"){ %>
+                                        <% if(orderList[i].orderItems.orderStatus==="ordered"||orderList[i].orderItems.orderStatus==="Shipped"){ %>
                                         <td class="text-end">
-                                            <a href=""  style="background-color: rgb(102, 74, 74);"  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="confirmCancel('<%= orderList[i].orderItems._id %>','<%= orderList[i].orderItems.productId%>')"  aria-expanded="true" class="btn btn-md rounded  font-sm">cancel</a>
+                                            <a href=""  style="background-color: rgb(102, 74, 74);"  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="confirmCancel('<%= orderList[i].orderItems._id %>','<%= orderList[i].orderItems.productId%>','<%= orderList[0]._id%>')"  aria-expanded="true" class="btn btn-md rounded  font-sm">cancel</a>
                                            
                                             
                                             <!-- dropdown //end -->
                                         </td>
-                                        <td class="text-end">
-                                            <a href="/UserItemDetails?orderId=<%=orderList[i]._id  %>&productId=<%=orderList[i].orderItems.productId  %>"  style="background-color: rgb(27, 120, 21);"   aria-expanded="true" class="btn btn-md rounded  font-sm">Details</a>
-                                           
-                                            
-                                            <!-- dropdown //end -->
-                                        </td>
-                                        
-                         
+                                       
                                         <% } %>
+                                        <% if(orderList[i].orderItems.orderStatus==="ordered"||orderList[i].orderItems.orderStatus==="Shipped"||orderList[i].orderItems.orderStatus==="Pending"){ %>
+                                            <td class="text-end">
+                                                <a href="/UserItemDetails?orderId=<%=orderList[i]._id  %>&productId=<%=orderList[i].orderItems.productId  %>"  style="background-color: rgb(27, 120, 21);"   aria-expanded="true" class="btn btn-md rounded  font-sm">Details</a>
+                                               
+                                                
+                                                <!-- dropdown //end -->
+                                            </td>
+                                            <% } %>
+                                        <% if(orderList[i].orderItems.orderStatus==="ordered"||orderList[i].orderItems.orderStatus==="Shipped"||orderList[i].orderItems.orderStatus==="Delivered"){ %>
+                                        <td class="text-end">
+                                        <button
+                                        class="p-1 border border-warning rounded-2 px-4 my-2"
+                                        onclick="downloadInvoice('<%=orderList[i]._id  %>')">
+                                        <i class="fa-solid fa-file"></i></button>
+                                        </td>                        
+                                        
+                                   <% } %>
+                                       
+                                        
                                         
                                            <% if(orderList[i].orderItems.orderStatus==="Delivered"){ %>
                                         <td class="text-end">
@@ -235,7 +256,8 @@
                                 </a>
                                   
                                     <% } %>
-                                   
+                                    <td class="text-end">
+                                       
                                   
                                 </tbody>
                             </table>
@@ -284,12 +306,12 @@
    
 
             <script>
-                function confirmCancel(orderId,productId) {
+                function confirmCancel(orderId,productId,MainId) {
                     // Get the order ID from wherever you have it stored (you might need to modify this part)
                   
             
                     // Set the correct URL for canceling the order
-                    document.getElementById('confirmCancel').href = '/api/cancelOrder?cancelId=' + orderId+ '&productId=' + productId;
+                    document.getElementById('confirmCancel').href = '/api/cancelOrder?cancelId=' + orderId+ '&productId=' + productId+ '&MainId=' + MainId ;
                 }
             </script>
             <script>
@@ -343,8 +365,62 @@
                 </div>
             </footer>
         </main>
- 
-          
+        <script src="https://unpkg.com/easyinvoice/dist/easyinvoice.min.js"></script>
+        <script>
+            function downloadInvoice(id) {
+                const Orderid = id;
+                $.ajax({
+                    url: `/invoice?id=${Orderid}`,
+                    type: 'GET',
+                    success: function (response) {
+                        console.log(response);
+                        showInvoice(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Request failed:', status, error);
+                    },
+
+                });
+            }
+
+            function showInvoice(item,total) {
+                const currentDate = new Date();
+                const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()};`
+                var data = {
+                    //Company address
+                    "sender": {
+                        "company": "Vkart",
+                        "address": "78b, Vkart Apartment, Tokyo City",
+                        "zip": "666999",
+                        "city": "Shibuya",
+                        "country": "India"
+                    },
+                    //User address
+                    "client": {
+                        "address": item.client.address
+                    },
+                    "information": {
+                        // Invoice number
+                        "number": Math.floor(Math.random() * 900000000 + 100000000),
+                        // Invoice data
+                        "date": formattedDate,
+                    },
+                    "products": item.products,
+                    // "subtotal": order.totalPrice, 
+                    // "total": item.totalPrice,
+
+                    // The message you would like to display on the bottom of your invoice
+                    "bottom-notice": `The total price after discount ${item.client.totalPrice}`,
+                    "settings": {
+                        "currency": "INR",
+                    },
+                };
+                easyinvoice.createInvoice(data, function (result) {
+                    console.log('PDF base64 string: ', result.pdf);
+                    easyinvoice.download('invoice.pdf')
+                });
+            }
+        </script>  
         
         <script src="/js/vendors/jquery-3.6.0.min.js"></script>
         <script src="/js/vendors/bootstrap.bundle.min.js"></script>
@@ -358,7 +434,7 @@
 
         
         <!-- Main Script -->
-    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="js/jquery.min.js"></script>
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>

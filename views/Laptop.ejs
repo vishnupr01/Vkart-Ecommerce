@@ -178,7 +178,8 @@
                                     <div class="card-body">
                                         <h5 style="font-size: large; font-weight:bolder ;" class="card-title mt-50"><%= laptops[i].title %></h5>
                                         <div class="card-text text-muted">
-                                            <p style="color: black;" class="m-0">₹ <%= laptops[i].promotionalPrice  %></p>
+                                            <p style="color: black; font-weight: 800; font-size: large;" class="m-0">₹ <%= laptops[i].promotionalPrice  %></p>
+                                            <p style="color: rgba(118, 116, 114, 0.966); text-decoration: line-through; font-size: small;" class="m-0 ">₹ <%= laptops[i].regularPrice %></p>
                                             <p style="color: #257825;"><%= laptops[i].discount %> % OFFER</p>
                                             <a style="background-color: rgb(91, 47, 47);" href="/singleProduct?sid=<%= laptops[i]._id %>" class="btn btn-sm btn-brand rounded font-sm mt-15">BUY Now</a>
                                         </div>
@@ -202,17 +203,20 @@
                 <!-- card end// -->
                 <div class="pagination-area mt-15 mb-50">
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-start">
-                            <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                            <li class="page-item"><a class="page-link" href="#">02</a></li>
-                            <li class="page-item"><a class="page-link" href="#">03</a></li>
-                            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#">16</a></li>
-                            <li class="page-item">
+                        <ul class="pagination justify-content-start" id="paginationList">
+                            <% var ordersLength=Math.ceil(totalOrders / 8) %>
+                     <% for(var i=0;i<ordersLength;i++){ %>
+                      
+                        <li class="page-items " ><a class="page-link <% if (page === 1) { %> activess  <% } %>"  href="/laptop?page=<%= i+1 %>&limit=<%= 8 %>"><%= i+1  %></a></li>
+                           
+                              <% } %>
+                            <li class="page-item" id="nextPage">
                                 <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
                             </li>
+                            <h3 style="color: rgb(27, 120, 52);"> page no:<%= page %></h3>
                         </ul>
                     </nav>
+                    
                 </div>
             </section>
             <!-- content-main end// -->
@@ -242,10 +246,14 @@
         document.getElementById("categoryInput").value = "<%= category %>";
 
         // Construct the query string
-        var queryString =  "?catName=" + encodeURIComponent(document.getElementById("categoryInput").value) +"&minPrice=" + encodeURIComponent(minPrice) + "&maxPrice=" + encodeURIComponent(maxPrice);
-
+        var queryString = "?catName=" + encodeURIComponent(document.getElementById("categoryInput").value) +
+                  "&minPrice=" + encodeURIComponent(minPrice) +
+                  "&maxPrice=" + encodeURIComponent(maxPrice) +
+                  "&page=" + parseInt(encodeURIComponent("1") )  +   // Convert page value to string
+                  "&limit=" + parseInt( encodeURIComponent("10"));  
         // Modify the action attribute of the form with the constructed URL
-        form.action = "/laptops" + queryString;
+        form.action = "/laptop" + queryString;
+        
 
         // Submit the form
         form.submit();

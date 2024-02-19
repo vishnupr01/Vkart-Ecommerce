@@ -12,12 +12,31 @@
         <meta property="og:image" content="" />
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="/imgs/theme/favicon.svg" />
-       <link rel="stylesheet" href="/node_modules/cropperjs/dist/cropper.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" integrity="sha512-hvNR0F/e2J7zPPfLC9auFe3/SE0yG4aJCOd/qxew74NN7eyiSKjr7xJJMu1Jy2wf7FXITpWS1E/RY8yzuXN7VA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- Template CSS -->
         <link href="/css/main.css?v=1.1" rel="stylesheet" type="text/css" />
     </head>
 
     <body>
+        <!-- Modal for cropping image -->
+<div class="modal" id="cropModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Crop Image</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <img id="croppedImage" class="img-fluid" alt="Cropped Image">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="saveCroppedImage()">Save</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal()" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
         <div class="screen-overlay"></div>
         <aside class="navbar-aside" id="offcanvas_aside">
             <div class="aside-top">
@@ -331,14 +350,37 @@
                     </div>
                 </div>
             </footer>
+            <!-- Add this script at the end of your HTML file -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Function to update promotional price based on discount and regular price
+                    function updatePromotionalPrice() {
+                        // Get the values of discount and regular price input fields
+                        var discount = parseFloat(document.querySelector('input[name="discount"]').value) || 0;
+                        var regularPrice = parseFloat(document.querySelector('input[name="regularPrice"]').value) || 0;
+            
+                        // Calculate promotional price by adding discount to regular price
+                        var promotionalPrice = regularPrice - (regularPrice * discount / 100);
+            
+                        // Set the calculated promotional price in the input field
+                        document.querySelector('input[name="promotionalPrice"]').value = promotionalPrice.toFixed(2);
+                    }
+            
+                    // Attach the updatePromotionalPrice function to the change event of the discount and regular price input fields
+                    document.querySelector('input[name="discount"]').addEventListener('change', updatePromotionalPrice);
+                    document.querySelector('input[name="regularPrice"]').addEventListener('change', updatePromotionalPrice);
+                });
+            </script>
         </main>
-        <script src="/node_modules/cropperjs/dist/cropper.min.js"></script>
+       
         <script src="/js/vendors/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js" integrity="sha512-9KkIqdfN7ipEW6B6k+Aq20PV31bjODg4AA52W+tYtAE0jE0kMx49bjJ3FgvS56wzmyfMUHbQ4Km2b7l9+Y/+Eg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="/js/vendors/bootstrap.bundle.min.js"></script>
         <script src="/js/vendors/select2.min.js"></script>
         <script src="/js/vendors/perfect-scrollbar.js"></script>
         <script src="/js/vendors/jquery.fullscreen.min.js"></script>
         <script src="/js/preview.js"></script>
+        <!-- <script src="/js/imageCrop.js"></script> -->
         
         <!-- Main Script -->
         <script src="/js/main.js?v=1.1" type="text/javascript"></script>

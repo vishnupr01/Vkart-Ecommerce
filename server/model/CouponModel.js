@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 var Couponchema = new mongoose.Schema({
   Code:{
     type:String,
-    required:true 
+    required:true,
   },
  
   Discount:{
@@ -13,7 +13,7 @@ var Couponchema = new mongoose.Schema({
   },
   Maxuse: {
     type:Number,
-    required: true
+    required: true 
   },
   MaxPrice:{
     type:Number,

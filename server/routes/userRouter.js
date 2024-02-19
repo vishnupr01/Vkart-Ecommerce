@@ -5,9 +5,11 @@ const userHelper=require("../helperFunction/userHelper")
 
 const Usercontroller=require("../controller/userController")
 const Adminauthentication=require('../Middlewares/middleware')
+const WalletController=require('../controller/WalletController')
 
 const productController=require("../controller/productController")
 const order = require("../model/OrderModel")
+const products=require("../model/productModel")
 route.get('/', UserRender.home)
 route.get('/register',Adminauthentication.NotUser, UserRender.register)
 route.post('/api/registerUser',Usercontroller.createUser)
@@ -16,8 +18,8 @@ route.post('/api/verifyotp',Usercontroller.verifyOTP)
 route.post('/api/login',Adminauthentication.NotUser,Usercontroller.loginAuth)
 route.get('/api/Block',Usercontroller.Blocked)
 route.get('/api/unBlock',Usercontroller.UnBlocked)
-route.get('/laptop', productController.laptopPage)
-route.get('/laptops', productController.laptopPages)
+route.get('/laptop',Adminauthentication.paginationResults2(products), productController.laptopPage)
+
 
 route.get('/loadAccount',Adminauthentication.notBlocked,Usercontroller.loadAccount)
 route.get('/logout',Usercontroller.logOut)
@@ -52,6 +54,11 @@ route.get('/api/UserSingleOrderDetail',Usercontroller.UserSingleOrderDetail)
 route.get('/searchProduct',Adminauthentication.notBlocked,Adminauthentication.isUser,UserRender.searchProduct)
 route.get('/api/getSearch',Usercontroller.getSearch)
 route.post('/api/paymentVerification',Usercontroller.paymentVerification)
+route.get('/wallet',UserRender.wallet)
+route.get('/invoice',Usercontroller.invoice)
+route.get('/retryPayment',Usercontroller.retryPayment)
+route.get('/AddWallet',WalletController.AddWallet)
+route.post('/api/paymentVerificationWallet',WalletController.paymentVerificationWallet)
 
 
 

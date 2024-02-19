@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Payment Failed</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        .payment-failed-container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .retry-btn {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .retry-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="payment-failed-container">
+        <h2 class="text-danger">Payment Failed</h2>
+        <p>We regret to inform you that your recent payment attempt has failed for the following transaction:</p>
+
+        <dl class="row">
+            <dt class="col-sm-4">Transaction ID:</dt>
+            <dd class="col-sm-8">[Transaction ID]</dd>
+
+            <dt class="col-sm-4">Amount:</dt>
+            <dd class="col-sm-8">[Amount]</dd>
+
+            <dt class="col-sm-4">Date and Time:</dt>
+            <dd class="col-sm-8">[Date and Time]</dd>
+        </dl>
+
+        <p><strong>Reason for Failure:</strong> [Provide a brief description of the reason for the payment failure.]</p>
+
+        <div class="text-center">
+            <p>To ensure uninterrupted access to our services, please retry the payment:</p>
+            <a href="#" class="btn btn-primary retry-btn">Retry Payment</a>
+        </div>
+
+        <p>If you encounter any difficulties or have questions, please contact our customer support at <a href="mailto:support@example.com">support@example.com</a>.</p>
+
+        <p>We appreciate your prompt attention to this matter and apologize for any inconvenience caused. Thank you for your continued support.</p>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

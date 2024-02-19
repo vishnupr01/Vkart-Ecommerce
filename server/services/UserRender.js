@@ -259,7 +259,7 @@ exports.checkOut = async (req, res) => {
 
     const response1 = await axios.get(`http://localhost:${process.env.PORT}/api/checkFind?checkId=${checkID}`);
     const carts = response1.data;
-    console.log("new",carts);
+    console.log("new",carts[0].product_info.Images[0]);
 
     const sum = carts.reduce((accumulator, currentItem) => {
       const promotionalPrice =  currentItem.product_info.promotionalPrice;
@@ -278,9 +278,12 @@ exports.checkOut = async (req, res) => {
     const response2 = await axios.get(`http://localhost:${process.env.PORT}/api/addressFind?Aid=${checkID}`);
     const Address = response2.data;
     console.log("Second request data:", Address);
+    if(sum>5000){
+      req.session.cash="cashondelivery is not available"
+    }
 
     res.render('checkOut', { carts: carts, Address: Address, Total: sum, totalProducts: totalProducts,couponValue:req.session.couponValue,
-      couponError:req.session.couponError,codeError:req.session.codeError,couponExpired:req.session.couponExpire }, (err, html) => {
+      couponError:req.session.couponError,codeError:req.session.codeError,couponExpired:req.session.couponExpire,errorCash: req.session.cash,insufficent:req.session.insufficent }, (err, html) => {
       if (err) {
         console.log(err);
         return res.status(500).send(err);
@@ -289,6 +292,9 @@ exports.checkOut = async (req, res) => {
       delete req.session.codeError
       delete req.session.couponApplied
       delete req.session.couponExpire 
+      delete req.session.cash
+      delete req.session.insufficent
+     
 
       res.status(200).send(html);
     });
@@ -299,26 +305,42 @@ exports.checkOut = async (req, res) => {
 
 };
 exports.placed = (req, res) => {
-  res.render('OrderPlaced')
+  res.render('OrderPlaced', (err, html) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    delete req.session.couponAmount
+    
+   
+
+    res.status(200).send(html);})
 }
 exports.userOrder = async (req, res) => {
   try {
     const paginatedResults = req.paginatedResults;
     const page=req.page
-    console.log("page no:",page);
     const userId = req.session.UserID
-    console.log("there is", userId);
     const orders = await axios.get(`http://localhost:${process.env.PORT}/api/Orders?oid=${userId}`)
     const orderList = orders.data;
-    
- 
-    
+    console.log("my order",paginatedResults[0]._id);
     const totalOrders=await userHelper.totalOrders(req,res,"order")
     
     
      if(paginatedResults.length >0){
       
-      res.render('UserOrder', { orderList: paginatedResults ,totalOrders:totalOrders,page:page })
+      res.render('UserOrder', { orderList: paginatedResults ,totalOrders:totalOrders,page:page,notCancel: req.session.notCancel },(err,html)=>{
+        if(err){
+          console.log(err);
+        return res.status(500).send(err);
+
+        }
+        delete req.session.notCancel
+     
+     
+
+      res.status(200).send(html);
+      })
      }else{
       res.render('UserOrder', { orderList:orderList,totalOrders:totalOrders,page:page  })
      }
@@ -341,8 +363,9 @@ exports.UserItemDetails=async(req,res)=>{
   const response = await axios.get(`http://localhost:${process.env.PORT}/api/UserSingleOrderDetail?orderId=${orderId}&productId=${productId}`);
   const details=response.data
   console.log(details);
-  console.log(details[0].productInfo);
-  res.render("UserSingleOrder",{details:details})
+  const mainId=details[0]._id
+  console.log(details[0]._id);
+  res.render("UserSingleOrder",{details:details,MainId:mainId})
 }
 exports.searchProduct=async(req,res)=>{
   const data=req.query.searchQuery
@@ -351,6 +374,38 @@ exports.searchProduct=async(req,res)=>{
   
   res.render("LaptopCopy", { laptops: productGot})
   
+}
+exports.wallet=async(req,res)=>{
+
+  try {
+    const userID=req.session.UserID
+    const existingWallet=await userHelper.walletExisting(userID)
+    console.log(existingWallet);
+   
+    if(existingWallet){
+      const balance=existingWallet.balance
+      const transactionArray=existingWallet.transactions
+      res.render("Wallet",{balance,transactionArray})
+
+    }else{
+      const userID=req.session.UserID
+     const wallet= await userHelper.newWallet(userID)
+     console.log(wallet);
+     const balance=wallet.balance
+    const transactionArray=wallet.transactions
+      res.render("Wallet",{balance,transactionArray})
+    }
+
+
+    
+   
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
+
+ 
 }
 
  

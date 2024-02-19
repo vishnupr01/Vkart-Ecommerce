@@ -143,10 +143,13 @@
                     <%if(productS.quantity===0 ){ %>
                         <h5 style="color: red;"> out of stock </h5>
                     <% }else{ %>
-                        <h5 style="color: red;"> only <%= productS.quantity %> left </h5>
+                            <% if(productS.quantity<=5){ %>
+                    <h5 style="color: red;"> only <%= productS.quantity %> left </h5>
+                            <% } %>
+                    
                         <% } %>
-                  
-                <h1> ₹ <%= productS.promotionalPrice %></h1>
+                  <h2 style="color: green; font-size: medium; font-weight: 500;"> <%= productS.discount %> % off applied</h2>
+                <h1 style="font-weight: 600;"> ₹ <%= productS.promotionalPrice %>  <span style="text-decoration: line-through; font-size: medium; color: #6f6d6c;"> ₹ <%= productS.regularPrice %></span>  </h1>
                 <div class="form-group">
                     <label for="quantity">Quantity:</label>
                     <input type="number" class="form-control" id="quantity" value="1">

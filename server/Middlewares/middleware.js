@@ -114,7 +114,7 @@ const Adminauthentication = {
       }
       
        ]);
-    console.log("shocked",data);
+   
     if(endIndex<data.length){
     results.next ={
     page:page+1,
@@ -140,7 +140,80 @@ const Adminauthentication = {
     next()
     }
     
-    }
+    },
+    paginationResults2:(model)=>{
+      return async(req,res,next)=>{
+        const page = req.query.page || 1; // Default to page 1 if not provided
+        const limit = req.query.limit ||8; // Default to limit 5 if not provided
+      const category= req.query.category
+      const minPrice=req.query.minPrice
+      const maxPrice=req.query.maxPrice
+      console.log(req.query);
+      
+      const startIndex=(page-1)*limit
+      const endIndex =page*limit
+      
+      console.log("hey cater",category);
+      const results={}
+      if(minPrice&&maxPrice){
+        const data = await model.find({ verified: true,category:category,   promotionalPrice: { $gte: minPrice, $lte: maxPrice } })
+    
+      if(endIndex<data.length){
+      results.next ={
+      page:page+1,
+      limit:limit
+      }
+      }
+      
+      if(startIndex>0){
+      results.previous ={
+      page:page-1,
+      limit:limit
+      
+      }
+      }
+     
+      
+     
+       results.result=data.slice(startIndex,endIndex)
+     
+      req.paginatedResults=results.result
+      req.page=page
+      
+      next()
+
+      }else{
+        const data = await model.find({verified: true,category:category });
+    
+      if(endIndex<data.length){
+      results.next ={
+      page:page+1,
+      limit:limit
+      }
+      }
+      
+      if(startIndex>0){
+      results.previous ={
+      page:page-1,
+      limit:limit
+      
+      }
+      }
+     
+      
+     
+       results.result=data.slice(startIndex,endIndex)
+     
+      req.paginatedResults=results.result
+      req.page=page
+      
+      next()
+      }
+    
+      
+      }
+      
+      }
 
   
 

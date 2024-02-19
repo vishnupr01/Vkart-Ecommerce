@@ -1,7 +1,10 @@
 const Razorpay = require('razorpay')
 const order = require('../model/OrderModel')
 const { default: mongoose } = require('mongoose');
-const { ObjectId } = require('mongoose')
+const { ObjectId } = require('mongoose');
+const wallet=require('../model/WalletModel')
+
+const product=require("../model/productModel")
 
 const { RAZORPAY_ID_KEY, RAZORPAY_SECRET_KEY } = process.env
 var razorpayInstance = new Razorpay({
@@ -10,6 +13,7 @@ var razorpayInstance = new Razorpay({
 })
 
 module.exports = {
+  
   generateRazorpay: async (orderId,totalAmount) => {
     const amount=Math.round(totalAmount*100)
     return await razorpayInstance.orders.create({
@@ -32,7 +36,34 @@ module.exports = {
         }
 
       }])
+      return totalOrders.length 
+    }
+  },
+  totalOrders1:async(req,res,management)=>{
+    if(management==="Product"){
+    const totalOrders=  await product.find()
       return totalOrders.length
+    }
+  },
+  walletExisting:async(userID)=>{
+    const result=await wallet.findOne({userId:userID})
+    return result
+  },
+  newWallet:async(userID)=>{
+    try {
+    const transactionArray = []
+    const newTranscation = new wallet({
+      userId: userID,
+      balance: 0,// replace with actual paymentMethod if available in Cart model
+      transactions:transactionArray
+      
+    });
+   await newTranscation.save()
+   return newTranscation;
+      
+    } catch (error) {
+      console.log(error);
+      
     }
   }
     

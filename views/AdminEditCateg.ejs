@@ -211,9 +211,19 @@
                         <div class="row">
                             <div class="col-md-3">
 
-                                <form action="updatecategory?id=<%= id%>" method="post">
+                                <form action="updatecategory?id=<%= id%>&categoryName= <%=cateName%>" method="post">
 
                                     <div class="mb-4">
+                                        <% if(upCategory){ %>
+                                            <p class="errorClass">
+                                                <%= upCategory%>
+                                            </p>
+                                            <% } %>
+                                            <% if(errCategory){ %>
+                                                <p class="errorClass">
+                                                    <%= errCategory%>
+                                                </p>
+                                                <% } %>
                                         <label for="product_name" class="form-label" >Name</label>
                                         <input type="text" value="<%=cateName %>" placeholder="Type here" class="form-control" name="categoryName" id="product_name" />
                                     </div>

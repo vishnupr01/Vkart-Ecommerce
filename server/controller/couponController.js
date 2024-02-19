@@ -8,22 +8,27 @@ exports.createCoupon = async (req, res) => {
 
 
   const { code, Discount, maxprice, maxuse, expiryDate } = req.body
-  if (!code) {
+  const result=await coupons.findOne({  Code:code})
+  console.log("vishnu",result);
+  if(result){
+    req.session.result = "coupon already exist"
+  }
+  if (!code.trim()) {
     req.session.code = "the Fileld is required"
   }
-  if (!req.body.Discount) {
+  if (!req.body.Discount.trim()) {
     req.session.Discount = "the Fileld is required"
   }
-  if (!req.body.maxprice) {
+  if (!req.body.maxprice.trim()) {
     req.session.maxprice = "the Fileld is required"
   }
-  if (!req.body.maxuse) {
+  if (!req.body.maxuse.trim()) {
     req.session.maxuse = "the Fileld is required"
   }
-  if (!req.body.expiryDate) {
+  if (!req.body.expiryDate.trim()) {
     req.session.expiryDate = "the Fileld is required"
   }
-  if (req.sessionexpiryDate || req.session.maxuse || req.session.maxprice || req.session.Discount || req.session.code) {
+  if (req.sessionexpiryDate || req.session.maxuse || req.session.maxprice || req.session.Discount || req.session.code|| req.session.result ) {
     return res.status(401).redirect('/addCoupon')
   }
 
@@ -58,19 +63,23 @@ exports.editCoupon = async (req, res) => {
     const couponId = req.query.eid.trim()
     console.log(couponId);
     const { code, Discount, maxprice, maxuse, expiryDate } = req.body;
-    if (!code) {
+    const result=await coupons.findOne({Code:code})
+    if(result){
+      req.session.result = "coupon already exist"
+    }
+    if (!code.trim()) {
       req.session.ecode = "the Fileld is required"
     }
-    if (!Discount) {
+    if (!Discount.trim()) {
       req.session.eDiscount = "the Fileld is required"
     }
-    if (!maxprice) {
+    if (!maxprice.trim()) {
       req.session.emaxprice = "the Fileld is required"
     }
-    if (!maxuse) {
+    if (!maxuse.trim()) {
       req.session.emaxuse = "the Fileld is required"
     }
-    if (!expiryDate) {
+    if (!expiryDate.trim()) {
       req.session.eexpiryDate = "the Fileld is required"
     }
     if (req.session.eexpiryDate || req.session.emaxuse || req.session.emaxprice || req.session.eDiscount || req.session.ecode) {
@@ -108,7 +117,7 @@ exports.editCoupon = async (req, res) => {
 };
 exports.couponApply = async (req, res) => {
   try {
-    const couponCode = req.query.couponCode
+    const couponCode = req.query.couponCode.trim()
     const total = req.query.total
     console.log("hey", couponCode);
     console.log("he", total);
@@ -152,6 +161,7 @@ exports.couponApply = async (req, res) => {
           const discountAmount = amounts * (result[0].Discount / 100);
           const AfterApply = amounts - discountAmount;
           console.log(discountAmount);
+          req.session.couponAmount=result[0]._id
           req.session.couponApplied = AfterApply
           req.session.couponValue = "value"
           res.status(200).json({ AfterApply });
@@ -160,7 +170,7 @@ exports.couponApply = async (req, res) => {
           res.status(200).json({ error:"coupon is not applicable for this amount"});
         }
 
-      }
+      } 
 
 
     }

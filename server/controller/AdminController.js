@@ -97,11 +97,20 @@ exports.categoryManage = async (req, res) => {
 
   const categoryName = req.body.categoryName
   try {
+    const exisitingCategory= await Categories.findOne({name:categoryName})
+    console.log(exisitingCategory);
+    if(exisitingCategory){
+      req.session.exisitingCategory="Already exist"
+      res.redirect("/adminCategory")
+      return;
+    } 
     if (!categoryName) {
       req.session.error = "the field is required"
-      return res.redirect("/adminCategory")
+       res.redirect("/adminCategory")
+       return;
 
     }
+   
     const newCategory = new Categories({
       name: categoryName,
       verified: true
@@ -148,7 +157,19 @@ exports.CategoryEdit = async (req, res) => {
     const id = req.query.id
     const doc = await Categories.findOne({ _id: id })
     const valueName = doc.name
-    res.render("AdminEditCateg", { cateName: valueName, id: id })
+    res.render("AdminEditCateg", { cateName: valueName, id: id,upCategory:req.session.upCategory,errCategory:req.session.errors  },(err,html)=>{
+      if(err){
+        console.log(err);
+        return res.status(500).send(err);
+      }
+      delete req.session.upCategory
+      delete req.session.errors
+  
+     
+
+      res.status(200).send(html)
+
+    })
 
 
 
@@ -161,16 +182,29 @@ exports.updateCategory = async (req, res) => {
   try {
     const id = req.query.id;
     const newName = req.body.categoryName;
-
+    const categoryName=req.query.categoryName
+    console.log("here",categoryName);
+    
+    const exisitingCategory= await Categories.findOne({name:newName})
+    console.log("exist",exisitingCategory);
+    if (exisitingCategory) {
+      req.session.upCategory = "Already exist"
+      return res.redirect(`/api/CategoryEdit?id=${id}`);
+    }
     if (!newName) {
-      req.session.error = "The field is required";
-      return res.redirect(`/adminCategory/edit?id=${id}`);
+      req.session.errors = "The field is required";
+      return res.redirect(`/api/CategoryEdit?id=${id}`);
     }
     console.log(id);
-
+   
+  
+    console.log("may i", categoryName);
+    const result = await Product.updateMany({category:categoryName.trim()},{$set:{category:newName}})
+    console.log("got",result);
+ 
     await Categories.updateOne({ _id: id }, { $set: { name: newName } });
 
-    res.redirect("/adminCategory")
+    return res.redirect("/adminCategory")
   } catch (error) {
     req.session.error = "An error occurred";
     res.redirect("/adminCategory");

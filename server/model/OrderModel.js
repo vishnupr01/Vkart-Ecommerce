@@ -79,6 +79,9 @@ required:true
  totalAmount:{
     type:Number
  },
+ couponId:{
+    type:String
+ }
 //  coupenAmount:{
 //     type:Number
 //  }
