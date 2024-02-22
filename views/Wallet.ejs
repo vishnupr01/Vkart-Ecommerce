@@ -179,8 +179,9 @@
                     <!-- Add Money Form -->
                     <form id="addMoneyForm">
                         <div class="form-group">
+                            
                             <label for="amountInput">Amount:</label>
-                            <input type="number" class="form-control" id="amountInput"  placeholder="Enter amount">
+                            <input type="number" min="1" max="200000" class="form-control" id="amountInput"  placeholder="Enter amount">
                         </div>
                         <button type="button" class="btn btn-primary" onclick="addMoney()">Add Money</button>
                     </form>
@@ -202,6 +203,9 @@
                         <div class="wallet-icon"><i class="fas fa-wallet"></i></div>
 
                         <!-- Balance Card -->
+                        <% if(errorWallet){ %>
+                            <p style="color: red;"><%= errorWallet %></p>
+                            <% } %>
                         <div class="card wallet-card mb-4">
                             <div class="card-body">
                                 <h6 class="card-title">Your Wallet Balance</h6>
@@ -264,41 +268,50 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
       function addMoney() {
-    console.log("hey");
-    var amount = document.getElementById("amountInput").value;
-    var serverEndpoint = '/AddWallet'; 
+        console.log("hey");
+        var amount = document.getElementById("amountInput").value;
+        var serverEndpoint = '/AddWallet';
 
-    var urlWithQuery = serverEndpoint + '?amount=' + encodeURIComponent(amount);
+        var urlWithQuery = serverEndpoint + '?amount=' + encodeURIComponent(amount);
 
-    fetch(urlWithQuery, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            // Add any additional headers if needed
-        },
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        // Parse the JSON response
-        return response.json();
-    })
-    .then(data => {
-        // Access the 'orders' property from the parsed JSON data
-        console.log(data.orders);
+        fetch(urlWithQuery, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers if needed
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Parse the JSON response
+            return response.json();
+        })
+        .then(data => {
+            if (data.status) {
+                window.location.href = '/wallet';
+                // razorpayPayment(data.orders);
+                // Handle the server response here if needed
+                console.log("Successfully added money: $" + amount);
+                // Close the modal after adding money
+                $('#addMoneyModal').modal('hide');
+            }else{
+                console.log(data.orders);
         razorpayPayment(data.orders);
 
         // Handle the server response here if needed
         console.log("Successfully added money: $" + amount);
         // Close the modal after adding money
         $('#addMoneyModal').modal('hide');
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-        // Handle errors here if needed
-    });
-}
+
+            }
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            // Handle errors here if needed
+        });
+    }
         function razorpayPayment (order){
       console.log("hey do",order.amount);
       var options = {

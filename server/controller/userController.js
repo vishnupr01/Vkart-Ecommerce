@@ -15,6 +15,7 @@ const crypto = require('crypto')
 const uuidv4 = require('uuid').v4;
 const coupon = require('../model/CouponModel')
 const wallet = require('../model/WalletModel')
+const validator = require('validator');
 const { RAZORPAY_ID_KEY, RAZORPAY_SECRET_KEY } = process.env
 
 const userHelper = require('../helperFunction/userHelper');
@@ -64,6 +65,11 @@ exports.createUser = async (req, res) => {
       return res.redirect('/register')
 
     }
+    if ( !validator.isLength(req.body.editPassword, { min: 8 }) ||
+    !validator.matches(req.body.editPassword, /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)) {
+      req.session.strongPass="password criteria doesn't match"
+      return res.redirect('/register')
+    }
 
 
     console.log('here');
@@ -74,7 +80,7 @@ exports.createUser = async (req, res) => {
     const firstPassword = req.body.password
     try {
       if (firstPassword !== rePassword) {
-        res.redirect('/register?status=false');
+      return  res.redirect('/register?status=false');
 
       }
 
@@ -85,7 +91,8 @@ exports.createUser = async (req, res) => {
 
 
     if (existingUser) {
-      res.status(400).render('email_error.ejs');
+      req.session.Exis="Email is already used"
+      return res.redirect('/register')
     } else {
       try {
         const hashPassword = await bcrypt.hash(req.body.password, saltrounds);
@@ -433,7 +440,12 @@ exports.passwordChanges = async (req, res) => {
     if (!newPassword) {
       req.session.new = "the Fileld is required"
     }
-    if (req.session.new || req.session.confirm || req.session.old) {
+    if (!validator.isLength(req.body.editPassword, { min: 8 }) ||
+      !validator.matches(req.body.editPassword, /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)) {
+      req.session.strongPass="password criteria doesn't match"
+      return res.redirect('/changePassword')
+    }
+    if (req.session.new || req.session.confirm || req.session.old||req.session.strongPass) {
       return res.status(401).redirect('/changePassword')
     }
 

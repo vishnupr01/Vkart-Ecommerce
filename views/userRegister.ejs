@@ -140,6 +140,11 @@
                                             <%= errorEmail%>
                                         </p>
                                         <% } %>
+                                        <% if(exis){ %>
+                                            <p class="errorClass">
+                                                <%= exis%>
+                                            </p>
+                                            <% } %>
                                 <div id="validation-message"></div>
                                         <input class="form-control" placeholder="email" type="text" id="email" name="email" oninput="validateEmailInput()"   />
                             </div>
@@ -154,6 +159,12 @@
                                         <%= errorMessage%>
                                     </p>
                                     <% } %>
+                                    <% if( STRONGpASS){ %>
+                                        <p class="errorClass">
+                                            <%= STRONGpASS%>
+                                        </p>
+                                        <% } %>
+                                       
                               <input class="form-control" placeholder="Password" type="password" name="password"  required/>
                           </div>
                           <div class="mb-3">

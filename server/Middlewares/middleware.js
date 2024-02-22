@@ -156,7 +156,7 @@ const Adminauthentication = {
       console.log("hey cater",category);
       const results={}
       if(minPrice&&maxPrice){
-        const data = await model.find({ verified: true,category:category,   promotionalPrice: { $gte: minPrice, $lte: maxPrice } })
+        const data = await model.find({ verified: true,category:req.query.catName,   promotionalPrice: { $gte: minPrice, $lte: maxPrice } })
     
       if(endIndex<data.length){
       results.next ={

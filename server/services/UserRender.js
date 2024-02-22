@@ -11,7 +11,9 @@ exports.register = (req, res) => {
     status: status, Username: req.session.userName, errorMessage: req.session.password,
     errorEmail: req.session.gmail,
     WrongPass: req.session.wrongpass,
-    InvalidiateEmail: req.session.invalidEmail
+    InvalidiateEmail: req.session.invalidEmail,
+    STRONGpASS:req.session.strongPass,
+    exis:req.session.Exis
 
   }, (error, html) => {
     req.session.destroy(error => {
@@ -116,7 +118,7 @@ exports.renderPass = (req, res) => {
   const editEmail = req.session.checkEmail
   res.render('changePass', {
     email: editEmail, notOld: req.session.old, notNew: req.session.new, notCon: req.session.confirm,
-    notEq: req.session.notEq
+    notEq: req.session.notEq,StrongPass:req.session.strongPass
   }, (err, html) => {
     if (err) {
       return res.status(500).send(err);
@@ -126,6 +128,7 @@ exports.renderPass = (req, res) => {
     delete req.session.newName
     delete req.session.confirm
     delete req.session.new
+    delete req.session.strongPass
 
     res.status(200).send(html);
   })
@@ -385,7 +388,14 @@ exports.wallet=async(req,res)=>{
     if(existingWallet){
       const balance=existingWallet.balance
       const transactionArray=existingWallet.transactions
-      res.render("Wallet",{balance,transactionArray})
+      res.render("Wallet",{balance,transactionArray,errorWallet:req.session.Amount},(err,html)=>{
+        if(err){
+          console.log(err);
+        }
+        delete req.session.Amount
+
+        res.status(200).send(html);
+      })
 
     }else{
       const userID=req.session.UserID
@@ -393,7 +403,14 @@ exports.wallet=async(req,res)=>{
      console.log(wallet);
      const balance=wallet.balance
     const transactionArray=wallet.transactions
-      res.render("Wallet",{balance,transactionArray})
+      res.render("Wallet",{balance,transactionArray,errorWallet:req.session.Amount},(err,html)=>{
+        if(err){
+          console.log(err);
+        }
+        delete req.session.Amount
+
+        res.status(200).send(html);
+      })
     }
 
 

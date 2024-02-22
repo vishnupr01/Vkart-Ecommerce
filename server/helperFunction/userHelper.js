@@ -39,9 +39,9 @@ module.exports = {
       return totalOrders.length 
     }
   },
-  totalOrders1:async(req,res,management)=>{
+  totalOrders1:async(req,res,management,category)=>{
     if(management==="Product"){
-    const totalOrders=  await product.find()
+    const totalOrders=  await product.find({category:category})
       return totalOrders.length
     }
   },

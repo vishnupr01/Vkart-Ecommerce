@@ -46,6 +46,7 @@
         <!-- Template CSS -->
         <link href="/css/main.css?v=1.1" rel="stylesheet" type="text/css" />
         <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <link href="css/responsiveness.css" rel="stylesheet" type="text/css" />
     </head>
 
     <body>
@@ -56,7 +57,7 @@
             <header class="main-header style-2 navbar bgs">
                 <div class="header_section">
                     <div class="container">
-                        <div class="containt_main">
+                        <div class="containt_main vkartFlex">
                             <div id="mySidenav" class="sidenav">
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                                 <a href="index.html">Home</a>
@@ -72,7 +73,10 @@
     
     
                             </div>
-    
+                            <a class="Vkart2" href="/"><div class="Special ">
+                                <span  class="name">Vkart</span>
+            
+                            </div></a>
     
                             <div class="dropdown drop">
                                 <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton"
@@ -84,11 +88,13 @@
                                     <a class="dropdown-item" href="#">Something else here</a>
                                 </div>
                             </div>
-                            <div class="main">
+                            
                                 <!-- Another variation with a button -->
                                 <form action="/searchProduct" method="GET">
                                     <div class="input-group">
+                                        <div style="display: flex;">
                                         <input type="text" class="form-control txt" name= "searchQuery"  placeholder="Search this blog">
+                                    </div>
                                         <div class="input-group-append">
                                             <button class="btn btn-secondary myBtn" type="submit" style="background-color: #f26522; border-color:#f26522 ">
                                                 <i class="fa fa-search"></i>
@@ -96,9 +102,9 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div>
+                           
                             
-                            <div class="header_box">
+                            <div class="header_box newClass">
     
                                 <div class="login_menu">
                                     <ul>
@@ -110,14 +116,7 @@
                                                 <i class="fa fa-user" aria-hidden="true"></i>
                                                 <span class="padding_10">Cart</span></a>
                                         </li>
-                                        <li><a href="#">
-                                                <i class="fa fa-user" aria-hidden="true"></i>
-                                                <span class="padding_10">Cart</span></a>
-                                        </li>
-                                        <li><a href="#">
-                                                <i class="fa fa-user" aria-hidden="true"></i>
-                                                <span class="padding_10">Cart</span></a>
-                                        </li>
+                                       
     
                                     </ul>
     
@@ -125,8 +124,8 @@
                                 </div>
     
                             </div>
-                            <a href="/"><div class="Special ">
-                                <span class="name">Vkart</span>
+                            <a class="makeInvisible" href="/"><div class="Special ">
+                                <span  class="name">Vkart</span>
             
                             </div></a>
                         </div>
@@ -146,7 +145,7 @@
 
                     <!-- Wrap the filter form in a container div with an ID for easier toggling -->
                     <div id="filterFormContainer" style="display: none;">
-                        <form action="/laptops " id="priceFilterForm" method="get">
+                        <form  id="priceFilterForm" method="get">
                             <div class="form-group">
                                 <label for="minPrice">Min Price:</label>
                                 <input type="number" class="form-control" id="minPrice" name="minPrice" placeholder="Enter Min Price">
@@ -156,7 +155,7 @@
                                 <input type="number" class="form-control" id="maxPrice" name="maxPrice" placeholder="Enter Max Price">
                             </div>
                             <input style="display: none;" type="hidden" id="categoryInput" name="catName" value="<%= category %>">
-                            <button  style="background-color: black;" type="submit" class="btn btn-primary" onclick="applyFilterAndClose()">Apply Filter</button>
+                            <button  style="background-color: black;" type="submit" class="btn btn-primary" onclick="applyFilterAndClose(category)">Apply Filter</button>
                         </form>
                     </div>
   
@@ -207,7 +206,7 @@
                             <% var ordersLength=Math.ceil(totalOrders / 8) %>
                      <% for(var i=0;i<ordersLength;i++){ %>
                       
-                        <li class="page-items " ><a class="page-link <% if (page === 1) { %> activess  <% } %>"  href="/laptop?page=<%= i+1 %>&limit=<%= 8 %>"><%= i+1  %></a></li>
+                        <li class="page-items " ><a class="page-link <% if (page === 1) { %> activess  <% } %>"  href="/laptop?page=<%= i+1 %>&limit=<%= 8 %>&category=<%= cate %>"><%= i+1  %></a></li>
                            
                               <% } %>
                             <li class="page-item" id="nextPage">
@@ -238,15 +237,15 @@
 
 
     // JavaScript function to apply the filter and close the toggle
-    function applyFilterAndClose() {
+    function applyFilterAndClose(category) {
         // Add your filter logic here
         var form = document.getElementById("priceFilterForm");
         var minPrice = document.getElementById("minPrice").value;
         var maxPrice = document.getElementById("maxPrice").value;
-        document.getElementById("categoryInput").value = "<%= category %>";
+       
 
         // Construct the query string
-        var queryString = "?catName=" + encodeURIComponent(document.getElementById("categoryInput").value) +
+        var queryString = "?catName=" + encodeURIComponent(category) +
                   "&minPrice=" + encodeURIComponent(minPrice) +
                   "&maxPrice=" + encodeURIComponent(maxPrice) +
                   "&page=" + parseInt(encodeURIComponent("1") )  +   // Convert page value to string
@@ -299,6 +298,15 @@
     <!-- sidebar -->
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/custom.js"></script>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
 
  
     </body>

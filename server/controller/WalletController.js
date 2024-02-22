@@ -11,7 +11,12 @@ exports.AddWallet = async (req, res) => {
     const UserId = req.session.UserID
     const UserWallet = await wallet.findOne({ userId: UserId })
    
+   if(Amount<=0||Amount>=200000){
+    req.session.Amount ="Amount  is not valid"
+   const status="failed"
+    return res.status(200).json({status});
 
+   }
     const orders = await userHelper.generateRazorpay(UserWallet._id, parseInt(Amount));
     console.log("vishnu",orders);
      return res.status(200).json({orders});

@@ -1,0 +1,20 @@
+/* Styles for screens with a maximum width of 768 pixels or less */
+@media (max-width: 380px) {
+  /* Your styles go here */
+  .newClass{
+    display: none;
+  }
+  .containt_main{
+    display: block;
+  }
+  .makeInvisible{
+    display: none;
+  }
+  .vkartFlex{
+    display: flex;
+  }
+  .Vkart2{
+    margin-left: 150px;
+  }
+
+}

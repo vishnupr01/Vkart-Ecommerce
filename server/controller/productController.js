@@ -151,11 +151,21 @@ exports.laptopPage = async (req, res) => {
   const page=req.page
  
   const paginatedResults = req.paginatedResults;
+  console.log("show",paginatedResults);    
 
-  const totalOrders=await userHelper.totalOrders1(req,res,"Product")
+  const totalOrders=await userHelper.totalOrders1(req,res,"Product",paginatedResults[0].category)
   console.log(totalOrders);
-      
-   res.render('Laptop', {  laptops: paginatedResults ,category: category,totalOrders:totalOrders,page:page})
+ 
+  if(paginatedResults.length>0){
+    const cate=paginatedResults[0].category
+    res.render('Laptop', {  laptops: paginatedResults,cate:cate,  category: category,totalOrders:totalOrders,page:page})
+ 
+  }else{ 
+    const cate=null
+    res.render('Laptop', {  laptops: paginatedResults,cate:cate,  category: category,totalOrders:totalOrders,page:page})
+  }
+
+
 
   
  
