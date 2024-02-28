@@ -76,7 +76,7 @@ exports.newProduct = async (req, res) => {
     const validateRegularPrice = (OrginalPrice) => {
       // Regular expression for a basic number validation with optional decimal point
       const tester = /^(\d+|\d+\.\d+)$/;
-      return tester.test(OrginalPrice);
+      return tester.test(OrginalPrice); 
     };
     const validatequantity = (qty) => {
       // Regular expression for a basic email validation
@@ -136,9 +136,9 @@ exports.newProduct = async (req, res) => {
 }
 exports.listedProducts = async (req, res) => {
   Product.find({ verified: true })
-    .then(product => {
+    .then(product => {  
       res.send(product)
-    })
+    }) 
     .catch(err => {
       res.status(500).send({ message: err.message })
     })
@@ -149,15 +149,16 @@ exports.listedProducts = async (req, res) => {
 exports.laptopPage = async (req, res) => {
   const category = req.query.category
   const page=req.page
- 
+  
   const paginatedResults = req.paginatedResults;
-  console.log("show",paginatedResults);    
-
+   
+ 
   const totalOrders=await userHelper.totalOrders1(req,res,"Product",paginatedResults[0].category)
-  console.log(totalOrders);
+  console.log(totalOrders); 
  
   if(paginatedResults.length>0){
     const cate=paginatedResults[0].category
+    console.log(cate);
     res.render('Laptop', {  laptops: paginatedResults,cate:cate,  category: category,totalOrders:totalOrders,page:page})
  
   }else{ 

@@ -52,18 +52,22 @@ exports.otp = (req, res) => {
   delete req.session.expired;
 
 }
-exports.home = (req, res) => {
-  axios.get(`http://localhost:${process.env.PORT}/api/categoryFind`)
-    .then(response => {
-      const category = response.data
-      const loggedUser = req.session.homeName
+exports.home =async(req, res) => {
+ const response= await axios.get(`http://localhost:${process.env.PORT}/api/categoryFind`)
+ const category = response.data
+ const loggedUser = req.session.homeName
+console.log(category);
+ const laptops=await userHelper.findLapotops(category[0].name)
+ const keyboards=await userHelper.findLapotops(category[1].name)
+ const Monitors=await userHelper.findLapotops(category[3].name)
 
+ 
+     
 
+      
 
-      console.log(loggedUser);
-
-      res.render("home", { category: category, homeName: loggedUser })
-    })
+ res.render("home", { category: category, homeName: loggedUser,Laptops:laptops,keyboards:keyboards,Monitors:Monitors })
+  
 
 }
 exports.laptopPage = (req, res) => {
@@ -73,9 +77,9 @@ exports.laptopPage = (req, res) => {
     .then(response => {
       const laptops = response.data
       console.log("product", categoryName);
-      res.render("Laptop", { laptops: laptops, })
+      res.render("Laptop", { laptops: laptops,category:laptops[0].category })
     })
-
+ 
 }
 exports.edit = (req, res) => {
   const editEmail = req.session.checkEmail

@@ -225,39 +225,21 @@
                      <h1 class="fashion_taital">LAPTOPS</h1>
                      <div class="fashion_section_2">
                         <div class="row">
+                           <% for(i=0;i<=2;i++){ %>
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
-                                 <h4 class="shirt_text">Lenovo Intel Core i7</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                 <div class="tshirt_img"><img src="images/homelaptop1.webp"></div>
+                                 <h4 class="shirt_text"><%= Laptops[i].title %></h4>
+                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= Laptops[i].promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= Laptops[i].regularPrice %></span>  </span></p>
+                                 <div class="tshirt_img"><img src="<%= Laptops[i].Images[0] %>"></div>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
+                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  Laptops[i]._id %>">Buy Now</a></div>
+                                    <div class="seemore_bt"><a href="/laptop?category=Laptops&page=<%= 1 %>&limit=<%= 8 %>">See More</a></div>
                                  </div>
                               </div>
                            </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">MSI Katana 17</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                 <div class="tshirt_img"><img src="/images/homelaptop2.webp"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">HP Intel Intel Core </h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                 <div class="tshirt_img"><img src="/images/laptop15.webp"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
+                           <% } %>
+                         
+                           
                         </div>
                      </div>
                   </div>
@@ -267,39 +249,21 @@
                      <h1 class="fashion_taital">Laptops</h1>
                      <div class="fashion_section_2">
                         <div class="row">
+                           <% for(i=3;i<=5;i++){ %>
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
-                                 <h4 class="shirt_text">Lenovo Intel Core i7</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                 <div class="tshirt_img"><img src="/images/laptop17.webp"></div>
+                                 <h4 class="shirt_text"><%= Laptops[i].title %></h4>
+                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= Laptops[i].promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= Laptops[i].regularPrice %></span>  </span></p>
+                                 <div class="tshirt_img"><img src="<%= Laptops[i].Images[0] %>"></div>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
+                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  Laptops[i]._id %>">Buy Now</a></div>
+                                    <div class="seemore_bt"><a href="/laptop?category=Laptops&page=<%= 1 %>&limit=<%= 8 %>">See More</a></div>
                                  </div>
                               </div>
                            </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">MSI Katana 17</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                 <div class="tshirt_img"><img src="/images/laptop13.webp"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">HP Intel Intel Core </h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                 <div class="tshirt_img"><img src="/images/laptop12.webp"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
+                           <% } %>
+                          
+                          
                         </div>
                      </div>
                   </div>
@@ -309,39 +273,21 @@
                      <h1 class="fashion_taital">Laptops</h1>
                      <div class="fashion_section_2">
                         <div class="row">
+                           <% for(i=6;i<=8;i++){ %>
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
-                                 <h4 class="shirt_text">Asus Rog</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                 <div class="tshirt_img"><img src="/images/laptop 16.webp"></div>
+                                 <h4 class="shirt_text"><%= Laptops[i].title %></h4>
+                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= Laptops[i].promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= Laptops[i].regularPrice %></span>  </span></p>
+                                 <div class="tshirt_img"><img src="<%= Laptops[i].Images[0] %>"></div>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
+                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  Laptops[i]._id %>">Buy Now</a></div>
+                                    <div class="seemore_bt"><a href="/laptop?category=Laptops&page=<%= 1 %>&limit=<%= 8 %>">See More</a></div>
                                  </div>
                               </div>
                            </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Dell</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                 <div class="tshirt_img"><img src="/images/homelaptop1.webp"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">ASUS Vivobook 16X </h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                 <div class="tshirt_img"><img src="/images/homelaptop1.webp"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
+                           <% } %>
+                           
+                           
                         </div>
                      </div>
                   </div>
@@ -362,126 +308,71 @@
             <div class="carousel-inner">
                <div class="carousel-item active">
                   <div class="container">
-                     <h1 class="fashion_taital">Electronic</h1>
+                     <h1 class="fashion_taital">KeyBoards</h1>
                      <div class="fashion_section_2">
                         <div class="row">
+                           <% for(i=0;i<=2;i++){ %>
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
-                                 <h4 class="shirt_text">Laptop</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/laptop-img.png"></div>
+                                 <h4 class="shirt_text"><%= keyboards[i].title %></h4>
+                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= keyboards[i].promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= keyboards[i].regularPrice %></span>  </span></p>
+                                 <div class="electronic_img"><img src="<%= keyboards[i].Images[0] %>"></div>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
+                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  keyboards[i]._id %>">Buy Now</a></div>
+                                    <div class="seemore_bt"><a href="/laptop?category=Keyboard&page=<%= 1 %>&limit=<%= 8 %>">See More</a></div>
                                  </div>
                               </div>
                            </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Mobile</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Computers</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
+                           <% } %>
+                       
+                         
                         </div>
                      </div>
                   </div>
                </div>
                <div class="carousel-item">
                   <div class="container">
-                     <h1 class="fashion_taital">Electronic</h1>
+                     <h1 class="fashion_taital">KeyBoard</h1>
                      <div class="fashion_section_2">
                         <div class="row">
+                           <% for(i=3;i<=5;i++){ %>
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
-                                 <h4 class="shirt_text">Laptop</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/laptop-img.png"></div>
+                                 <h4 class="shirt_text"><%= keyboards[i].title %></h4>
+                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= keyboards[i].promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= keyboards[i].regularPrice %></span>  </span></p>
+                                 <div class="electronic_img"><img src="<%= keyboards[i].Images[0] %>"></div>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
+                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  keyboards[i]._id %>">Buy Now</a></div>
+                                    <div class="seemore_bt"><a href="/laptop?category=Keyboard&page=<%= 1 %>&limit=<%= 8 %>">See More</a></div>
                                  </div>
                               </div>
                            </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Mobile</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Computers</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
+                           <% } %>
+                          
+                      
                         </div>
                      </div>
                   </div>
                </div>
                <div class="carousel-item">
                   <div class="container">
-                     <h1 class="fashion_taital">Electronic</h1>
+                     <h1 class="fashion_taital">KeyBoard</h1>
                      <div class="fashion_section_2">
                         <div class="row">
+                           <% for(i=6;i<=8;i++){ %>
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
-                                 <h4 class="shirt_text">Laptop</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/laptop-img.png"></div>
+                                 <h4 class="shirt_text"><%= keyboards[i].title %></h4>
+                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= keyboards[i].promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= keyboards[i].regularPrice %></span>  </span></p>
+                                 <div class="electronic_img"><img src="<%= keyboards[i].Images[0] %>"></div>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
+                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  keyboards[i]._id %>">Buy Now</a></div>
+                                    <div class="seemore_bt"><a href="/laptop?category=Keyboard&page=<%= 1 %>&limit=<%= 8 %>">See More</a></div>
                                  </div>
                               </div>
                            </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Mobile</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Computers</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
+                           <% } %>
+                       
                         </div>
                      </div>
                   </div>
@@ -505,39 +396,21 @@
                      <h1 class="fashion_taital">Monitors</h1>
                      <div class="fashion_section_2">
                         <div class="row">
+                           <% for(i=0;i<=2;i++){ %>
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
-                                 <h4 class="shirt_text">Jumkas</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="jewellery_img"><img src="/images/monitor8.webp"></div>
+                                 <h4 class="shirt_text"><%= Monitors[i].title %></h4>
+                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= Monitors[i].promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= Monitors[i].regularPrice %></span>  </span></p>
+                                 <div class="jewellery_img"><img src="<%= Monitors[i].Images[0] %>"></div>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
+                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  Monitors[i]._id %>">Buy Now</a></div>
+                                    <div class="seemore_bt"><a href="/laptop?category=monitor&page=<%= 1 %>&limit=<%= 8 %>">See More</a></div>
                                  </div>
                               </div>
                            </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Necklaces</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="jewellery_img"><img src="/images/monitor7.webp"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Kangans</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="jewellery_img"><img src="/images/mon-0071-full-hd-19-2023-mon-0071-frontech-original-imaguzhd4zbdg8gs.webp"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
+                           <% } %>
+                    >
+                       
                         </div>
                      </div>
                   </div>
@@ -547,39 +420,21 @@
                      <h1 class="fashion_taital">Monitors</h1>
                      <div class="fashion_section_2">
                         <div class="row">
+                           <% for(i=3;i<=5;i++){ %>
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
-                                 <h4 class="shirt_text">Jumkas</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="jewellery_img"><img src="/images/zeb-124-full-hd-60-4-2023-zeb-124-zebronics-original-imagt8ahwx5hghsu.webp"></div>
+                                 <h4 class="shirt_text"><%= Monitors[i].title %></h4>
+                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= Monitors[i].promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= Monitors[i].regularPrice %></span>  </span></p>
+                                 <div class="jewellery_img"><img src="<%= Monitors[i].Images[0] %>"></div>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
+                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  Monitors[i]._id %>">Buy Now</a></div>
+                                    <div class="seemore_bt"><a href="/laptop?category=monitor&page=<%= 1 %>&limit=<%= 8 %>">See More</a></div>
                                  </div>
                               </div>
                            </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Necklaces</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="jewellery_img"><img src="images/zeb-ea122-hd-21-2023-zeb-ea122-zebronics-original-imagrxqvwketyhmw.webp"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Kangans</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="jewellery_img"><img src="images/zeb-s24a-165hz-24-60-4cm-1920x1080-pixels-fhd-resolution-monitor-original-imagzzt6tnawmz7n.webp"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
+                           <% } %>
+                         
+                          
                         </div>
                      </div>
                   </div>
@@ -589,39 +444,20 @@
                      <h1 class="fashion_taital">Monitors</h1>
                      <div class="fashion_section_2">
                         <div class="row">
+                           <% for(i=6;i<=8;i++){ %>
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
-                                 <h4 class="shirt_text">Jumkas</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="jewellery_img"><img src="/images/-original-imagsemasfdpekgm.webp"></div>
+                                 <h4 class="shirt_text"><%= Monitors[i].title %></h4>
+                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= Monitors[i].promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= Monitors[i].regularPrice %></span>  </span></p>
+                                 <div class="jewellery_img"><img src="<%= Monitors[i].Images[0] %>"></div>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
+                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  Monitors[i]._id %>">Buy Now</a></div>
+                                    <div class="seemore_bt"><a href="/laptop?category=monitor&page=<%= 1 %>&limit=<%= 8 %>">See More</a></div>
                                  </div>
                               </div>
                            </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Necklaces</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="jewellery_img"><img src="images/-original-imagpu2tmee2jvds.webp"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Kangans</h4>
-                                 <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                 <div class="jewellery_img"><img src="/images/monitor9.webp"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                 </div>
-                              </div>
-                           </div>
+                           <% } %>
+                      
                         </div>
                      </div>
                   </div>
@@ -642,18 +478,18 @@
       <!-- footer section start -->
       <div class="footer_section layout_padding">
          <div class="container">
-            <div class="footer_logo"><a href="index.html"><img src="images/footer-logo.png"></a></div>
+            <div class="footer_logo"><a href="index.html"><img style="height: 100px;" src="images/gf.webp"></a></div>
             <div class="input_bt">
-               <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
+               <input type="text" class="mail_bt" placeholder="Email" name="Your Email">
                <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
             </div>
             <div class="footer_menu">
                <ul>
-                  <li><a href="#">Best Sellers</a></li>
-                  <li><a href="#">Gift Ideas</a></li>
-                  <li><a href="#">New Releases</a></li>
-                  <li><a href="#">Today's Deals</a></li>
-                  <li><a href="#">Customer Service</a></li>
+                  <li><a href="#">Follow us on</a></li>
+                  <li><a href="#">Instagram</a></li>
+                  <li><a href="#">Twitter</a></li>
+                  <li><a href="#">Facebook</a></li>
+                  <li><a href="#">Youtube</a></li>
                </ul>
             </div>
             <div class="location_main">Help Line  Number : <a href="#">+1 1800 1200 1200</a></div>

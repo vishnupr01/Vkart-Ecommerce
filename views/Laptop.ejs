@@ -49,7 +49,7 @@
         <link href="css/responsiveness.css" rel="stylesheet" type="text/css" />
     </head>
 
-    <body>
+    <body>   
         
         <div class="screen-overlay"></div>
        
@@ -68,40 +68,43 @@
                           
                             <div class="hamberger">
     
-                                <span class="toggle_icon" onclick="openNav()"> <img src="images/toggle-icon.png"
-                                        class="Myimg"></span>
+                                <span class="toggle_icon" onclick="openNav()"> <img  src="images/toggle-icon.png"
+                                        class="Myimg imgsize"></span>
     
     
                             </div>
                             <a class="Vkart2" href="/"><div class="Special ">
-                                <span  class="name">Vkart</span>
+                                <span  class="names">Vkart</span>
             
                             </div></a>
     
-                            <div class="dropdown drop">
-                                <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
+                           <div style="display: flex;">
+                            <div class="dropdown category">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                 category
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                  <li><a class="dropdown-item" href="#">Action</a></li>
+                                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                              </div>
+                          
                             
-                                <!-- Another variation with a button -->
+                           
                                 <form action="/searchProduct" method="GET">
                                     <div class="input-group">
-                                        <div style="display: flex;">
+                                        <div class="inDiv" style="display: flex; ">
                                         <input type="text" class="form-control txt" name= "searchQuery"  placeholder="Search this blog">
                                     </div>
-                                        <div class="input-group-append">
-                                            <button class="btn btn-secondary myBtn" type="submit" style="background-color: #f26522; border-color:#f26522 ">
+                                        <div class="input-group-append inputManage">
+                                            <button class="btn btn-secondary myBtn rediusBtn" type="submit" style="background-color: #f26522; border-color:#f26522 ">
                                                 <i class="fa fa-search"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </form>
+                            </diV>
                            
                             
                             <div class="header_box newClass">
@@ -112,7 +115,7 @@
                                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                 <span class="padding_10">Cart</span></a>
                                         </li>
-                                        <li><a href="#">
+                                        <li class="userProf"><a href="#">
                                                 <i class="fa fa-user" aria-hidden="true"></i>
                                                 <span class="padding_10">Cart</span></a>
                                         </li>
@@ -124,7 +127,7 @@
                                 </div>
     
                             </div>
-                            <a class="makeInvisible" href="/"><div class="Special ">
+                            <a class="makeInvisible" href="/"><div class="Specials ">
                                 <span  class="name">Vkart</span>
             
                             </div></a>
@@ -154,8 +157,8 @@
                                 <label for="maxPrice">Max Price:</label>
                                 <input type="number" class="form-control" id="maxPrice" name="maxPrice" placeholder="Enter Max Price">
                             </div>
-                            <input style="display: none;" type="hidden" id="categoryInput" name="catName" value="<%= category %>">
-                            <button  style="background-color: black;" type="submit" class="btn btn-primary" onclick="applyFilterAndClose(category)">Apply Filter</button>
+                            <input style="display: none;" type="hidden" id="categoryInput" name="catName" value="<%= cate %>">
+                            <button  style="background-color: black;" type="submit" class="btn btn-primary" onclick="applyFilterAndClose(cate)">Apply Filter</button>
                         </form>
                     </div>
   
@@ -171,8 +174,8 @@
                           <% for(var i = 0; i < laptops.length; i++) { %>
                             <div class="col">
                                 <div class="card card-user">
-                                    <div class="containerss">
-                                      <img class="custom-img-size"  src="<%= laptops[i].Images[0] %>">
+                                    <div class="containerss" style="align-items: center; height: 150PX;">
+                                      <img class="custom-img-size " style="max-width: 100%; height: auto; display: block; margin: 0 auto; padding-top: 60PX;"  src="<%= laptops[i].Images[0] %>">
                                     </div>
                                     <div class="card-body">
                                         <h5 style="font-size: large; font-weight:bolder ;" class="card-title mt-50"><%= laptops[i].title %></h5>
@@ -218,6 +221,25 @@
                     
                 </div>
             </section>
+            <div class="footer_section layout_padding">
+                <div class="container">
+                   <div class="footer_logo"><a href="index.html"><img style="height: 100px;" src="images/gf.webp"></a></div>
+                   <div class="input_bt">
+                      <input type="text" class="mail_bt" placeholder="Email" name="Your Email">
+                      <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
+                   </div>
+                   <div class="footer_menu">
+                      <ul>
+                         <li><a href="#">Follow us on</a></li>
+                         <li><a href="#">Instagram</a></li>
+                         <li><a href="#">Twitter</a></li>
+                         <li><a href="#">Facebook</a></li>
+                         <li><a href="#">Youtube</a></li>
+                      </ul>
+                   </div>
+                   <div class="location_main">Help Line  Number : <a href="#">+1 1800 1200 1200</a></div>
+                </div>
+             </div>
             <!-- content-main end// -->
             <footer class="main-footer font-xs">
                 <div class="row pb-30 pt-15">
@@ -267,14 +289,10 @@
     filterButton.style.display = "block";
     }
                         </script>
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        &copy; Nest - HTML Ecommerce Template .
+                     
+                        
                     </div>
-                    <div class="col-sm-6">
-                        <div class="text-sm-end">All rights reserved</div>
-                    </div>
+                    
                 </div>
             </footer>
         </main>

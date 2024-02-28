@@ -65,6 +65,16 @@ module.exports = {
       console.log(error);
       
     }
+  },
+  findLapotops:async(model)=>{
+    try {
+      const result=await product.find({category:model})
+      return result
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
   }
     
 

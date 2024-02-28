@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  
+  
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+   
   <title>Checkout</title>
-  <style>
+ 
+</head>
+<style>
+  
     /* Disable hover effect for disabled button */
 
     body {
@@ -87,6 +93,7 @@
       width: 70%;
       max-width: 600px;
     }
+
 
     .close-modal {
       cursor: pointer;
@@ -219,11 +226,7 @@
       /* Increase the max-width for the product detail card */
     }
 
-    .checkout-wrapper {
-
-      width: 600px;
-
-    }
+   
 
     .disabled-button {
       background-color: #ddd;
@@ -289,10 +292,17 @@
       color: #fff;
       font-size: 1.2em;
     }
-  </style>
-</head>
+    @media (max-width: 1600px) and (min-width: 1145px) {
+      .product{
+  width: 600px !important;
+}
+}
+    
+
+</style>
 
 <body>
+ 
   <header>
     <a style="color: rgb(241, 167, 39); width: 1000px;" href="#" class="logo">VKART</a>
 
@@ -319,11 +329,11 @@
         
         <!-- Product 1 -->
         <% for(var i=0; i < carts.length; i++) { %>
-          <div style="width: 700px;" class="product">
-            <img style="height:150px; width: auto;" src="<%= carts[i].product_info.Images[0]%>" alt="Product 1">
+          <div  class="product">
+            <img style=" height: 110px; padding-top: 20px;  " src="<%= carts[i].product_info.Images[0]%>" alt="Product 1">
             <div class="product-details">
-              <div class="product-title">
-                <%= carts[i].product_info.title %>
+              <div class="product-title"><span class="ddd">
+                <%= carts[i].product_info.title %></span>
               </div>
               <div class="product-price"> ₹ <%= carts[i].product_info.promotionalPrice%>
               </div>
@@ -419,7 +429,7 @@
         <h6 id="couponValueDisplay"></h6>
           <label for="couponCode">Enter Coupon Code:</label>
           <input type="text" id="couponCode" class="coupon-input" placeholder="Enter your coupon code">
-          <button class="apply-coupon-button" onclick="applyCoupon()">Apply</button>
+          <button style="margin-top: 10px;" class="apply-coupon-button" onclick="applyCoupon()">Apply</button>
         </div>
       </div>
     </div>

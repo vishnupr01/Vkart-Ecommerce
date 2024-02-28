@@ -1,5 +1,99 @@
 /* Styles for screens with a maximum width of 768 pixels or less */
-@media (max-width: 380px) {
+.Vkart2{
+ width: 50px;
+  padding:0px;
+  
+}
+.inDiv{
+  width: 400px !important;
+}
+.inputManage{
+  padding-right: 150px;
+  width: 0px;
+}
+.newClass{
+  padding-left: 100px;
+}
+.txt{
+  width: 300px;
+}
+.userProf{
+  margin-left: 30px;
+}
+@media (min-width:310) {
+  /* Your styles go here */
+
+  .inDiv{
+    width: 50px !important;
+  }
+  .Special{
+    margin-left: 10px !important;
+  
+    
+  }
+}
+
+@media (min-width: 600px) {
+.makeInvisible{
+  display: none;
+  
+}
+.Vkart2{
+  margin-right: 100px;
+  
+}
+.inDiv{
+  width:200px ;
+}
+}
+.names{
+  color: white !important;
+  font-size: larger;
+}
+
+/* Basic styling */
+
+
+/* Style for the button */
+.dropdown-btns {
+  position: relative;
+  display: inline-block;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style for the dropdown content */
+.dropdown-contents {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Style for the dropdown items */
+.dropdown-contents a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color on hover */
+.dropdown-contents a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown content on hover */
+.dropdown-btns:hover .dropdown-contents {
+  display: block;
+}
+
+@media (max-width: 500px) {
   /* Your styles go here */
   .newClass{
     display: none;
@@ -14,7 +108,185 @@
     display: flex;
   }
   .Vkart2{
-    margin-left: 150px;
+    margin-left: 170px;
+  
+    
   }
+  .names{
+    color: white;
+    font-size: larger;
+  }
+  .imgsize{
+    width: 35px;
+    padding-top: 20px;
+  }
+  .category{
+    display: none;
+  }
+  .txt{
+    width: 195px;
+    border-radius: 10px 0px 0px 10px;
+  }
+  .imgsize{
+    margin-bottom: 10px;
+  }
+  .rediusBtn{
+    border-radius: 0px 10px 10px 0px;
+
+  }
+  .inDiv{
+    width:200px !important ;
+  }
+     
 
 }
+@media (max-width: 915px) {
+  .txt{
+    width:300px
+  }
+  .inDiv{
+    width: 300px;
+  }
+}
+@media (max-width: 770px){
+  .inDiv{
+    width: 200px !important;
+  }
+}
+
+@media (max-width: 395px) {
+  /* Your styles go here */
+  .newClass{
+    display: none;
+  }
+  .containt_main{
+    display: block;
+  }
+  .makeInvisible{
+    display: none;
+  }
+  .vkartFlex{
+    display: flex;
+  }
+  .Vkart2{
+    margin-left: 170px;
+  
+    
+  }
+  .inDiv{
+    width: 150px !important;
+  }
+  .names{
+    color: white;
+    font-size: larger;
+  }
+  .imgsize{
+    width: 35px;
+    padding-top: 20px;
+  }
+  .category{
+    display: none;
+  }
+  .txt{
+    width: 180px;
+    border-radius: 10px 0px 0px 10px;
+  }
+  .imgsize{
+    margin-bottom: 10px;
+  }
+  .rediusBtn{
+    border-radius: 0px 10px 10px 0px;
+
+  }
+     
+
+}
+@media (max-width: 360px) {
+  /* Your styles go here */
+  .newClass{
+    display: none;
+  }
+  .containt_main{
+    display: block;
+  }
+  .makeInvisible{
+    display: none;
+  }
+  .vkartFlex{
+    display: flex;
+  }
+  .Vkart2{
+    margin-left: 170px;
+  
+    
+  }
+ 
+  .names{
+    color: white;
+    font-size: larger;
+  }
+  .imgsize{
+    width: 35px;
+    padding-top: 20px;
+  }
+  .category{
+    display: none;
+  }
+  .txt{
+    width: 165px;
+    border-radius: 10px 0px 0px 10px;
+  }
+  .imgsize{
+    margin-bottom: 10px;
+  }
+  .rediusBtn{
+    border-radius: 0px 10px 10px 0px;
+
+  }
+}
+@media (max-width: 1402px) and (min-width: 450px) {
+  /* Your styles go here */
+
+  .category{
+    display: none;
+ 
+  }
+  .newClass{
+    margin-left: 100px;
+    display: none;
+
+  }
+  .toggle_icon{
+    display: block !important;
+  }
+  .inDiv{
+    width: 190px;
+  }
+}
+.Specials{
+  display: none !important;
+}
+.txt{
+  width: 100%;
+}
+@media (max-width: 545px) and (min-width: 450px) {
+  .hamberger{
+display: flex !important; 
+flex-direction: column;   
+
+    
+  }
+  .inDiv{
+    margin-left: 80px;
+  }
+  .Vkart2{
+    margin-left: 330px;
+  
+    
+  }
+
+  /* Your styles go here */
+
+  
+}
+

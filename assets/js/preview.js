@@ -67,7 +67,7 @@ function cropImage(fileId) {
 
   // Initialize Cropper.js for the image
   var cropper = new Cropper(image, {
-    aspectRatio: 16/14, // Set your desired aspect ratio
+    aspectRatio: 80/70, // Set your desired aspect ratio
     crop: function(event) {
       // You can access the cropped data using event.detail.x, event.detail.y, event.detail.width, event.detail.height
      
