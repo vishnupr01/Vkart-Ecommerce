@@ -7,6 +7,11 @@
 .inDiv{
   width: 400px !important;
 }
+.orderV{
+  margin-left: 0px;
+
+  padding-top: 0px;
+}
 .inputManage{
   padding-right: 150px;
   width: 0px;
@@ -30,6 +35,11 @@
     margin-left: 10px !important;
   
     
+  }
+  .orderV{
+    margin-left: 100px;
+  
+    padding-top: 0px;
   }
 }
 
@@ -111,6 +121,12 @@
     margin-left: 170px;
   
     
+  }
+  .orderV{
+    margin-left: 100px;
+  
+    padding-top: 0px;
+ 
   }
   .names{
     color: white;
@@ -289,4 +305,5 @@ flex-direction: column;
 
   
 }
+
 
