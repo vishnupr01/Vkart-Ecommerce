@@ -59,6 +59,9 @@ route.get('/invoice',Usercontroller.invoice)
 route.get('/retryPayment',Usercontroller.retryPayment)
 route.get('/AddWallet',WalletController.AddWallet)
 route.post('/api/paymentVerificationWallet',WalletController.paymentVerificationWallet)
+route.get('/returnOrder',Usercontroller.returnOrder)
+route.get('/500error',UserRender.fiverError)
+route.get('/404error',UserRender.fourError)
 
 
 

@@ -46,27 +46,40 @@ exports.login = (req, res) => {
   });
 };
 exports.otp = (req, res) => {
+  try {
+    res.render("OTPverify", { invalid: req.session.invalid, expired: req.session.expired })
+    delete req.session.invalid;
+    delete req.session.expired;
+    
+  } catch (error) {
+    res.redirect("/500error")
+    
+  }
 
-  res.render("OTPverify", { invalid: req.session.invalid, expired: req.session.expired })
-  delete req.session.invalid;
-  delete req.session.expired;
+
 
 }
 exports.home =async(req, res) => {
- const response= await axios.get(`http://localhost:${process.env.PORT}/api/categoryFind`)
- const category = response.data
- const loggedUser = req.session.homeName
-console.log(category);
- const laptops=await userHelper.findLapotops(category[0].name)
- const keyboards=await userHelper.findLapotops(category[1].name)
- const Monitors=await userHelper.findLapotops(category[3].name)
+  try {
+    const response= await axios.get(`http://localhost:${process.env.PORT}/api/categoryFind`)
+    const category = response.data
+    const loggedUser = req.session.homeName
+   console.log(category);
+    const laptops=await userHelper.findLapotops(category[0].name)
+    const keyboards=await userHelper.findLapotops(category[1].name)
+    const Monitors=await userHelper.findLapotops(category[3].name)
+   
+    
+        
+   
+         
+   
+    res.render("home", { category: category, homeName: loggedUser,Laptops:laptops,keyboards:keyboards,Monitors:Monitors })
+    
+  } catch (error) {
+    res.redirect("/500error")
+  }
 
- 
-     
-
-      
-
- res.render("home", { category: category, homeName: loggedUser,Laptops:laptops,keyboards:keyboards,Monitors:Monitors })
   
 
 }
@@ -79,6 +92,10 @@ exports.laptopPage = (req, res) => {
       console.log("product", categoryName);
       res.render("Laptop", { laptops: laptops,category:laptops[0].category })
     })
+    .catch(error => {
+      console.error(error);
+      res.redirect("/500error")
+    });
  
 }
 exports.edit = (req, res) => {
@@ -113,57 +130,73 @@ exports.edit = (req, res) => {
 
 
     })
+    .catch(err => {
+      res.redirect("/500error")
+    
+    })
 
 
 
 
 }
 exports.renderPass = (req, res) => {
-  const editEmail = req.session.checkEmail
-  res.render('changePass', {
-    email: editEmail, notOld: req.session.old, notNew: req.session.new, notCon: req.session.confirm,
-    notEq: req.session.notEq,StrongPass:req.session.strongPass
-  }, (err, html) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
+  try {
+    
+    const editEmail = req.session.checkEmail
+    res.render('changePass', {
+      email: editEmail, notOld: req.session.old, notNew: req.session.new, notCon: req.session.confirm,
+      notEq: req.session.notEq,StrongPass:req.session.strongPass
+    }, (err, html) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+  
+      delete req.session.old
+      delete req.session.newName
+      delete req.session.confirm
+      delete req.session.new
+      delete req.session.strongPass
+  
+      res.status(200).send(html);
+    })
+  
+  } catch (error) {
+    res.redirect("/500error");
 
-    delete req.session.old
-    delete req.session.newName
-    delete req.session.confirm
-    delete req.session.new
-    delete req.session.strongPass
-
-    res.status(200).send(html);
-  })
+    
+  }
 
 
 
 
 }
 exports.singleProduct = async (req, res) => {
-  const productId = req.query.sid
-  console.log(productId);
-  const userID = req.session.UserID
-  const carted = await Cart.findOne({ userID: userID, productId: productId })
-  console.log("hey here", carted);
-  if (carted) {
-    req.session.carted = true
-  } else {
-    req.session.carted = false
+  try {
+    const productId = req.query.sid;
+    console.log(productId);
+
+    const userID = req.session.UserID;
+
+    const carted = await Cart.findOne({ userID: userID, productId: productId });
+    console.log("hey here", carted);
+
+    if (carted) {
+      req.session.carted = true;
+    } else {
+      req.session.carted = false;
+    }
+
+    const response = await axios.get(`http://localhost:${process.env.PORT}/api/singleFind?sid=${productId}`);
+    const product = response.data;
+
+    const status = req.session.carted;
+
+    res.render("singleProduct", { productS: product, status: status });
+  } catch (error) {
+    console.error(error);
+    res.redirect("/500error");
   }
-
-  axios.get(`http://localhost:${process.env.PORT}/api/singleFind?sid=${productId}`)
-    .then(response => {
-      const product = response.data
-
-      const status = req.session.carted
-
-
-      res.render("singleProduct", { productS: product, status: status })
-    })
-
-}
+};
 exports.getCart = (req, res) => {
   const userID = req.session.UserID
 
@@ -194,6 +227,10 @@ exports.getCart = (req, res) => {
 
       res.render("Cart", { carts: cart, Total: sum.toLocaleString(),outofStock:req.session.outofStock })
     })
+    .catch(error => {
+      console.error(error);
+      res.redirect("/500error")
+    });
 }
 
 
@@ -224,6 +261,10 @@ exports.adress = (req, res) => {
         res.status(200).send(html);
       })
     })
+    .catch(error => {
+      console.error(error);
+      res.redirect("/500error")
+    });
 }
 exports.editAddress = (req, res) => {
   const editid = req.query.Aid;
@@ -256,7 +297,7 @@ exports.editAddress = (req, res) => {
     })
     .catch(error => {
       console.error(error);
-      res.status(500).send(error);
+      res.redirect("/500error")
     });
 };
 exports.checkOut = async (req, res) => {
@@ -307,7 +348,7 @@ exports.checkOut = async (req, res) => {
     });
   } catch (error) {
     console.error("Error in requests:", error);
-    res.status(500).send(error);
+    res.redirect("/500error")
   }
 
 };
@@ -330,7 +371,7 @@ exports.userOrder = async (req, res) => {
     const userId = req.session.UserID
     const orders = await axios.get(`http://localhost:${process.env.PORT}/api/Orders?oid=${userId}`)
     const orderList = orders.data;
-    console.log("my order",paginatedResults[0]._id);
+    
     const totalOrders=await userHelper.totalOrders(req,res,"order")
     
     
@@ -357,29 +398,43 @@ exports.userOrder = async (req, res) => {
 
   } catch (error) {
     console.error("Error in requests:", error);
-    res.status(500).send(error)
+    res.redirect("/500error")
 
   }
 
 }
 exports.UserItemDetails=async(req,res)=>{
-  const orderId=req.query.orderId
-  const productId=req.query.productId
-  console.log(orderId);
-  console.log(productId);
-  const response = await axios.get(`http://localhost:${process.env.PORT}/api/UserSingleOrderDetail?orderId=${orderId}&productId=${productId}`);
-  const details=response.data
-  console.log(details);
-  const mainId=details[0]._id
-  console.log(details[0]._id);
-  res.render("UserSingleOrder",{details:details,MainId:mainId})
+  try {
+    const orderId=req.query.orderId
+    const productId=req.query.productId
+    console.log(orderId);
+    console.log(productId);
+    const response = await axios.get(`http://localhost:${process.env.PORT}/api/UserSingleOrderDetail?orderId=${orderId}&productId=${productId}`);
+    const details=response.data
+    console.log(details);
+    const mainId=details[0]._id
+    console.log(details[0]._id);
+    res.render("UserSingleOrder",{details:details,MainId:mainId})
+    
+  } catch (error) {
+    console.error("Error in requests:", error);
+    res.redirect("/500error")
+    
+  }
+
 }
 exports.searchProduct=async(req,res)=>{
-  const data=req.query.searchQuery
-  const products= await axios.get(`http://localhost:${process.env.PORT}/api/getSearch?did=${data}`)
-  const productGot=products.data
-  
-  res.render("LaptopCopy", { laptops: productGot})
+  try {
+    const data=req.query.searchQuery
+    const products= await axios.get(`http://localhost:${process.env.PORT}/api/getSearch?did=${data}`)
+    const productGot=products.data
+    
+    res.render("LaptopCopy", { laptops: productGot})
+    
+  } catch (error) {
+    res.redirect("/500error")
+  }
+
   
 }
 exports.wallet=async(req,res)=>{
@@ -423,10 +478,17 @@ exports.wallet=async(req,res)=>{
     
   } catch (error) {
     console.log(error);
+    res.redirect("/500error")
     
   }
 
  
+}
+exports.fiverError=(req,res)=>{
+  res.render("500error")
+}
+exports.fourError=(req,res)=>{
+  res.render("404error")
 }
 
  

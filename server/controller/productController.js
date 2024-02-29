@@ -147,23 +147,30 @@ exports.listedProducts = async (req, res) => {
 
 }
 exports.laptopPage = async (req, res) => {
-  const category = req.query.category
-  const page=req.page
-  
-  const paginatedResults = req.paginatedResults;
+  try {
+    const category = req.query.category
+    const page=req.page
+    
+    const paginatedResults = req.paginatedResults;
+     
    
- 
-  const totalOrders=await userHelper.totalOrders1(req,res,"Product",paginatedResults[0].category)
-  console.log(totalOrders); 
- 
-  if(paginatedResults.length>0){
-    const cate=paginatedResults[0].category
-    console.log(cate);
-    res.render('Laptop', {  laptops: paginatedResults,cate:cate,  category: category,totalOrders:totalOrders,page:page})
- 
-  }else{ 
-    const cate=null
-    res.render('Laptop', {  laptops: paginatedResults,cate:cate,  category: category,totalOrders:totalOrders,page:page})
+    const totalOrders=await userHelper.totalOrders1(req,res,"Product",paginatedResults[0].category)
+    console.log(totalOrders); 
+   
+    if(paginatedResults.length>0){
+      const cate=paginatedResults[0].category
+      console.log(cate);
+      res.render('Laptop', {  laptops: paginatedResults,cate:cate,  category: category,totalOrders:totalOrders,page:page})
+   
+    }else{ 
+      const cate=null
+      res.render('Laptop', {  laptops: paginatedResults,cate:cate,  category: category,totalOrders:totalOrders,page:page})
+    }
+  
+    
+  } catch (error) {
+    res.redirect("/500error")
+    
   }
 
 
@@ -178,7 +185,7 @@ exports.unlistedProducts = async (req, res) => {
       res.send(product)
     })
     .catch(err => {
-      res.status(500).send({ message: err.message })
+      res.redirect("/500error")
     })
 }
 exports.addProductlist = async (req, res) => {
@@ -188,8 +195,7 @@ exports.addProductlist = async (req, res) => {
     await Product.updateOne({ _id: req.query.documentId }, { $set: { verified: true, quantity: 4 } })
     res.redirect("/productlist")
   } catch (error) {
-    res.send(error)
-
+    res.redirect("/500error")
   }
 }
 exports.deleteProductlist = async (req, res) => {
@@ -201,7 +207,7 @@ exports.deleteProductlist = async (req, res) => {
     
     res.redirect("/productlist")
   } catch (error) {
-    res.send(error)
+    res.redirect("/500error")
 
   }
 }
@@ -307,9 +313,7 @@ exports.updateProducts = async (req, res) => {
 
     res.redirect("/productlist")
   } catch (error) {
-    req.session.error = "An error occurred";
-    console.log(error);
-    res.redirect("/bty");
+    res.redirect("/500error")
   }
 
 }
@@ -325,7 +329,7 @@ exports.productEdit = async (req, res) => {
       })
 
   } catch (error) {
-    res.send(error)
+    res.redirect("/500error")
 
   }
 }
@@ -355,8 +359,7 @@ exports.deleteImage = async (req, res) => {
     }
 
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
+    res.redirect("/500error")
   }
 };
 
@@ -394,8 +397,7 @@ exports.AddtoCart = async (req, res) => {
     res.redirect('/getCart')
 
   } catch (error) {
-    console.error('Error deleting image:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.redirect("/500error")
 
   }
 
@@ -434,8 +436,7 @@ exports.cartFind = async (req, res) => {
    
     res.send(cart);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.redirect("/500error")
   }
 };
 
@@ -449,8 +450,7 @@ exports.deleteCart = async (req, res) => {
     res.redirect('/getCart')
 
   } catch (error) {
-    console.error('Error deleting image:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.redirect("/500error")
 
   }
 

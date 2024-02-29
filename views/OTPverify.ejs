@@ -40,88 +40,93 @@
    <!-- Template CSS -->
    <link href="css/main.css" rel="stylesheet" type="text/css" />
    <link href="css/style.css" rel="stylesheet" type="text/css" />
+   <link href="css/responsiveness.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
    <main>
       <header class="main-header style-2 navbar bgs">
          <div class="header_section">
-            <div class="container">
-               <div class="containt_main">
-                  <div id="mySidenav" class="sidenav">
-                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                     <a href="index.html">Home</a>
-                     <a href="fashion.html">Fashion</a>
-                     <a href="electronic.html">Electronic</a>
-                     <a href="jewellery.html">Jewellery</a>
-                  </div>
-                  <div class="hamberger">
-
-                     <span class="toggle_icon" onclick="openNav()"> <img src="images/toggle-icon.png"
-                           class="Myimg"></span>
-
-
-                  </div>
-
-
-                  <div class="dropdown drop">
-                     <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
-                     </button>
-                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+             <div class="container">
+                 <div class="containt_main vkartFlex">
+                     <div id="mySidenav" class="sidenav">
+                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                         <a href="index.html">Home</a>
+                         <a href="fashion.html">Fashion</a>
+                         <a href="electronic.html">Electronic</a>
+                         <a href="jewellery.html">Jewellery</a>
                      </div>
-                  </div>
-                  <div class="main">
-                     <!-- Another variation with a button -->
-                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search this blog">
-                        <div class="input-group-append">
-                           <button class="btn btn-secondary myBtn" type="button"
-                              style="background-color: #f26522; border-color:#f26522 ">
-                              <i class="fa fa-search"></i>
-                           </button>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="header_box">
+                   
+                     <div class="hamberger">
 
-                     <div class="login_menu">
-                        <ul>
-                           <li><a href="#">
-                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                 <span class="padding_10">Cart</span></a>
-                           </li>
-                           <li><a href="#">
-                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                 <span class="padding_10">Cart</span></a>
-                           </li>
-                           <li><a href="#">
-                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                 <span class="padding_10">Cart</span></a>
-                           </li>
-                           <li><a href="#">
-                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                 <span class="padding_10">Cart</span></a>
-                           </li>
-
-                        </ul>
+                         <span class="toggle_icon" onclick="openNav()"> <img  src="images/toggle-icon.png"
+                                 class="Myimg imgsize"></span>
 
 
                      </div>
+                     <a class="Vkart2" href="/"><div class="Special ">
+                         <span  class="names">Vkart</span>
+     
+                     </div></a>
 
-                  </div>
-                  <div class="Special">
-                     <span class="name">Vkart</span>
+                    <div style="display: flex;">
+                     <div class="dropdown category">
+                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          category
+                         </button>
+                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                           <li><a class="dropdown-item" href="#">Action</a></li>
+                           <li><a class="dropdown-item" href="#">Another action</a></li>
+                           <li><a class="dropdown-item" href="#">Something else here</a></li>
+                         </ul>
+                       </div>
+                   
+                     
+                    
+                         <form action="/searchProduct" method="GET">
+                             <div class="input-group">
+                                 <div class="inDiv" style="display: flex; ">
+                                 <input type="text" class="form-control txt" name= "searchQuery"  placeholder="Search this blog">
+                             </div>
+                                 <div class="input-group-append inputManage">
+                                     <button class="btn btn-secondary myBtn rediusBtn" type="submit" style="background-color: #f26522; border-color:#f26522 ">
+                                         <i class="fa fa-search"></i>
+                                     </button>
+                                 </div>
+                             </div>
+                         </form>
+                     </diV>
+                    
+                     
+                     <div class="header_box newClass">
 
-                  </div>
-               </div>
-            </div>
+                         <div class="login_menu">
+                             <ul>
+                                 <li><a href="#">
+                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                         <span class="padding_10">Cart</span></a>
+                                 </li>
+                                 <li class="userProf"><a href="#">
+                                         <i class="fa fa-user" aria-hidden="true"></i>
+                                         </a>
+                                 </li>
+                                
+
+                             </ul>
+
+
+                         </div>
+
+                     </div>
+                     <a class="makeInvisible" href="/"><div class="Specials ">
+                         <span  class="name">Vkart</span>
+     
+                     </div></a>
+                 </div>
+             </div>
          </div>
 
-      </header>
+     </header>
       <section class="content-main mt-80 mb-80">
          <div class="card mx-auto card-login">
             <div class="card-body">
@@ -164,6 +169,25 @@
             </div>
          </div>
       </section>
+      <div class="footer_section layout_padding">
+         <div class="container">
+            <div class="footer_logo"><a href="index.html"><img style="height: 100px;" src="images/gf.webp"></a></div>
+            <div class="input_bt">
+               <input type="text" class="mail_bt" placeholder="Email" name="Your Email">
+               <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
+            </div>
+            <div class="footer_menu">
+               <ul>
+                  <li><a href="#">Follow us on</a></li>
+                  <li><a href="#">Instagram</a></li>
+                  <li><a href="#">Twitter</a></li>
+                  <li><a href="#">Facebook</a></li>
+                  <li><a href="#">Youtube</a></li>
+               </ul>
+            </div>
+            <div class="location_main">Help Line  Number : <a href="#">+1 1800 1200 1200</a></div>
+         </div>
+      </div>
       <footer class="main-footer text-center">
          <p class="font-xs">
             <!-- <script>
@@ -247,9 +271,7 @@
                });
             </script>
 
-            &copy; Nest - HTML Ecommerce Template .
-         </p>
-         <p class="font-xs mb-30">All rights reserved</p>
+       
       </footer>
    </main>
    <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>

@@ -32,8 +32,7 @@ exports.Dashboard = async (req, res) => {
 
     res.render("AdminIndex", { users: users, orders: orders,count:products });
   } catch (error) {
-    console.error("Error in axios request", error);
-    res.status(500).send("Internal Server Error");
+    res.redirect("/500error")
   }
 };
 
@@ -64,15 +63,23 @@ exports.adminCategory = (req, res) => {
         res.status(200).send(html)
       })
     })
+    .catch(error => {
+      console.error(error);
+      res.redirect("/500error")
+    });
 
 }
 
-exports.unlistedCategory = (req, res) => {
-  axios.get(`http://localhost:${process.env.PORT}/api/categoryUnlist`)
+exports.unlistedCategory = async(req, res) => {
+  await axios.get(`http://localhost:${process.env.PORT}/api/categoryUnlist`)
     .then(response => {
       const category = response.data
       res.render("AdminUnlist", { category: category,})
     })
+    .catch(error => {
+      console.error(error);
+      res.redirect("/500error")
+    });
 
 }
 exports.editCategory = (req, res) => {
@@ -80,8 +87,8 @@ exports.editCategory = (req, res) => {
 
   res.render("AdminEditCateg")
 }
-exports.addProduct = (req, res) => {
-  axios.get(`http://localhost:${process.env.PORT}/api/categoryFind`)
+exports.addProduct = async(req, res) => {
+  await axios.get(`http://localhost:${process.env.PORT}/api/categoryFind`)
     .then(response => {
       const category = response.data
 
@@ -110,22 +117,34 @@ exports.addProduct = (req, res) => {
   
         res.status(200).send(html);})
     })
+    .catch(error => {
+      console.error(error);
+      res.redirect("/500error")
+    });
 }
-exports.productList = (req, res) => {
-  axios.get(`http://localhost:${process.env.PORT}/api/productlist`)
+exports.productList = async(req, res) => {
+ await axios.get(`http://localhost:${process.env.PORT}/api/productlist`)
     .then(response => {
       const products = response.data
       res.render("productlist", { products: products })
     })
+    .catch(error => {
+      console.error(error);
+      res.redirect("/500error")
+    });
 
 
 }
-exports.productUnlist = (req, res) => {
-  axios.get(`http://localhost:${process.env.PORT}/api/unlistedProducts`)
+exports.productUnlist = async(req, res) => {
+ await axios.get(`http://localhost:${process.env.PORT}/api/unlistedProducts`)
     .then(response => {
       const products = response.data
       res.render("productUnlist", { products: products })
     })
+    .catch(error => {
+      console.error(error);
+      res.redirect("/500error")
+    });
 
 
 }
@@ -140,8 +159,7 @@ exports.orderManage = async (req, res) => {
     res.render("AdminOrder", { orderList: orderList })
 
   } catch (error) {
-    console.error("Error in requests:", error);
-    res.status(500).send(error)
+    res.redirect("/500error")
 
   }
 
@@ -191,18 +209,24 @@ exports. gotProductedit = async (req, res) => {
   }
 
    catch (error) {
-    console.error(error);
-    res.send(error);
+    res.redirect("/500error")
   } 
 };
 exports.itemDetails=async(req,res)=>{
-  const orderId=req.query.orderId 
-  const productId=req.query.productId
-  const response = await axios.get(`http://localhost:${process.env.PORT}/api/singleOrderDetail?orderId=${orderId}&productId=${productId}`);
-  const details=response.data
-  console.log(details);
-  console.log(details[0].productInfo);
-  res.render("singleOrder",{details:details})
+  try {
+    const orderId=req.query.orderId 
+    const productId=req.query.productId
+    const response = await axios.get(`http://localhost:${process.env.PORT}/api/singleOrderDetail?orderId=${orderId}&productId=${productId}`);
+    const details=response.data
+    console.log(details);
+    console.log(details[0].productInfo);
+    res.render("singleOrder",{details:details})
+    
+  } catch (error) {
+    res.redirect("/500error")
+    
+  }
+
 
 }
 exports.addCoupon=async(req,res)=>{
@@ -231,8 +255,7 @@ exports.addCoupon=async(req,res)=>{
     })
     
   } catch (error) {
-    console.error(error);
-    res.send(error);
+    res.redirect("/500error")
     
   }
 
@@ -263,8 +286,7 @@ exports.couponEdit=async(req,res)=>{
     
     
   } catch (error) {
-    console.error(error);
-    res.send(error);
+    res.redirect("/500error")
     
   }
  

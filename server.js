@@ -45,6 +45,9 @@ app.use((err, req, res, next) => {
   }
   next(err);
 });
+app.get("*",function(req,res){
+  res.status(404).render("404error")
+})
 
 app.set('view engine', 'ejs')
 connectDB()

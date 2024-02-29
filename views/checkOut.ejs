@@ -577,7 +577,7 @@ if(data.error){
 function displayCouponValue(couponValue) {
   
        
-  document.getElementById('totalPrice').innerText=  `Total: ₹ ${couponValue}`    
+  document.getElementById('totalPrice').innerText=  `Total: ₹ ${Math.round(couponValue)}`    
   document.getElementById('couponValueDisplay').innerHTML = `<p style="color: #45a049;" >Coupon  is applied!</p>`;
 }
 function  displayerror(errorMessage) {

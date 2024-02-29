@@ -54,8 +54,7 @@ exports.deleteCoupon = async (req, res) => {
     const result = await coupons.deleteOne({ _id: new mongoose.Types.ObjectId(couponID) });
     res.send(result);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.redirect("/500error")
   }
 };
 exports.editCoupon = async (req, res) => {
@@ -111,8 +110,7 @@ exports.editCoupon = async (req, res) => {
     // Redirect to the appropriate route after successful update
     res.redirect('/addCoupon');
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.redirect("/500error")
   }
 };
 exports.couponApply = async (req, res) => {
@@ -179,8 +177,7 @@ exports.couponApply = async (req, res) => {
 
 
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.redirect("/500error")
 
   }
 

@@ -37,9 +37,7 @@ exports.Adminauth = (req, res) => {
       // res.send(err);
     }
   } catch {
-    console.log("error");
-
-    res.redirect("/adminlogin")
+    res.redirect("/500error")
   }
 
 
@@ -51,7 +49,7 @@ exports.UserManage = (req, res) => {
       res.send(user)
     })
     .catch(err => {
-      res.status(500).send({ message: err.message })
+      res.redirect("/500error")
     })
 
 
@@ -69,7 +67,7 @@ exports.CategoryFind = (req, res) => {
     })
 
     .catch(err => {
-      res.status(500).send({ message: err.message })
+      res.redirect("/500error")
     })
 
 
@@ -85,7 +83,7 @@ exports.categoryUnlist = (req, res) => {
     })
 
     .catch(err => {
-      res.status(500).send({ message: err.message })
+      res.redirect("/500error")
     })
 
 
@@ -122,8 +120,7 @@ exports.categoryManage = async (req, res) => {
 
 
   } catch (error) {
-    req.session.error = "An error occurred";
-    res.redirect('/adminCategory');
+    res.redirect("/500error")
 
   }
 
@@ -136,7 +133,7 @@ exports.unlisted = async (req, res) => {
     await Categories.updateOne({ _id: req.query.documentId }, { $set: { verified: false } })
     res.redirect("/adminCategory")
   } catch (error) {
-    res.send(error)
+    res.redirect("/500error")
 
   }
 }
@@ -147,7 +144,7 @@ exports.listed = async (req, res) => {
     await Categories.updateOne({ _id: req.query.documentId }, { $set: { verified: true } })
     res.redirect("/unlistedCategory")
   } catch (error) {
-    res.send(error)
+    res.redirect("/500error")
 
   }
 }
@@ -174,7 +171,7 @@ exports.CategoryEdit = async (req, res) => {
 
 
   } catch (error) {
-    res.send(error)
+    res.redirect("/500error")
 
   }
 }
@@ -206,8 +203,7 @@ exports.updateCategory = async (req, res) => {
 
     return res.redirect("/adminCategory")
   } catch (error) {
-    req.session.error = "An error occurred";
-    res.redirect("/adminCategory");
+    res.redirect("/500error")
   }
 
 }
@@ -233,8 +229,7 @@ exports.orderAdmin = async (req, res) => {
 
     res.send(data);
   } catch (err) {
-    console.log(err);
-    res.status(500).send({ message: err.message });
+    res.redirect("/500error")
   }
 }
 exports.saveStatus = async (req, res) => {
@@ -252,8 +247,7 @@ exports.saveStatus = async (req, res) => {
     res.send(response)
 
   } catch (error) {
-    console.log(error);
-    res.status(500).send({ message: err.message });
+    res.redirect("/500error")
   }
 }
 exports.totalOrders = async (req, res) => {
@@ -278,8 +272,7 @@ exports.totalOrders = async (req, res) => {
     res.send(data)
 
   } catch (error) {
-    console.log(error);
-    res.status(500).send({ message: err.message });
+    res.redirect("/500error")
   }
 }
 exports.singleOrderDetail = async (req, res) => {
@@ -335,8 +328,7 @@ exports.singleOrderDetail = async (req, res) => {
     res.status(200).send(details); // Sending the details as the response
 
   } catch (error) {
-    console.log(error)
-    res.status(500).send({ message: error.message });
+    res.redirect("/500error");
   }
 };
 exports.getDetailsChart = async (req, res) => {
@@ -474,8 +466,7 @@ exports.getDetailsChart = async (req, res) => {
       salesCount,
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).send("Internal server err");
+    res.redirect("/500error")
   }
 }
 exports.salesReport = async (req, res, next) => {
@@ -530,8 +521,7 @@ console.log(startDateString );
     // res.send(data)
   } catch (error) {
     // res.send(error) 
-    console.log(error);
-    next(error)
+    res.redirect("/500error")
   }
 }
 
@@ -541,7 +531,7 @@ exports.ftProducts = async (req, res) => {
     res.send(products)
   })
   .catch(err => {
-    res.status(500).send({ message: err.message })
+    res.redirect("/500error")
   })
 };
 

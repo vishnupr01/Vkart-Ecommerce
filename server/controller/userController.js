@@ -65,8 +65,8 @@ exports.createUser = async (req, res) => {
       return res.redirect('/register')
 
     }
-    if ( !validator.isLength(req.body.editPassword, { min: 8 }) ||
-    !validator.matches(req.body.editPassword, /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)) {
+    if ( !validator.isLength(req.body.password, { min: 8 }) ||
+    !validator.matches(req.body.password, /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)) {
       req.session.strongPass="password criteria doesn't match"
       return res.redirect('/register')
     }
@@ -85,8 +85,7 @@ exports.createUser = async (req, res) => {
       }
 
     } catch (error) {
-      console.error('Error in createUser:', error);
-      res.status(500).render('error.ejs', { error: 'Some error occurred' });
+      res.redirect("/500error")
     }
 
 
@@ -119,8 +118,7 @@ exports.createUser = async (req, res) => {
       }
 
       catch (error) {
-        console.error('Error hashing password:', error);
-        res.status(500).send({ message: 'Error hashing password' });
+        res.redirect("/500error")
       }
     }
 
@@ -160,13 +158,12 @@ exports.createUser = async (req, res) => {
 
 
     } catch (error) {
-      console.error('Error in sendOTPVerificationEmail:', error);
-      throw new Error('Failed to send OTP verification email');
+      res.redirect("/500error")
     }
 
   } catch (error) {
-    console.error('Error in createUser:', error);
-    res.status(500).send({ message: 'Some error occurred' });
+    console.log(error);
+    res.redirect("/500error")
   }
 };
 
@@ -206,8 +203,7 @@ exports.sendOTPVerificationEmail = async (req, res) => {
 
 
   } catch (error) {
-    console.error('Error in sendOTPVerificationEmail:', error);
-    throw new Error('Failed to send OTP verification email');
+    res.redirect("/500error")
   }
 };
 
@@ -277,8 +273,7 @@ exports.verifyOTP = async (req, res) => {
     // Redirect to a success page or any other appropriate page
 
   } catch (error) {
-    console.error('Error in verifyOTP:', error);
-    res.status(500).send('Internal Server Error');
+    res.redirect("/500error")
   }
 };
 exports.loginAuth = async (req, res) => {
@@ -332,7 +327,7 @@ exports.loginAuth = async (req, res) => {
 
     res.redirect('/')
   } catch (error) {
-    res.status(401).redirect('/register')
+    res.redirect("/500error")
   }
 
 }
@@ -341,10 +336,12 @@ exports.Blocked = async (req, res) => {
   console.log(req.query.email);
   try {
     await Userdb.updateOne({ email: req.query.email }, { $set: { block: true } })
+    const userId=req.session.UserID
+    const loggedUser = await Userdb.findOneAndUpdate({ _id: userId }, { $set: { status: false } });
     req.session.blocked = true
     res.redirect("/UserManage")
   } catch (error) {
-    res.send(error)
+    res.redirect("/500error")
 
   }
 
@@ -355,7 +352,7 @@ exports.UnBlocked = async (req, res) => {
     req.session.blocked = false
     res.redirect("/UserManage")
   } catch (error) {
-    res.send(error)
+    res.redirect("/500error")
 
   }
 
@@ -390,15 +387,25 @@ exports.loadAccount = async (req, res) => {
 
   } catch (error) {
     console.error("Error loading account:", error);
-    res.status(500).render("errorPage", { errorMessage: "An error occurred while loading the account." });
+    res.redirect("/500error")
 
 
   }
 }
-exports.logOut = (req, res) => {
+exports.logOut = async(req, res) => {
+  try {
+  
+    const userId=req.session.UserID
+    const loggedUser = await Userdb.findOneAndUpdate({ _id: userId }, { $set: { status: false } });
+    req.session.destroy();
+    res.redirect('/login')
+    
+  } catch (error) {
+    res.redirect("/500error")
+    
+  }
 
-  req.session.destroy();
-  res.redirect('/login')
+
 
 }
 exports.editAccount = async (req, res) => {
@@ -410,7 +417,8 @@ exports.editAccount = async (req, res) => {
       res.send(data)
     })
     .catch(err => {
-      res.status(500).send({ message: err.message })
+      res.redirect("/500error")
+    
     })
 }
 exports.passwordChanges = async (req, res) => {
@@ -473,7 +481,7 @@ exports.passwordChanges = async (req, res) => {
 
   } catch (error) {
     console.error("Error loading account:", error);
-    res.status(500).render("errorPage", { errorMessage: "An error occurred while loading the account." });
+    res.redirect("/500error")
 
 
   }
@@ -500,7 +508,7 @@ exports.ChangesSave = async (req, res) => {
 
   } catch (error) {
     console.error("Error loading account:", error);
-    res.status(500).render("errorPage", { errorMessage: "An error occurred while loading the account." });
+    res.redirect("/500error")
 
 
   }
@@ -513,7 +521,7 @@ exports.singleFind = async (req, res) => {
       res.send(data)
     })
     .catch(err => {
-      res.status(500).send({ message: err.message })
+      res.redirect("/500error")
     })
 
 
@@ -567,7 +575,7 @@ exports.createAdress = async (req, res) => {
 
   } catch (error) {
     console.error("Error loading account:", error);
-    res.status(500).render("errorPage", { errorMessage: "An error occurred while loading the account." });
+    res.redirect("/500error")
 
   }
 }
@@ -579,7 +587,7 @@ exports.addressFind = (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.status(500).send({ message: err.message })
+      res.redirect("/500error")
     })
 
 
@@ -595,7 +603,7 @@ exports.deleteAddress = async (req, res) => {
 
   } catch (error) {
     console.error("Error loading account:", error);
-    res.status(500).render("errorPage", { errorMessage: "An error occurred while loading the account." });
+    res.redirect("/500error")
 
   }
 
@@ -609,7 +617,7 @@ exports.editFindAdress = (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.status(500).send({ message: err.message })
+      res.redirect("/500error")
     })
 
 
@@ -667,7 +675,7 @@ exports.UpdateAddress = async (req, res) => {
 
   } catch (error) {
     console.log(err);
-    res.status(500).send({ message: err.message })
+    res.redirect("/500error")
 
   }
 
@@ -704,17 +712,23 @@ exports.checkFind = async (req, res) => {
     res.send(cart);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+    res.redirect("/500error")
 };
-
+}
 
 
 exports.UpdateQuantity = async (req, res) => {
-  const totalQuantity = req.query.quid
-  const productId = req.query.productId
-  await Cart.updateOne({ productId: productId, userID: req.session.UserID }, { $set: { UserQuantity: totalQuantity } })
-  res.send(response)
+  try {
+    const totalQuantity = req.query.quid
+    const productId = req.query.productId
+    await Cart.updateOne({ productId: productId, userID: req.session.UserID }, { $set: { UserQuantity: totalQuantity } })
+    res.send(response)
+    
+  } catch (error) {
+    res.redirect("/500error")
+    
+  }
+ 
 
 }
 exports.payment = async (req, res) => {
@@ -881,7 +895,7 @@ exports.payment = async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.redirect("/500error")
   }
 
 };
@@ -912,7 +926,7 @@ exports.ordersFind = async (req, res) => {
     res.send(data);
   } catch (err) {
 
-    res.status(500).send({ message: err.message });
+    res.redirect("/500error")
   }
 };
 exports.cancelOrder = async (req, res) => {
@@ -926,31 +940,48 @@ exports.cancelOrder = async (req, res) => {
      
     const UserQuantity = orderItems[0].quantity
     const currentProduct=await order.findOne({_id:new mongoose.Types.ObjectId(mainId)})
-    if(currentProduct.couponId===""){
-      await order.updateOne(
-        { "orderItems._id": new mongoose.Types.ObjectId(orderId) },
-        { $set: { "orderItems.$.orderStatus": "Canceled" } }
-      )
-      const userWallet=await wallet.findOne({userId:req.session.UserID})
-      userWallet.balance=parseInt(userWallet.balance) + parseInt(orderItems[0].price)
-      userWallet.transactions.push({amount:orderItems[0].price,date:Date.now(),status:"credit"})
-      userWallet.save()
+    if(currentProduct.paymentMethod==="onlinePayment"&&currentProduct.paymentMethod==="walletPayment"){
+      if(currentProduct.couponId===""){
+        await order.updateOne(
+          { "orderItems._id": new mongoose.Types.ObjectId(orderId) },
+          { $set: { "orderItems.$.orderStatus": "Canceled" } }
+        )
+        const userWallet=await wallet.findOne({userId:req.session.UserID})
+        userWallet.balance=parseInt(userWallet.balance) + parseInt(orderItems[0].price)
+        userWallet.transactions.push({amount:orderItems[0].price,date:Date.now(),status:"credit"})
+        userWallet.save()
+  
+        await Product.updateOne({_id:productId},{$inc:{quantity:UserQuantity}})
+  
+      }else{
+        req.session.notCancel="you can't cancel this product coupon is applied!"
+  
+      }
+    
+    
+  
+    
+  
+      res.redirect(`/viewOrders?page=${1}&limit=${5}`)
 
-      await Product.updateOne({_id:productId},{$inc:{quantity:UserQuantity}})
+    }else{
+      if(currentProduct.couponId===""){
+        await order.updateOne(
+          { "orderItems._id": new mongoose.Types.ObjectId(orderId) },
+          { $set: { "orderItems.$.orderStatus": "Canceled" } }
+        )
+        await Product.updateOne({_id:productId},{$inc:{quantity:UserQuantity}})
 
     }else{
       req.session.notCancel="you can't cancel this product coupon is applied!"
 
     }
-  
-  
-
-  
-
     res.redirect(`/viewOrders?page=${1}&limit=${5}`)
+  }
+  
 
   } catch (error) {
-
+    res.redirect("/500error")
    console.log(error);
   }
 }
@@ -1009,7 +1040,7 @@ exports.UserSingleOrderDetail = async (req, res) => {
 
   } catch (error) {
     console.log(error)
-    res.status(500).send({ message: error.message });
+    res.redirect("/500error")
   }
 };
 exports.getSearch = async (req, res) => {
@@ -1031,7 +1062,7 @@ exports.getSearch = async (req, res) => {
     res.send(searchResults)
   } catch (error) {
     console.error(error);
-    res.status(500).send({ success: false, message: 'Internal Server Error' });
+    res.redirect("/500error")
   }
 }
 
@@ -1092,7 +1123,7 @@ exports.paymentVerification = async (req, res) => {
     }
 
   } catch (error) {
-    console.log(error);
+    res.redirect("/500error")
   }
 };
 exports.invoice = async (req, res) => {
@@ -1122,7 +1153,7 @@ exports.invoice = async (req, res) => {
       }
     );
   } catch (error) {
-    res.send(error)
+    res.redirect("/500error")
   }
 }
 exports.retryPayment=async(req,res)=>{
@@ -1174,24 +1205,48 @@ exports.retryPayment=async(req,res)=>{
 
 } catch (error) {
   console.error(error);
-  res.status(500).json({ error: 'Internal Server Error' });
+  res.redirect("/500error")
 }
 
 };
+exports.returnOrder=async(req,res)=>{
+  const orderId=req.query.orderIdS
+  const productId=req.query.productId
+  const mainId=req.query.mainId
+  console.log(orderId);
+  console.log(productId);
+  try{
+  
+  const { orderItems } = await order.findOne({ "orderItems._id": new mongoose.Types.ObjectId(orderId) }, { "orderItems.$": 1, _id: 0 });
+   
+  const UserQuantity = orderItems[0].quantity
+  const currentProduct=await order.findOne({_id:new mongoose.Types.ObjectId(mainId)})
+  if(currentProduct.couponId===""){
+    await order.updateOne(
+      { "orderItems._id": new mongoose.Types.ObjectId(orderId) },
+      { $set: { "orderItems.$.orderStatus": "Returned" } }
+    )
+    const userWallet=await wallet.findOne({userId:req.session.UserID})
+    userWallet.balance=parseInt(userWallet.balance) + parseInt(orderItems[0].price)
+    userWallet.transactions.push({amount:orderItems[0].price,date:Date.now(),status:"credit"})
+    userWallet.save()
+
+    await Product.updateOne({_id:productId},{$inc:{quantity:UserQuantity}})
+
+  }else{
+    req.session.notCancel="you can't return this product coupon is applied!"
+
+  }
 
 
 
 
 
+  res.redirect(`/viewOrders?page=${1}&limit=${5}`)
 
+} catch (error) {
 
-
-
-
-
-
-
-
-
-
-
+ console.log(error);
+ res.redirect("/500error")
+}
+}

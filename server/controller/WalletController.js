@@ -25,7 +25,7 @@ exports.AddWallet = async (req, res) => {
 
 
   } catch (error) {
-    console.log(error);
+    res.redirect("/500error")
 
   }
 
@@ -59,7 +59,7 @@ exports.paymentVerificationWallet=async(req,res)=>{
     }
     
   } catch (error) {
-    console.log(error);
+    res.redirect("/500error")
     
   }
 }

@@ -219,6 +219,11 @@
                                   <%= orderList[i].orderItems.orderStatus %>
                                 </span></td>
                                 <% } %>
+                                <%if(orderList[i].orderItems.orderStatus==="Returned"){  %>
+                                  <td><span id="orderStatus<%= i %>" class="badge rounded-pill alert-danger ">
+                                      <%= orderList[i].orderItems.orderStatus %>
+                                    </span></td>
+                                    <% } %>
                     <td>
                       <%= orderList[i].orderDate.split('T')[0].split('-').reverse().join('-') %>
                     </td>
