@@ -40,6 +40,7 @@
         <!-- Template CSS -->
         <link href="css/main.css" rel="stylesheet" type="text/css" />
         <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <link href="css/responsiveness.css" rel="stylesheet" type="text/css" />
     </head>
 
     <body>
@@ -49,7 +50,7 @@
             <header class="main-header style-2 navbar bgs">
                 <div class="header_section">
                     <div class="container">
-                        <div class="containt_main">
+                        <div class="containt_main vkartFlex">
                             <div id="mySidenav" class="sidenav">
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                                 <a href="index.html">Home</a>
@@ -57,38 +58,49 @@
                                 <a href="electronic.html">Electronic</a>
                                 <a href="jewellery.html">Jewellery</a>
                             </div>
+                          
                             <div class="hamberger">
     
-                                <span class="toggle_icon" onclick="openNav()"> <img src="images/toggle-icon.png"
-                                        class="Myimg"></span>
+                                <span class="toggle_icon" onclick="openNav()"> <img  src="images/toggle-icon.png"
+                                        class="Myimg imgsize"></span>
     
     
                             </div>
+                            <a class="Vkart2" href="/"><div class="Special ">
+                                <span  class="names">Vkart</span>
+            
+                            </div></a>
     
-    
-                            <div class="dropdown drop">
-                                <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
+                           <div style="display: flex;">
+                            <div class="dropdown category">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                 category
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                            <div class="main">
-                                <!-- Another variation with a button -->
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search this blog">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-secondary myBtn" type="button"
-                                            style="background-color: #f26522; border-color:#f26522 ">
-                                            <i class="fa fa-search"></i>
-                                        </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                  <li><a class="dropdown-item" href="#">Action</a></li>
+                                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                              </div>
+                          
+                            
+                           
+                                <form action="/searchProduct" method="GET">
+                                    <div class="input-group">
+                                        <div class="inDiv" style="display: flex; ">
+                                        <input type="text" class="form-control txt" name= "searchQuery"  placeholder="Search this blog">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="header_box">
+                                        <div class="input-group-append inputManage">
+                                            <button class="btn btn-secondary myBtn rediusBtn" type="submit" style="background-color: #f26522; border-color:#f26522 ">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </diV>
+                           
+                            
+                            <div class="header_box newClass">
     
                                 <div class="login_menu">
                                     <ul>
@@ -96,18 +108,11 @@
                                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                 <span class="padding_10">Cart</span></a>
                                         </li>
-                                        <li><a href="#">
+                                        <li class="userProf"><a href="#">
                                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                                <span class="padding_10">Cart</span></a>
+                                                </a>
                                         </li>
-                                        <li><a href="#">
-                                                <i class="fa fa-user" aria-hidden="true"></i>
-                                                <span class="padding_10">Cart</span></a>
-                                        </li>
-                                        <li><a href="#">
-                                                <i class="fa fa-user" aria-hidden="true"></i>
-                                                <span class="padding_10">Cart</span></a>
-                                        </li>
+                                       
     
                                     </ul>
     
@@ -115,15 +120,16 @@
                                 </div>
     
                             </div>
-                            <div class="Special ">
-                                <span class="name">Vkart</span>
-    
-                            </div>
+                            <a class="makeInvisible" href="/"><div class="Specials ">
+                                <span  class="name">Vkart</span>
+            
+                            </div></a>
                         </div>
                     </div>
                 </div>
     
             </header>
+            
             <section class="content-main">
                 <div class="content-header">
                     <h2 class="content-title">Profile setting</h2>
@@ -158,6 +164,7 @@
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label">new Password</label>
                                                         <input class="form-control" type="password" placeholder="Type here" name="editPassword" />
+                                                        <p style="font-size: small;">(numbers  letters capital small special character)</p>
                                                         <% if(notNew){ %>
                                                             <p class="errorClass">
                                                                 <%= notNew%>

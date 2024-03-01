@@ -940,7 +940,9 @@ exports.cancelOrder = async (req, res) => {
      
     const UserQuantity = orderItems[0].quantity
     const currentProduct=await order.findOne({_id:new mongoose.Types.ObjectId(mainId)})
-    if(currentProduct.paymentMethod==="onlinePayment"&&currentProduct.paymentMethod==="walletPayment"){
+    console.log("got that",currentProduct);
+    if(currentProduct.paymentMethod=="onlinePayment"||currentProduct.paymentMethod=="WalletPayment"){
+      console.log("ricc");
       if(currentProduct.couponId===""){
         await order.updateOne(
           { "orderItems._id": new mongoose.Types.ObjectId(orderId) },
