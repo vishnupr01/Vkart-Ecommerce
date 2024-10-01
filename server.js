@@ -38,7 +38,7 @@ app.use('/',require("./server/routes/AdminRouter"))
 app.use(express.static(path.join(__dirname, 'assets')))
 
 // Multer error handling middleware
-app.use((err, req, res, next) => {
+app.use((err, req, res, next) => {  
   if (err instanceof multer.MulterError) {
     console.error('Multer Error:', err);
     return res.status(500).json({ message: 'Multer error', error: err });

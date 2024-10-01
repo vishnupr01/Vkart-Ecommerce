@@ -314,11 +314,11 @@
                            <% for(i=0;i<=2;i++){ %>
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
-                                 <h4 class="shirt_text"><%= keyboards[i].title %></h4>
-                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= keyboards[i].promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= keyboards[i].regularPrice %></span>  </span></p>
-                                 <div class="electronic_img"><img src="<%= keyboards[i].Images[0] %>"></div>
+                                 <h4 class="shirt_text"><%= keyboards[i]?.title %></h4>
+                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= keyboards[i]?.promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= keyboards[i]?.regularPrice %></span>  </span></p>
+                                 <div class="electronic_img"><img src="<%= keyboards[i]?.Images[0] %>"></div>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  keyboards[i]._id %>">Buy Now</a></div>
+                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  keyboards[i]?._id %>">Buy Now</a></div>
                                     <div class="seemore_bt"><a href="/laptop?category=Keyboard&page=<%= 1 %>&limit=<%= 8 %>">See More</a></div>
                                  </div>
                               </div>
@@ -338,11 +338,11 @@
                            <% for(i=3;i<=5;i++){ %>
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
-                                 <h4 class="shirt_text"><%= keyboards[i].title %></h4>
-                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= keyboards[i].promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= keyboards[i].regularPrice %></span>  </span></p>
-                                 <div class="electronic_img"><img src="<%= keyboards[i].Images[0] %>"></div>
+                                 <h4 class="shirt_text"><%= keyboards[i]?.title %></h4>
+                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= keyboards[i]?.promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= keyboards[i]?.regularPrice %></span>  </span></p>
+                                 <div class="electronic_img"><img src="<%= keyboards[i]?.Images[0] %>"></div>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  keyboards[i]._id %>">Buy Now</a></div>
+                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  keyboards[i]?._id %>">Buy Now</a></div>
                                     <div class="seemore_bt"><a href="/laptop?category=Keyboard&page=<%= 1 %>&limit=<%= 8 %>">See More</a></div>
                                  </div>
                               </div>
@@ -362,11 +362,11 @@
                            <% for(i=6;i<=8;i++){ %>
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
-                                 <h4 class="shirt_text"><%= keyboards[i].title %></h4>
-                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= keyboards[i].promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= keyboards[i].regularPrice %></span>  </span></p>
-                                 <div class="electronic_img"><img src="<%= keyboards[i].Images[0] %>"></div>
+                                 <h4 class="shirt_text"><%= keyboards[i]?.title %></h4>
+                                 <p class="price_text">Price  <span style="color: #262626;"> ₹ <%= keyboards[i]?.promotionalPrice %> <span style="color: gray; font-size: smaller; text-decoration: line-through;"><%= keyboards[i]?.regularPrice %></span>  </span></p>
+                                 <div class="electronic_img"><img src="<%= keyboards[i]?.Images[0] %>"></div>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  keyboards[i]._id %>">Buy Now</a></div>
+                                    <div class="buy_bt"><a href="/singleProduct?sid=<%=  keyboards[i]?._id %>">Buy Now</a></div>
                                     <div class="seemore_bt"><a href="/laptop?category=Keyboard&page=<%= 1 %>&limit=<%= 8 %>">See More</a></div>
                                  </div>
                               </div>

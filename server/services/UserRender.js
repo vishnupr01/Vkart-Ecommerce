@@ -60,19 +60,20 @@ exports.otp = (req, res) => {
 
 }
 exports.home =async(req, res) => {
+  console.log("cominggg");
+  
   try {
     const response= await axios.get(`http://localhost:${process.env.PORT}/api/categoryFind`)
     const category = response.data
     const loggedUser = req.session.homeName
    console.log(category);
-    const laptops=await userHelper.findLapotops(category[0].name)
-    const keyboards=await userHelper.findLapotops(category[1].name)
-    const Monitors=await userHelper.findLapotops(category[3].name)
-   
+    const laptops=await userHelper.findLapotops(category[3]?.name)
+    const keyboards=await userHelper.findLapotops(category[2]?.name)
+    const Monitors=await userHelper.findLapotops(category[0]?.name)
+    console.log("key:",keyboards);
+    console.log("lap:",Monitors);
     
-        
-   
-         
+    
    
     res.render("home", { category: category, homeName: loggedUser,Laptops:laptops,keyboards:keyboards,Monitors:Monitors })
     
