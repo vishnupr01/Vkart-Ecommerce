@@ -11,7 +11,7 @@ var razorpayInstance = new Razorpay({
   key_id: RAZORPAY_ID_KEY,
   key_secret: RAZORPAY_SECRET_KEY
 })
-
+console.log("iddddddddddddddddd:",RAZORPAY_SECRET_KEY)
 module.exports = {
 
   generateRazorpay: async (orderId, totalAmount) => {
